@@ -8,5 +8,10 @@ public class Display
         for (int i = 0; i < 5; i++){
             System.out.println("I love Java");
         }
+
+        System.out.println("   J ");
+        System.out.println("J aaa  v  vaaa");
+        System.out.println("J  J aa vv a a");
+        System.out.println("J aaaa   v  aaaa");
     }
 }
