@@ -383,6 +383,24 @@ public class ProgrammingExercisesChapterTwo {
 
         System.out.println("Future value is $" + futureInvestmentValue);
     }
+    // 2.23 Cost of driving
+    static {
+        Scanner input = new Scanner(System.in); 
+        System.out.println("Enter the driving distance: ");
+        double drivingDistance = input.nextDouble();
+
+        System.out.println("Enter miles per gallon: ");
+        double milesPerGallon = input.nextDouble();
+
+        System.out.println("Enter price per gallon: ");
+        double pricePerGallon = input.nextDouble();
+
+        double gallons = drivingDistance / milesPerGallon;
+        double cost = gallons * pricePerGallon;
+
+        System.out.println("The cost of driving is $" + cost);
+    }
+
     public static void main (String[] args) { 
 
     }
