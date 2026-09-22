@@ -258,7 +258,130 @@ public class ProgrammingExercisesChapterTwo {
     }
     // 2.18 Print a table
     static {
+        // Initialize both tables a and b as Multi-Dimensional Collections
+        ArrayList<ArrayList<Integer>> a = new ArrayList<>();
+        a.add(new ArrayList<>(Arrays.asList(0, 0)));
+        a.add(new ArrayList<>(Arrays.asList(1, 4)));
+        a.add(new ArrayList<>(Arrays.asList(2, 7)));
+        a.add(new ArrayList<>(Arrays.asList(3, 9)));
+        a.add(new ArrayList<>(Arrays.asList(4, 11)));
 
+        int size = a.size();
+
+        ArrayList<ArrayList<Integer>> b = new ArrayList<>();
+        b.add(new ArrayList<>(Arrays.asList(2, 1)));
+        b.add(new ArrayList<>(Arrays.asList(4, 2)));
+        b.add(new ArrayList<>(Arrays.asList(6, 3)));
+        b.add(new ArrayList<>(Arrays.asList(10, 5)));
+        b.add(new ArrayList<>(Arrays.asList(12, 7)));
+
+        // Create the Middle Point Collection
+        ArrayList<ArrayList<Double>> middlePoints = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            // Get individual rows from both collections
+            ArrayList<Integer> row_a = a.get(i);
+            ArrayList<Integer> row_b = b.get(i);
+
+            // Derive the first and second value from both rows
+            int x1 = row_a.get(0);
+            int y1 = row_a.get(1);
+
+            int x2 = row_b.get(0);
+            int y2 = row_b.get(1);
+            
+            // Get the middle points 
+            double middleX = (x1 + x2) / 2.0;
+            double middleY = (y1 + y2) / 2.0;
+
+            middlePoints.add(new ArrayList<>(Arrays.asList(middleX, middleY)));
+        }
+
+        // Display all three tables
+        System.out.println("   a        b       Middle Point");
+        for (int i = 0; i < size; i++) {
+            System.out.println(a.get(i) + "   " + b.get(i) + "          " + middlePoints.get(i));
+        }
+    }
+    // 2.19 Geometry: area of a triangle
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the coordinates of three points separated by spaceslike x1 y1 x2 y2 x3 y3: ");
+        String inputString = input.nextLine();
+        
+        // Format input
+        String[] arr = inputString.split(" ");
+        int length = arr.length;
+
+    // Initialize array for values of dataType double using arr's length
+        double[] points = new double[length];
+    // Append the parsed values to the new array
+        for (int i = 0; i < length; i++) {
+            points[i] = Double.parseDouble(arr[i]);
+        }
+    // Derive the points from the array
+        double x1 = points[0];
+        double y1 = points[1];
+
+        double x2 = points[2];
+        double y2 = points[3];
+
+        double x3 = points[4];
+        double y3 = points[5];
+
+        // Find side1 between points 2 and 3 using the distance formula
+        double side1 = Math.sqrt(Math.pow((x3-x2),2) + Math.pow((y3-y2),2));
+
+        // Find side2 between points 1 and 3
+        double side2 = Math.sqrt(Math.pow((x3-x1),2) + Math.pow((y3-y1),2));
+
+        // Find side3 between points 1 and 2
+        double side3 = Math.sqrt(Math.pow((x2-x1),2) + Math.pow((y2-y1),2));
+
+        // Find the area
+        double s = (side1 + side2 + side3) / 2;
+        double area = Math.sqrt(s * (s - side1) * (s - side2) * (s - side3));
+
+        System.out.println("The area of the triangle is " + area);
+    }
+    // 2.20 Financial application: calculate interest
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter balance and interest rate (e.g., 3 for 3%): ");
+        String inputString = input.nextLine();
+
+        // Format input
+        String[] arr = inputString.split(" ");
+        int length = arr.length;
+
+        double[] values = new double[length];
+        for (int i = 0; i < length; i++) { 
+            values[i] = Double.parseDouble(arr[i]);
+        }
+
+        double balance = values[0];
+        double annualInterestRate = values[1];
+
+        double interest = balance * (annualInterestRate / 1200);
+
+        System.out.println("The interest is " + interest);
+    }
+    // 2.21 Financial application: calculate future investment value
+    static {
+        Scanner input = new Scanner(System.in); 
+        System.out.println("Enter investment amount: ");
+        double investmentAmount = input.nextDouble();
+
+        System.out.println("Enter annual interest rate in percentage: ");
+        double annualInterestRate = input.nextDouble();
+
+        System.out.println("Enter number of years: ");
+        int numberOfYears = input.nextInt();
+
+        double monthlyInterestRate = annualInterestRate / 1200;
+
+        double futureInvestmentValue = investmentAmount * Math.pow((1 + monthlyInterestRate), (numberOfYears * 12));
+
+        System.out.println("Future value is $" + futureInvestmentValue);
     }
     public static void main (String[] args) { 
 
