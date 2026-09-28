@@ -102,6 +102,32 @@ public class ProgrammingExercises {
         }
     }
 
+    // 3.5 Find future dates
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a number corresponding to the current day of the week (0 -> Sunday, 1 -> Monday, 2 -> Tuesday, ..., 6 -> Saturday): ");
+        int currentDay = input.nextInt();
+
+        System.out.println("Enter the number of days until a future day to be displayed: ");
+        int numberOfDays = input.nextInt();
+        
+        int futureDay = currentDay + numberOfDays;
+        System.out.println("Today is " + helperFunc(currentDay) + " and the future day is " + helperFunc(futureDay % 6));
+    }
+
+    private static String helperFunc(int dayOfWeek) {
+        return switch (dayOfWeek % 6) {
+            case 0 -> "Sunday";
+            case 1 -> "Monday";
+            case 2 -> "Tuesday";
+            case 3 -> "Wednesday";
+            case 4 -> "Thursday";
+            case 5 -> "Friday";
+            case 6 -> "Saturday";
+            default -> "Unwknown date";
+        };
+    }
+
     public static void main(String[] args) {
 
     }
