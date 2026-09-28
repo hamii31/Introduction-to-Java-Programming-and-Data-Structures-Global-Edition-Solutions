@@ -153,6 +153,66 @@ public class ProgrammingExercises {
             System.out.println("Obese");
     }
 
+    // 3.7 Monetary units
+    static {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Enter an amount (e.g. 11.56)");
+        double amount = scan.nextDouble();
+
+        double temp = amount * 100;
+        int cents = (int)temp;
+        if (cents != 0) {
+            if (cents > 1)
+                System.out.println(cents + " cents");
+            else
+                System.out.println(cents + " cent");
+        }
+
+        int dollars = cents / 100;
+        if (dollars != 0) {
+            if (dollars > 1)
+                System.out.println(dollars + " dollars");
+            else
+                System.out.println(dollars + " dollar");
+        }
+
+        int remainingCents = cents % 100;
+        int quarters = remainingCents / 25;
+        if (quarters != 0) {
+            if (quarters > 1)
+                System.out.println(quarters + " quarters");
+            else
+                System.out.println(quarters + " quarter");
+        }
+
+        remainingCents = cents % 25;
+        int dimes = remainingCents / 10;
+        if (dimes != 0) { 
+            if (dimes > 1)
+                System.out.println(dimes + " dimes");
+            else
+                System.out.println(dimes + " dime");
+        }
+
+        remainingCents = cents % 10;
+        int nickels = remainingCents / 5;
+        if (nickels != 0) {
+            if (nickels > 1)
+                System.out.println(nickels + " nickels");
+            else
+                System.out.println(nickels + " nickel");
+        }
+
+        int pennies = remainingCents;
+        if (pennies != 0) {
+            if (pennies > 1)
+                System.out.println(pennies + " pennies");
+            else
+                System.out.println(pennies + " penny");
+        }
+    }
+
     public static void main(String[] args) {
 
     }
