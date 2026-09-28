@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class ProgrammingExercises {
@@ -211,6 +212,23 @@ public class ProgrammingExercises {
             else
                 System.out.println(pennies + " penny");
         }
+    }
+
+    // 3.8 Sort three integers
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter three integers separated by space: ");
+        String userInput = input.nextLine();
+        String[] arr = userInput.split(" ");
+
+        int arr_length = arr.length;
+        int[] integers = new int[arr_length];
+        for (int i = 0; i < arr_length; i++) {
+            integers[i] = Integer.parseInt(arr[i]);
+        }
+        Arrays.sort(integers);
+
+        System.out.println("The sorted numbers are " + Arrays.toString(integers));
     }
 
     public static void main(String[] args) {
