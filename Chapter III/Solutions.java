@@ -72,5 +72,38 @@ public class Solutions {
         else if (year % 12 == 9) System.out.println("The year of the Snake");
         else if (year % 12 == 10) System.out.println("The year of the Horse");
         else if (year % 12 == 11) System.out.println("The year of the Sheep");
+
+        // 3.14.2 
+        int ages = 20;
+        int ticketPrice = ages >= 16 ? 20 : 10;
+        System.out.println(ticketPrice);
+
+        // 3.14.3
+        x = 5;
+        int scale = 1;
+        int score = 0;
+        if (x > 10)
+            score = 3 * scale;
+        else
+            score = 4 * scale;
+
+        int income = 20000;
+        double tax = 0.0;
+        if (income > 10000)
+            tax = income * 0.2;
+        else
+            tax = income * 0.17 + 1000;
+
+        int number = 27;
+        int i = 7;
+        int j = 2;
+        if (number % 3 == 0)
+            System.out.println(i);
+        else
+            System.out.println(j);
+
+        // 3.14.4
+        double rng = Math.random();
+        System.out.println((rng > 0.5) ? 1 : -1);
     }
 }
