@@ -321,6 +321,17 @@ public class ProgrammingExercises {
         }
     }
 
+    // 3.12 Palindrome integer
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a three-digit integer: ");
+        int userInput = input.nextInt();
+
+        // negative ints are treated as positive integers
+        String s = Integer.toString(Math.abs(userInput));
+        System.out.println((s.charAt(0) == s.charAt(2)) ? userInput + " is a palindrome" : userInput + " is not a palindrome");
+    }
+
     public static void main(String[] args) {
 
     }
