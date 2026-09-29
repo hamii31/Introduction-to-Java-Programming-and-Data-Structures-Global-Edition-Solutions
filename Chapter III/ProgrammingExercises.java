@@ -272,6 +272,27 @@ public class ProgrammingExercises {
         return checkSum % 11;
     }
 
+    // 3.10 Multiplication quiz
+    static {
+        int x, y;
+        x = y = -1;
+        while(true) {
+            int number = (int) (Math.random() * 1000);
+            if (number < 1000 & x == -1)
+                x = number;
+            else if (number < 1000 & y == -1) {
+                y = number;
+                break;
+            }
+        }
+
+        System.out.println(x + " * " + y + " = ?");
+        Scanner input = new Scanner(System.in);
+        int userInput = input.nextInt();
+        
+        System.out.println((userInput == (x * y) ? "Well done!" : "Not quite."));
+    }
+
     public static void main(String[] args) {
 
     }
