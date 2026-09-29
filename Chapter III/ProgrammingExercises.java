@@ -516,6 +516,69 @@ public class ProgrammingExercises {
             System.out.println((coin == guess) ? "Correct, it is tails!" : "Sorry, it is tails."); 
     }
 
+    // 3.15 Lottery
+    static {
+            // Generate three-digit number
+            String generated = "0";
+            while(true) {
+                int number = (int) (Math.random() * 1000);
+                if (number > 99 && number < 1000) {
+                    generated = Integer.toString(number);
+                    break;
+                }
+            }
+
+            if (generated.equals("0")) {
+                System.out.println("There was an errror.");
+            }
+
+            // Prompt user
+            Scanner input = new Scanner(System.in);
+            System.out.println("Enter a two-digit number (101, 999, 253, 891): ");
+            String userInput = input.nextLine();
+
+            System.out.println("The generated number is " + generated);
+
+            if (generated.equals(userInput))
+                System.out.println("Wow, you are one lucky person! You just won $12,000!");
+            else if (allDigitsNoOrder(generated, userInput))
+                System.out.println("Wow, you almost guessed it! Here are $5,000 for your effort!");
+            else if (someDigitsMatch(generated, userInput))
+                System.out.println("Wow, you guessed one of the digits! Here are $2,000 for your effort!");
+            else
+                System.out.println("Better luck next time!");
+    }
+
+    private static boolean allDigitsNoOrder(String generated, String userInput) {
+        return matchCounterFunc(generated, userInput) == 3;
+    }
+
+    private static boolean someDigitsMatch(String generated, String userInput) {
+        return matchCounterFunc(generated, userInput) > 0;
+    }
+
+    private static int matchCounterFunc(String generated, String userInput) {
+        int matchCounter = 0;
+        int length = generated.length();
+        
+        for (int i = 0; i < length; i++) {
+
+            boolean match = false;
+            char digit = generated.charAt(i);
+
+            for (int j = 0; j < length; j++) {
+                if (digit == userInput.charAt(j))
+                    match = true;
+            }
+
+            if (match)
+                matchCounter++;
+        }
+
+        return matchCounter;
+    }
+
+
     public static void main(String[] args) {
 
     }
