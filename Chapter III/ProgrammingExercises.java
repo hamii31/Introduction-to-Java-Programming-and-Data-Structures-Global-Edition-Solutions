@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.Scanner;
+import java.time.YearMonth;
 
 public class ProgrammingExercises {
     // 3.1 Solve quadratic equation
@@ -291,6 +292,33 @@ public class ProgrammingExercises {
         int userInput = input.nextInt();
         
         System.out.println((userInput == (x * y) ? "Well done!" : "Not quite."));
+    }
+
+    // 3.11 Number of days in a month
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Ebter a month of the year (e.g., 1 for Jan): ");
+        int month = input.nextInt();
+
+        System.out.println("Enter a year: ");
+        int year = input.nextInt();
+
+        YearMonth yearMonthobj = YearMonth.of(year, month);
+        switch (month) {
+            case 1 -> System.out.println("January " + year + " has " + yearMonthobj.lengthOfMonth() + " days");
+            case 2 -> System.out.println("February " + year + " has " + yearMonthobj.lengthOfMonth() + " days");
+            case 3 -> System.out.println("March " + year + " has " + yearMonthobj.lengthOfMonth() + " days");
+            case 4 -> System.out.println("April " + year + " has " + yearMonthobj.lengthOfMonth() + " days");
+            case 5 -> System.out.println("May " + year + " has " + yearMonthobj.lengthOfMonth() + " days");
+            case 6 -> System.out.println("June " + year + " has " + yearMonthobj.lengthOfMonth() + " days");
+            case 7 -> System.out.println("July " + year + " has " + yearMonthobj.lengthOfMonth() + " days");
+            case 8 -> System.out.println("August " + year + " has " + yearMonthobj.lengthOfMonth() + " days");
+            case 9 -> System.out.println("September " + year + " has " + yearMonthobj.lengthOfMonth() + " days");
+            case 10 -> System.out.println("October " + year + " has " + yearMonthobj.lengthOfMonth() + " days");
+            case 11 -> System.out.println("November " + year + " has " + yearMonthobj.lengthOfMonth() + " days");
+            case 12 -> System.out.println("December " + year + " has " + yearMonthobj.lengthOfMonth() + " days");
+            default -> System.out.println("Invalid month.");
+        }
     }
 
     public static void main(String[] args) {
