@@ -501,6 +501,21 @@ public class ProgrammingExercises {
         System.out.println("Tax is " + (int)(tax * 100) / 100.0);
     }
 
+    // 3.14 Heads or tails
+    static {
+        // Toss coin
+        int coin = (Math.abs(Math.random()) >= 0.5) ? 1 : 0;
+        
+        Scanner input = new Scanner(System.in);
+        System.out.println("Heads or tails? Enter 0 for heads and 1 for tails: ");
+        int guess = input.nextInt();
+
+        if (coin == 0)
+            System.out.println((coin == guess) ? "Correct, it is heads!" : "Sorry, it is heads.");
+        else
+            System.out.println((coin == guess) ? "Correct, it is tails!" : "Sorry, it is tails."); 
+    }
+
     public static void main(String[] args) {
 
     }
