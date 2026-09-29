@@ -231,6 +231,35 @@ public class ProgrammingExercises {
         System.out.println("The sorted numbers are " + Arrays.toString(integers));
     }
 
+    // 3.9 ISBN-10
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the first 9 digits of an ISBN as integer: ");
+        int userInput = input.nextInt();
+
+        int[] d = new int[10];
+        for (int i = 0; i < d.length; i++) {
+            if (9-i == 0) {
+                d[d.length - 1] = calculateChecksum(d);
+                break;
+            }
+
+            d[9-i - 1] = userInput % 10;
+            userInput = userInput / 10;
+        }
+        String d_String = Arrays.toString(d).replaceAll("\\D", "");
+        long isbn_10 = Long.parseLong(d_String);
+        System.out.println("The ISBN-10 number is " + isbn_10);
+    }
+
+    private static int calculateChecksum(int[] d) {
+        int checkSum = 0;
+        for(int i = 1; i < d.length; i++) {
+            checkSum += d[i] * i;
+        }
+        return checkSum % 11;
+    }
+
     public static void main(String[] args) {
 
     }
