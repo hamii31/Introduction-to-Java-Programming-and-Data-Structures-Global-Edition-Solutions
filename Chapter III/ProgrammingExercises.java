@@ -230,7 +230,7 @@ public class ProgrammingExercises {
 
         System.out.println("The sorted numbers are " + Arrays.toString(integers));
     }
-
+    
     // 3.9 ISBN-10
     static {
         Scanner input = new Scanner(System.in);
@@ -239,17 +239,29 @@ public class ProgrammingExercises {
 
         int[] d = new int[10];
         for (int i = 0; i < d.length; i++) {
+            // Check if we are at the final iteration
             if (9-i == 0) {
-                d[d.length - 1] = calculateChecksum(d);
+                // Get the checksum
+                int checkSum = calculateChecksum(d);
+
+                // Convert to string and replace all non-digit characters
+                String isbn_10 = Arrays.toString(d).replaceAll("\\D", "");
+
+                // Remove the trailing zero as a result of the iterations (9-digits vs int[10])
+                isbn_10 = isbn_10.substring(0, isbn_10.length() - 1);
+
+                // In its place, using a conditional expression, add either the checksum or X
+                isbn_10 += (checkSum != 10) ? Integer.toString(checkSum).charAt(0) : 'X';
+                System.out.println("The ISBN-10 number is " + isbn_10);
                 break;
             }
 
+            // Put the last digit to the end of the array, creeping forward with each iteration
             d[9-i - 1] = userInput % 10;
+
+            // Remove the last digit that we just added to the array
             userInput = userInput / 10;
         }
-        String d_String = Arrays.toString(d).replaceAll("\\D", "");
-        long isbn_10 = Long.parseLong(d_String);
-        System.out.println("The ISBN-10 number is " + isbn_10);
     }
 
     private static int calculateChecksum(int[] d) {
