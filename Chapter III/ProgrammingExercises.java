@@ -706,6 +706,60 @@ public class ProgrammingExercises {
         }
     }
 
+    // 3.21 Day of the week
+    static {
+        // Get user input
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter year (e.g. 2008): ");
+        int year = input.nextInt();
+
+        System.out.println("Enter month (1-12): ");
+        int month = input.nextInt();
+        if (month > 12 || month < 1) {
+            System.out.println("Invalid month.");
+            System.exit(1);
+        }
+
+        // January is counted as month 13 of the previous year in the algorithm
+        month = (month == 1) ? 13 : month;
+        year = (month == 13) ? year - 1 : year;
+
+        // February is counted as month 14 of the previous year in the algorithm
+        month = (month == 2) ? 14 : month;
+        year = (month == 14) ? year - 1 : year;
+
+        System.out.println(year);
+
+        System.out.println("Enter the day of the month (1-31): ");
+        int day = input.nextInt();
+        if (day > 31 || day < 1) {
+            System.out.println("Invalid day.");
+            System.exit(1);
+        }
+
+        // Computer Zeller's congruence
+        int q = day;
+        int m = month;
+        int j = year / 100;
+        int k = year % 100;
+
+        int h = (q 
+        + ((26 * (m + 1)) / 10)
+        + k + (k / 4) + (j / 4)
+        + (5 * j)) % 7;
+
+        switch (h) {
+            case 0 -> System.out.println("Saturday");
+            case 1 -> System.out.println("Sunday");
+            case 2 -> System.out.println("Monday");
+            case 3 -> System.out.println("Tuesday");
+            case 4 -> System.out.println("Wednesday");
+            case 5 -> System.out.println("Thursday");
+            case 6 -> System.out.println("Friday");
+        }
+    }
+
+    
     public static void main(String[] args) {
 
     }
