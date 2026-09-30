@@ -759,6 +759,32 @@ public class ProgrammingExercises {
         }
     }
 
+    // 3.22 Point in a circle
+    static {
+        double x_1 = 0.0;
+        double y_1 = 0.0;
+
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the coordinates of a point: ");
+        String userInput = input.nextLine();
+        String[] splitInput = userInput.split(" ");
+
+        double x_2 = Double.parseDouble(splitInput[0]);
+        double y_2 = Double.parseDouble(splitInput[1]);
+
+        // Compute the distance between the center (0, 0) and the point
+        double distance = Math.sqrt(
+            Math.pow((x_2 - x_1), 2)
+            + 
+            Math.pow((y_2 - y_1), 2)
+        );
+
+        // Check if the point is within a circle with radius 10
+        if (distance <= 10)
+            System.out.println("The point is within the circle.");
+        else 
+            System.out.println("The point is outside of the circle.");
+    }
     
     public static void main(String[] args) {
 
