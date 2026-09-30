@@ -815,6 +815,71 @@ public class ProgrammingExercises {
         else 
             System.out.println("The point is outside of the rectangle.");
     }
+
+    // 3.24 Pick a card
+    static {
+        int suitIndex = -1;
+        int rankIndex = -1;
+        while (true) {
+            if (suitIndex != -1 && rankIndex != -1)
+                break;
+
+            if (suitIndex < 0) {
+                int rng = (int) (Math.random() * 10);
+                suitIndex = (rng < 4) ? rng : -1;
+            }
+
+            if (rankIndex < 0) {
+                int rng = (int) (Math.random() * 100);
+                rankIndex = (rng < 13) ? rng : -1;
+            }
+        }
+
+        String suit = pickSuit(suitIndex);
+        if (suit.equals("Error")) {
+            System.out.println("There was an error while picking the suit.");
+            System.exit(1);
+        }
+
+        String rank = pickRank(rankIndex);
+        if (suit.equals("Error")) {
+            System.out.println("There was an error while picking the rank.");
+            System.exit(1);
+        }
+
+        System.out.println("The card you picked is " + rank + " of " + suit);
+    }
+
+    private static String pickSuit (int suitIndex) {
+        switch (suitIndex) {
+            case 0: return "Clubs";
+            case 1: return "Diamonds";
+            case 2: return "Hearts";
+            case 3: return "Spades";
+        }
+        return "Error";
+    }
+
+    private static String pickRank (int rankIndex) {
+        switch (rankIndex) {
+            case 0: return "Ace";
+            case 1: return Integer.toString(rankIndex + 1);
+            case 2: return Integer.toString(rankIndex + 1);
+            case 3: return Integer.toString(rankIndex + 1);
+            case 4: return Integer.toString(rankIndex + 1);
+            case 5: return Integer.toString(rankIndex + 1);
+            case 6: return Integer.toString(rankIndex + 1);
+            case 7: return Integer.toString(rankIndex + 1);
+            case 8: return Integer.toString(rankIndex + 1);
+            case 9: return Integer.toString(rankIndex + 1);
+            case 10: return Integer.toString(rankIndex + 1);
+            case 11: return "Jack";
+            case 12: return "Queen";
+            case 13: return "King";
+        }
+        return "Error";
+    }
+    
     
     public static void main(String[] args) {
 
