@@ -919,6 +919,17 @@ public class ProgrammingExercises {
         System.out.println("The coordinates for the Intersecting point are (" + x + " and " + y + ")");
     }
     
+    // 3.26 Logical Operators
+    static {
+        Scanner input = new Scanner (System.in);
+        System.out.println("Enter an integer: ");
+        int userInput = input.nextInt();
+
+        System.out.println("Is " + userInput + " divisible by 4 and 5? " + (userInput % 4 == 0 && userInput % 5 == 0));
+        System.out.println("Is " + userInput + " divisible by 4 or 5? " + (userInput % 4 == 0 || userInput % 5 == 0));
+        System.out.println("Is " + userInput + " divisible by 4 or 5, but not both? " + (userInput % 4 == 0 ^ userInput % 5 == 0));
+    }
+    
     public static void main(String[] args) {
 
     }
