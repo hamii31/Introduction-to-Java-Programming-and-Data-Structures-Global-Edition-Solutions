@@ -590,7 +590,58 @@ public class ProgrammingExercises {
             }
         }
     }
+    
+    // 3.17 Rock, paper, scissor
+    static {
+        // Generate move
+        int computerMove = 0;
+        while (true) {
+            computerMove = (int) (Math.random() * 10);
+            if (computerMove < 3)
+                break;
+        }
 
+        // Get user move
+        Scanner input = new Scanner(System.in);
+        System.out.println("rock (0), paper (1), scissor (2): ");
+        int userInput = input.nextInt();
+
+        switch (userInput) {
+            // rock
+            case 0 -> {
+                switch (computerMove) {
+                    // rock
+                    case 0 -> System.out.println("The computer is rock. You are rock too. It is a draw.");
+                    // paper
+                    case 1 -> System.out.println("The computer is paper. You are rock. The computer wins.");
+                    // scissors
+                    case 2 -> System.out.println("The computer is scissors. You are rock. You win.");
+                }
+            }
+            // paper
+            case 1 -> {
+                switch (computerMove) {
+                    // rock
+                    case 0 -> System.out.println("The computer is rock. You are paper. You win.");
+                    // paper
+                    case 1 -> System.out.println("The computer is paper. You are paper too. It is a draw.");
+                    // scissors
+                    case 2 -> System.out.println("The computer is scissors. You are paper. The computer wins.");
+                }
+            }
+             // scissors
+            case 2 -> {
+                switch (computerMove) {
+                    // rock
+                    case 0 -> System.out.println("The computer is rock. You are scissors. The computer wins.");
+                    // paper
+                    case 1 -> System.out.println("The computer is paper. You are scissors. You win.");
+                    // scissors
+                    case 2 -> System.out.println("The computer is scissors. You are scissors too. It is a draw.");
+                }
+            }
+        }
+    }
 
     public static void main(String[] args) {
 
