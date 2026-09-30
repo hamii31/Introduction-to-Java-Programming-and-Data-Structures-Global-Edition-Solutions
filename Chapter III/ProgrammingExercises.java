@@ -879,7 +879,45 @@ public class ProgrammingExercises {
         }
         return "Error";
     }
-    
+
+    // 3.25 Intersecting point
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the coordinates of 4 points: ");
+        String userInput = input.nextLine();
+        String[] splitInput = userInput.split(" ");
+
+        double x_1 = Double.parseDouble(splitInput[0]);
+        double y_1 = Double.parseDouble(splitInput[1]);
+
+        double x_2 = Double.parseDouble(splitInput[2]);
+        double y_2 = Double.parseDouble(splitInput[3]);
+
+        double x_3 = Double.parseDouble(splitInput[4]);
+        double y_3 = Double.parseDouble(splitInput[5]);
+
+        double x_4 = Double.parseDouble(splitInput[6]);
+        double y_4 = Double.parseDouble(splitInput[7]);
+
+        // Cramer's Rule
+        double a_1 = y_1 - y_2, b_1 = -(x_1 - x_2); 
+        double c_1 = (a_1 * x_1) + (b_1 * y_1);
+
+        double a_2 = y_3 - y_4, b_2 = -(x_3 - x_4);
+        double c_2 = (a_2 * x_3) + (b_2 * y_3);
+
+        double det = (a_1 * b_2) - (a_2 * b_1);
+
+        // Parallel
+        if (Math.abs(det) < 1e-9)
+            System.exit(1);
+
+        // Non-parallel
+        double x = ((c_1 * b_2) - (c_2 * b_1)) / det;
+        double y = ((a_1 * c_2) - (a_2 * c_1)) / det;
+
+        System.out.println("The coordinates for the Intersecting point are (" + x + " and " + y + ")");
+    }
     
     public static void main(String[] args) {
 
