@@ -785,6 +785,36 @@ public class ProgrammingExercises {
         else 
             System.out.println("The point is outside of the circle.");
     }
+
+    // 3.23 Point in a rectangle
+    static {
+        int height = 5;
+        int width = 10;
+
+        double x_1 = 1.0;
+        double y_1 = 1.0;
+
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the coordinates of a point: ");
+        String userInput = input.nextLine();
+        String[] splitInput = userInput.split(" ");
+
+        double x_2 = Double.parseDouble(splitInput[0]);
+        double y_2 = Double.parseDouble(splitInput[1]);
+
+        // Compute the distance between the center (0, 0) and the point
+        double distance = Math.sqrt(
+            Math.pow((x_2 - x_1), 2)
+            + 
+            Math.pow((y_2 - y_1), 2)
+        );
+
+        // Check if the point is within a circle with radius 10
+        if (distance <= (width / 2) && distance <= (height / 2))
+            System.out.println("The point is within the rectangle.");
+        else 
+            System.out.println("The point is outside of the rectangle.");
+    }
     
     public static void main(String[] args) {
 
