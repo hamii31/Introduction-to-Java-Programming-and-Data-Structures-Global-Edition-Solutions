@@ -643,6 +643,29 @@ public class ProgrammingExercises {
         }
     }
 
+    // 3.18 Cost of shipping
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the weight (w) of the package in pounds: ");
+        double w = input.nextDouble();
+
+        double c_w = 0.0;
+        if (w > 0 && w <= 2)
+            c_w = 2.5;
+        else if (w > 2 && w <= 4)
+            c_w = 4.5;
+        else if (w > 4 && w <= 10)
+            c_w = 7.5;
+        else if (w > 10 && w <= 20)
+            c_w = 10.5;
+        else {
+            System.out.println("The package cannot be shipped");
+            System.exit(1);
+        }
+
+        System.out.println("The cost for a package weighing " + w + " will be " + c_w);
+    }
+
     public static void main(String[] args) {
 
     }
