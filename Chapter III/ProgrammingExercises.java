@@ -578,6 +578,19 @@ public class ProgrammingExercises {
         return matchCounter;
     }
 
+    // 3.16 Random point
+    static {
+        while(true) {
+            int height = (int) (Math.random() * 100);
+            int width = (int) (Math.random() * 1000);
+
+            if (width <= 50 && height <= 150) {
+                System.out.println("Coordinates in rectangle: (" + width + ", " + height + ")");
+                break;
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
 
