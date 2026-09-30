@@ -666,6 +666,23 @@ public class ProgrammingExercises {
         System.out.println("The cost for a package weighing " + w + " will be " + c_w);
     }
 
+    // 3.19 Perimeter of rectange
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter length and width: ");
+        String userInput = input.nextLine();
+        String[] splitInput = userInput.split(" ");
+        
+        double length = Double.parseDouble(splitInput[0]);
+        double width = Double.parseDouble(splitInput[1]);
+
+        if (length != width) {
+            System.out.println(2 * (length * width));
+        }
+        else
+            System.out.println("Invalid input");
+    }
+
     public static void main(String[] args) {
 
     }
