@@ -683,6 +683,29 @@ public class ProgrammingExercises {
             System.out.println("Invalid input");
     }
 
+    // 3.20 Wind-chill temperature
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the temperature is Fahrenheit between -58°F and 41°F: ");
+        double t_a = input.nextDouble();
+
+        System.out.println("Enter the wind speed (> = 2) in mph: ");
+        double v = input.nextDouble();
+
+        if ((t_a <= 41 && t_a >= -58) && v >= 2){
+            double t_wc = 35.74 + (0.6215 * t_a) - (35.75 * Math.pow(v, 0.16)) + (0.4275 * t_a * Math.pow(v, 0.16));
+            System.out.println("The wind chill index is " + t_wc);
+        }
+        else {
+            if (t_a > 41)
+                System.out.println("The temperature is higher than 41°F.");
+            if (t_a < -58)
+                System.out.println("The temperature is lower than -58°F.");
+            if (v < 2)
+                System.out.println("The wind speed is lower than 2.");
+        }
+    }
+
     public static void main(String[] args) {
 
     }
