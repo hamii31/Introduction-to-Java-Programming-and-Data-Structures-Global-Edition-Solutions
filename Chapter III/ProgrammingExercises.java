@@ -998,6 +998,42 @@ public class ProgrammingExercises {
             System.out.println("r2 is not inside r1.");
     }
 
+    // 3.29 Circle within circle
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter circle1's center x-, y-coordinates, and radius:");
+        String userInput = input.nextLine();
+        String[] circle1 = userInput.split(" ");
+        double c1_x = Double.parseDouble(circle1[0]);
+        double c1_y = Double.parseDouble(circle1[1]);
+        double c1_radius = Double.parseDouble(circle1[2]);
+
+        System.out.println("Enter circle2's center x-, y-coordinates, and radius:");
+        userInput = input.nextLine();
+        String[] circle2 = userInput.split(" ");
+        double c2_x = Double.parseDouble(circle2[0]);
+        double c2_y = Double.parseDouble(circle2[1]);
+        double c2_radius = Double.parseDouble(circle2[2]);
+
+        if (c2_radius > c1_radius) {
+            System.out.println("circle2 is bigger than circle1, it cannot be inside it nor overlap it.");
+            System.exit(1);
+        }
+
+        double distance = Math.sqrt(
+            Math.pow((c2_x - c1_x), 2)
+            + 
+            Math.pow((c2_y - c1_y), 2)
+        );
+
+        if (distance <= (c1_radius - c2_radius))
+            System.out.println("circle2 is inside circle1.");
+        else if (distance <= (c1_radius + c2_radius))
+            System.out.println("circle2 overlaps circle1.");
+        else
+            System.out.println("circle2 is not inside circle1.");
+    }
+
     
     public static void main(String[] args) {
 
