@@ -1106,6 +1106,29 @@ public class ProgrammingExercises {
             System.out.println("p2 is in a different dimension.");
     }
 
+    // 3.33 Compare costs
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter weight and price for package 1:");
+        String userInput = input.nextLine();
+        String[] package1 = userInput.split(" ");
+
+        double p1_weight = Double.parseDouble(package1[0]);
+        double p1_price = Double.parseDouble(package1[1]);
+
+        System.out.println("Enter weight and price for package 2:");
+        userInput = input.nextLine();
+        String[] package2 = userInput.split(" ");
+
+        double p2_weight = Double.parseDouble(package2[0]);
+        double p2_price = Double.parseDouble(package2[1]);
+
+        if ((p1_weight / 2) <= p2_weight && (p1_price / 2) < p2_price)
+            System.out.println("Package 1 has a better price.");
+        else 
+            System.out.println("Package 2 has a better price.");
+    }
+
     
     public static void main(String[] args) {
 
