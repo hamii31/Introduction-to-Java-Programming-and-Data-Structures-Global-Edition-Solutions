@@ -974,10 +974,10 @@ public class ProgrammingExercises {
             System.exit(1);
         }
 
-        // Check if r2 overlaps with r1
+        // Check if r2 completely covers r1
         if (r1_x == r2_x && r1_y == r2_y &&
             r1_width == r2_width && r1_height == r2_height){
-            System.out.println("r2 overlaps with r1");
+            System.out.println("r2 is identical to r1, therefore it cannot be inside it.");
             System.exit(1);
         }
 
@@ -992,6 +992,8 @@ public class ProgrammingExercises {
         // Check if the center of r2 is within r1, but account r2's size as well
         if (distance <= Math.abs(r1_width - r2_width) / 2 && distance <= Math.abs(r1_height - r2_height) / 2)
             System.out.println("r2 is inside r1.");
+        else if (distance <= Math.abs(r1_width + r2_width) / 2 && distance <= Math.abs(r1_height + r2_height) / 2)
+            System.out.println("r2 overlaps with r1.");
         else 
             System.out.println("r2 is not inside r1.");
     }
