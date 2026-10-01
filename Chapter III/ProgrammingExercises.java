@@ -1129,6 +1129,30 @@ public class ProgrammingExercises {
             System.out.println("Package 2 has a better price.");
     }
 
+    // 3.34 Point on line segment
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the x- and y- coordinates for point0, point1, and point2: ");
+        String userInput = input.nextLine();
+        String[] coordinates = userInput.split(" ");
+
+        double p0_x = Double.parseDouble(coordinates[0]);
+        double p0_y = Double.parseDouble(coordinates[1]);
+
+        double p1_x = Double.parseDouble(coordinates[2]);
+        double p1_y = Double.parseDouble(coordinates[3]);
+
+        double p2_x = Double.parseDouble(coordinates[4]);
+        double p2_y = Double.parseDouble(coordinates[5]);
+
+        double p2_location = (p1_x - p0_x) * (p2_y - p0_y) - (p2_x - p0_x) * (p1_y - p0_y);
+
+        if (p2_location == 0)
+            System.out.println("(" + p2_x + ", " + p2_y + ") is on the line segment between (" + p0_x + ", " + p0_y + ") and (" + p1_x + ", " + p1_y + ")");
+        else
+            System.out.println("(" + p2_x + ", " + p2_y + ") is not on the line segment between (" + p0_x + ", " + p0_y + ") and (" + p1_x + ", " + p1_y + ")");
+    }
+
     
     public static void main(String[] args) {
 
