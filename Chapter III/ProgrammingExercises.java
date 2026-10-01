@@ -946,6 +946,56 @@ public class ProgrammingExercises {
             System.out.println("The point is not inside the triangle.");
     }
 
+
+    // 3.28 Two rectangles 
+    static {
+        Scanner input = new Scanner (System.in);
+        System.out.println("Enter r1's center x-, y-coordinates, width, and height:");
+        String userInput = input.nextLine();
+        String[] r1 = userInput.split(" ");
+
+        double r1_x = Double.parseDouble(r1[0]);
+        double r1_y = Double.parseDouble(r1[1]);
+        double r1_width = Double.parseDouble(r1[2]);
+        double r1_height = Double.parseDouble(r1[3]);
+
+        System.out.println("Enter r2's center x-, y-coordinates, width, and height:");
+        userInput = input.nextLine();
+        String[] r2 = userInput.split(" ");
+       
+        double r2_x = Double.parseDouble(r2[0]);
+        double r2_y = Double.parseDouble(r2[1]);
+        double r2_width = Double.parseDouble(r2[2]);
+        double r2_height = Double.parseDouble(r2[3]);
+
+        // Check if r2 is bigger than r1 (Uknown case handleling)
+        if (r2_width > r1_width && r2_height > r1_height) {
+            System.out.println("r2 is bigger than r1, therefore it cannot be inside it.");
+            System.exit(1);
+        }
+
+        // Check if r2 overlaps with r1
+        if (r1_x == r2_x && r1_y == r2_y &&
+            r1_width == r2_width && r1_height == r2_height){
+            System.out.println("r2 overlaps with r1");
+            System.exit(1);
+        }
+
+        // Check if r2 is inside r1
+        // Compute the distance between the center of r1 and the r2
+        double distance = Math.sqrt(
+            Math.pow((r2_x - r1_x), 2)
+            + 
+            Math.pow((r2_y - r1_y), 2)
+        );
+
+        // Check if the center of r2 is within r1, but account r2's size as well
+        if (distance <= Math.abs(r1_width - r2_width) / 2 && distance <= Math.abs(r1_height - r2_height) / 2)
+            System.out.println("r2 is inside r1.");
+        else 
+            System.out.println("r2 is not inside r1.");
+    }
+
     
     public static void main(String[] args) {
 
