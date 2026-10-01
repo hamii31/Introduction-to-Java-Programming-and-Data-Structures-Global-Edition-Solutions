@@ -1034,6 +1034,25 @@ public class ProgrammingExercises {
             System.out.println("circle2 is not inside circle1.");
     }
 
+    // 3.30 12-hour GMT
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the time zone offset to GMT: ");
+        int offset = input.nextInt();
+
+        Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR);
+        int minutes = c.get(Calendar.MINUTE);
+        int seconds = c.get(Calendar.SECOND);
+
+        int updatedHour = Math.abs(hour + offset);
+
+        if (updatedHour > 12)
+            System.out.println("The current time is " + (Math.abs(12 - updatedHour)) +":"+ minutes +":"+ seconds + " PM");
+        else
+            System.out.println("The current time is " + updatedHour +":"+ minutes +":"+ seconds + " AM");
+    }
+
     
     public static void main(String[] args) {
 
