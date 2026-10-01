@@ -1054,6 +1054,30 @@ public class ProgrammingExercises {
             System.out.println("The current time is " + updatedHour +":"+ minutes +":"+ seconds + " AM");
     }
 
+    // 3.31 Currency Exchange
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the exchange rate from dollars to Indonesian Rupiah:");
+        double exchangeRate = input.nextDouble();
+
+        System.out.println("Enter 0 to convert dollars to Indonesian Rupiah and 1 vice versa:");
+        int mode = input.nextInt();
+
+        switch (mode) {
+            case 0 -> {
+                System.out.println("Enter the dollar amount: ");
+                double dollars = input.nextDouble();
+                System.out.println("$" + dollars + " is " + dollars * exchangeRate + " Indonesian Rupiah");
+            }
+            case 1 -> {
+                System.out.println("Enter the rupiah amount: ");
+                double rupiah = input.nextDouble();
+                System.out.println(rupiah + " Indonesian Rupiah is $" + rupiah / exchangeRate);
+            }
+            default -> System.out.println("Unrecognized mode.");
+        }
+    }
+
     
     public static void main(String[] args) {
 
