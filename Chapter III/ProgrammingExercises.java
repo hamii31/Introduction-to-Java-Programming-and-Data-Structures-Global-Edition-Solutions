@@ -932,18 +932,6 @@ public class ProgrammingExercises {
 
     // 3.27 points in triangle
     static {
-        // point one
-        double x_1 = 0.0;
-        double y_1 = 0.0;
-
-        // point two
-        double x_2 = 200.0;
-        double y_2 = 0.0;
-
-        // point three
-        double x_3 = 0.0;
-        double y_3 = 100.0;
-
         Scanner input = new Scanner (System.in);
         System.out.println("Enter a point's x- and y-coordinates: ");
         String userInput = input.nextLine();
@@ -952,7 +940,7 @@ public class ProgrammingExercises {
         double x = Double.parseDouble(splitInput[0]);
         double y = Double.parseDouble(splitInput[1]);
 
-        if (x >= 0 && y >= 0 && ((x / x_2) + (y / y_3)) <= 1)
+        if (x >= 0 && y >= 0 && ((x / 200.0) + (y / 100.0)) <= 1)
             System.out.println("The point is in the triangle.");
         else
             System.out.println("The point is not inside the triangle.");
