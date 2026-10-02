@@ -51,6 +51,13 @@ public class Solutions {
             
     }
 
+    // 4.3.3.5 random lowercase letter
+    static {
+        // start from the ascii code for 'a' and end with the total count of ascii codes for lowercase letters
+        int ascii = (int)  (97 + (Math.random() * 26));
+        System.out.println((char) ascii);
+    }
+
     
     public static void main (String[] args) {
         
