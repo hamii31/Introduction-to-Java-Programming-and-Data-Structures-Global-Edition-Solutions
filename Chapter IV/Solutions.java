@@ -22,6 +22,36 @@ public class Solutions {
         double rng3 = 5.5 + (int) (Math.random() * 55.5);
         System.out.println("random number in the 5.5-55.5 range: " + rng3);
     }
+
+    // 4.3.3.1
+    static {
+        char[] chars = new char[] {
+            '1', 'A', 'B', 'a', 'b'
+        };
+
+        System.out.println("ASCII:");
+        for (int i = 0; i < chars.length; i++)
+            System.out.println((int) chars[i]);
+
+        int[] decimals = new int[] {
+            40, 59, 79, 85, 90
+        };
+
+        System.out.println("chars:");
+        for (int i = 0; i < decimals.length; i++)
+            System.out.println((char) decimals[i]);
+
+        String[] hexademicals = new String[] {
+            "40", "5A", "71", "72", "7A"
+        };
+
+        System.out.println("hexademicals:");
+        for (String hexademical : hexademicals)
+            System.out.println(Integer.parseInt(hexademical, 16));
+            
+    }
+
+    
     public static void main (String[] args) {
         
     }
