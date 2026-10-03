@@ -148,6 +148,71 @@ public class ProgrammingExercises {
 
         System.out.printf("The area of the polygon is %f", area);
     }
+
+    // 4.6 Random points on a circle
+    static {
+        final int radius = 40;
+
+        // Generate a random angle alpha in radians
+        double rng_alpha = Math.random() * (Math.PI * 2);
+        // Find the coordinates of the point determined by the random angle alpha
+        double x_1 = radius * Math.cos(rng_alpha);
+        double y_1 = radius * Math.sin(rng_alpha);
+
+        // Generate a random angle beta in radians
+        double rng_beta = Math.random() * (Math.PI * 2);
+        // Find the coordinates of the point determined by the angle beta
+        double x_2 = radius * Math.cos(rng_beta);
+        double y_2 = radius * Math.sin(rng_beta);
+
+        // Generate a random angle gamma in radians
+        double rng_gamma = Math.random() * (Math.PI * 2);
+        // Find the coordinates of the point determined by the angle gamma
+        double x_3 = radius * Math.cos(rng_gamma);
+        double y_3 = radius * Math.sin(rng_gamma);
+
+        // Find side1 between points 2 and 3 using the distance formula
+        double a = Math.sqrt(
+            Math.pow((x_3-x_2), 2) + Math.pow((y_3 - y_2), 2));
+
+        // Find side2 between points 1 and 3
+        double b = Math.sqrt(
+            Math.pow((x_3 - x_1), 2) + Math.pow((y_3 - y_1), 2));
+
+        // Find side3 between points 1 and 2
+        double c = Math.sqrt(
+            Math.pow((x_2 - x_1), 2) + Math.pow((y_2 - y_1), 2));
+
+
+        // Find angle alpha based on the three sides
+        double alpha = Math.acos(
+            (Math.pow(b, 2) + Math.pow(c, 2) - Math.pow(a, 2))
+            / 
+            (2 * b * c)
+        );
+
+        // Find anlge beta based on the three sides
+        double beta = Math.acos(
+            (Math.pow(a, 2) + Math.pow(c, 2) - Math.pow(b, 2))
+            /
+            (2 * a * c)
+        );
+
+        // Find angle gamma based on the three sides
+        double gamma = Math.acos(
+            (Math.pow(a, 2) + Math.pow(b, 2) - Math.pow(c, 2))
+            /
+            (2 * a * b)
+        );
+
+        // Convert angles to degrees
+        alpha = alpha * (180 / Math.PI);
+        beta = beta * (180 / Math.PI);
+        gamma = gamma * (180 / Math.PI);
+
+        System.out.printf("A triangle has been formed with angle alpha = %f degrees, beta = %f degrees, and gamma = %f degrees", alpha, beta, gamma);
+    }
+
     
 
     public static void main (String[] args) {
