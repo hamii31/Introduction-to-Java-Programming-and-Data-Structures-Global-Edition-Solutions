@@ -552,6 +552,17 @@ public class ProgrammingExercises {
         }
         return checkSum % 11;
     }
+
+    // 4.20 Process a string
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String userInput = input.next();
+
+        int length = userInput.length();
+        String lastCharacter = userInput.substring(length - 1);
+        System.out.printf("%s's length is %d and last character is %s", userInput, length, lastCharacter);
+    }
     
 
     public static void main (String[] args) {
