@@ -489,6 +489,37 @@ public class ProgrammingExercises {
             }
         }
     }
+
+    // 4.18 Student major and status
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter two characters: ");
+        String userInput = input.next();
+
+        if (userInput.length() != 2) {
+            System.out.print("Invalid input");
+            System.exit(1);
+        }
+
+        String major = userInput.substring(0,1);
+        switch (major) {
+            case "I" -> System.out.printf("Information Management %s", getStudentStatus(userInput.substring(1)));
+            case "C" -> System.out.printf("Computer Science %s", getStudentStatus(userInput.substring(1)));
+            case "A" -> System.out.printf("Accounting %s", getStudentStatus(userInput.substring(1)));
+            default -> System.out.print("Invalid input");
+        }
+    }
+
+    private static String getStudentStatus(String status) {
+        switch (status) {
+            case "1" -> { return "Freshman"; }
+            case "2" -> { return "Sophomore"; }
+            case "3" -> { return "Junior"; }
+            case "4" -> { return "Senior"; }
+        }
+
+        return "Unknown";
+    }
     
 
     public static void main (String[] args) {
