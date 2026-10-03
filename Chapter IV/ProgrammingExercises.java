@@ -213,6 +213,21 @@ public class ProgrammingExercises {
         System.out.printf("A triangle has been formed with angle alpha = %f degrees, beta = %f degrees, and gamma = %f degrees", alpha, beta, gamma);
     }
 
+    // 4.7 Corner point coordinates
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Etner the radius of the bounding circle: ");
+        double radius = input.nextDouble();
+
+        // Generate 5 points
+        for (int i = 0; i < 5; i++) {
+            double rng_angle = Math.random() * (Math.PI * 2);
+            double x = radius * Math.cos(rng_angle);
+            double y = radius * Math.sin(rng_angle);
+
+            System.out.printf("(%4.2f, %4.2f)\n", x, y);
+        }
+    }
     
 
     public static void main (String[] args) {
