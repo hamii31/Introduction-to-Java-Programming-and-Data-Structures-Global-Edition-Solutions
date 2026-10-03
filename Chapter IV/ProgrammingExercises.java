@@ -117,6 +117,37 @@ public class ProgrammingExercises {
                     + Math.cos(xr_1) * Math.cos(xr_2)
                     * Math.cos(yr_1 - yr_2));
     }
+
+    // 4.4 Area ofa five-pointed star
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the radius of the circle inscribing the star: ");
+        double radius = input.nextDouble();
+
+        double area = 10 *
+        (Math.tan(Math.PI / 10)
+        / 
+        (3 - Math.tan(Math.PI / 10) * Math.tan(Math.PI / 10))) 
+        * Math.pow(radius, 2);
+
+        System.out.printf("The area of the star is %f", area);
+    }
+
+    // 4.5 Area of a regular polygon
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the number of sides: ");
+        int sides = input.nextInt();
+
+        System.out.print("Enter the length of a side: ");
+        double length = input.nextDouble();
+
+        double area = (sides * Math.pow(length, 2))
+        /
+        (4 * Math.tan(Math.PI / sides));
+
+        System.out.printf("The area of the polygon is %f", area);
+    }
     
 
     public static void main (String[] args) {
