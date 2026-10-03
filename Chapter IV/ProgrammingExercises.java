@@ -237,6 +237,15 @@ public class ProgrammingExercises {
 
         System.out.printf("The ASCII code for character %c is %d", ch, (int) ch);
     }
+
+    // 4.9 Find the Unicode of a character
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a character: ");
+        char ch = input.nextLine().charAt(0);
+
+        System.out.printf("The Unicode code for character %c is %d", ch, (int) ch);
+    }
     
 
     public static void main (String[] args) {
