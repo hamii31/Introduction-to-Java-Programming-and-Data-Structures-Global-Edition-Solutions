@@ -424,6 +424,70 @@ public class ProgrammingExercises {
         int ascii = (int)  (97 + (Math.random() * 26));
         System.out.println((char) ascii);
     }
+
+    // 4.17 Days of a month
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a year: ");
+        int year = input.nextInt();
+
+        System.out.print("Enter the first three letters of a month: ");
+        String month = input.next();
+
+        switch (month) {
+            case "Jan" -> {
+                YearMonth yearMonth = YearMonth.of(year, 1);
+                System.out.printf("%s %d has %d days", month, year, yearMonth.lengthOfMonth());
+                }
+            case "Feb" -> {
+                YearMonth yearMonth = YearMonth.of(year, 2);
+                System.out.printf("%s %d has %d days", month, year, yearMonth.lengthOfMonth());
+                }
+            case "Mar" -> {
+                YearMonth yearMonth = YearMonth.of(year, 3);
+                System.out.printf("%s %d has %d days", month, year, yearMonth.lengthOfMonth());
+                }
+            case "Apr" -> {
+                YearMonth yearMonth = YearMonth.of(year, 4);
+                System.out.printf("%s %d has %d days", month, year, yearMonth.lengthOfMonth());
+                }
+            case "May" -> {
+                YearMonth yearMonth = YearMonth.of(year, 5);
+                System.out.printf("%s %d has %d days", month, year, yearMonth.lengthOfMonth());
+                }
+            case "Jun" -> {
+                YearMonth yearMonth = YearMonth.of(year, 6);
+                System.out.printf("%s %d has %d days", month, year, yearMonth.lengthOfMonth());
+                }
+            case "Jul" -> {
+                YearMonth yearMonth = YearMonth.of(year, 7);
+                System.out.printf("%s %d has %d days", month, year, yearMonth.lengthOfMonth());
+                }
+            case "Aug" -> {
+                YearMonth yearMonth = YearMonth.of(year, 8);
+                System.out.printf("%s %d has %d days", month, year, yearMonth.lengthOfMonth());
+                }
+            case "Sep" -> {
+                YearMonth yearMonth = YearMonth.of(year, 9);
+                System.out.printf("%s %d has %d days", month, year, yearMonth.lengthOfMonth());
+                }
+            case "Oct" -> {
+                YearMonth yearMonth = YearMonth.of(year, 10);
+                System.out.printf("%s %d has %d days", month, year, yearMonth.lengthOfMonth());
+                }
+            case "Nov" -> {
+                YearMonth yearMonth = YearMonth.of(year, 11);
+                System.out.printf("%s %d has %d days", month, year, yearMonth.lengthOfMonth());
+                }
+            case "Dec" -> {
+                YearMonth yearMonth = YearMonth.of(year, 12);
+                System.out.printf("%s %d has %d days", month, year, yearMonth.lengthOfMonth());
+                }
+            default -> {
+                System.out.print("The month is not a correct month name");
+            }
+        }
+    }
     
 
     public static void main (String[] args) {
