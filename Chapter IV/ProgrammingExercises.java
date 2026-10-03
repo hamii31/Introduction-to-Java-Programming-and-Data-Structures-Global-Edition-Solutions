@@ -397,6 +397,26 @@ public class ProgrammingExercises {
             default -> {System.out.print("Invalid grade");}
         }
     }
+
+    // 4.15 Phone key pads
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a letter: ");
+        Character ch = input.nextLine().charAt(0);
+
+        ch = Character.toUpperCase(ch);
+        switch (ch) {
+            case 'A', 'B', 'C' -> {System.out.printf("The corresponding number is %d", 2);}
+            case 'D', 'E', 'F' -> {System.out.printf("The corresponding number is %d", 3);}
+            case 'G', 'H', 'I' -> {System.out.printf("The corresponding number is %d", 4);}
+            case 'J', 'K', 'L' -> {System.out.printf("The corresponding number is %d", 5);}
+            case 'M', 'N', 'O' -> {System.out.printf("The corresponding number is %d", 6);}
+            case 'P', 'Q', 'R', 'S' -> {System.out.printf("The corresponding number is %d", 7);}
+            case 'T', 'U', 'V' -> {System.out.printf("The corresponding number is %d", 8);}
+            case 'W', 'X', 'Y', 'Z' -> {System.out.printf("The corresponding number is %d", 9);}
+            default -> {System.out.print("Invalid input");}
+        }
+    }
     
 
     public static void main (String[] args) {
