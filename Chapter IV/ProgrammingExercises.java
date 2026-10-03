@@ -563,6 +563,62 @@ public class ProgrammingExercises {
         String lastCharacter = userInput.substring(length - 1);
         System.out.printf("%s's length is %d and last character is %s", userInput, length, lastCharacter);
     }
+
+    // 4.21 Check IMEI Number
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter an IMEI number: ");
+        String userInput = input.nextLine();
+
+        String[] splitInput = userInput.split("-");
+
+        for (int i = 0; i < splitInput.length; i++) {
+            switch (i) {
+                case 0 -> {
+                    if (splitInput[i].length() == 2) {
+                        if (!checkIfDigit(splitInput[i]))
+                            System.exit(1);
+                    }
+                    else {
+                        System.out.print("Invalid input");
+                        System.exit(1);
+                    }
+                }
+                case 1, 2 -> {
+                     if (splitInput[i].length() == 6) {
+                        if (!checkIfDigit(splitInput[i]))
+                            System.exit(1);
+                    }
+                    else {
+                        System.out.print("Invalid input");
+                        System.exit(1);
+                    }
+                }
+                case 4 -> {
+                     if (splitInput[i].length() > 1) {
+                        if (!checkIfDigit(splitInput[i]))
+                            System.exit(1);
+                    }
+                    else {
+                        System.out.print("Invalid input");
+                        System.exit(1);
+                    }
+                }
+            }
+        }
+
+        System.out.printf("%s is a valid IMEI number", userInput);
+
+    }
+    private static boolean checkIfDigit(String digits) {
+        try {
+             int _ = Integer.parseInt(digits);
+        } catch (NumberFormatException e) {
+            System.out.print(e);
+            return false;
+        }
+        return true;
+    }
     
 
     public static void main (String[] args) {
