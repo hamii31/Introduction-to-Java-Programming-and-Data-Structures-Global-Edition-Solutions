@@ -380,6 +380,23 @@ public class ProgrammingExercises {
         else
             System.out.print("Invalid input.");
     }
+
+    // 4.14 Letter grade to number 
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a letter: ");
+        Character ch = input.nextLine().charAt(0);
+
+        ch = Character.toUpperCase(ch);
+        switch (ch) {
+            case 'A' -> {System.out.printf("The numeric value for %c is %d", ch, 4);}
+            case 'B' -> {System.out.printf("The numeric value for %c is %d", ch, 3);}
+            case 'C' -> {System.out.printf("The numeric value for %c is %d", ch, 2);}
+            case 'D' -> {System.out.printf("The numeric value for %c is %d", ch, 1);}
+            case 'F' -> {System.out.printf("The numeric value for %c is %d", ch, 0);}
+            default -> {System.out.print("Invalid grade");}
+        }
+    }
     
 
     public static void main (String[] args) {
