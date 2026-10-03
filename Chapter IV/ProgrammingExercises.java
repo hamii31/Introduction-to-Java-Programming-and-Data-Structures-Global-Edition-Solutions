@@ -520,6 +520,31 @@ public class ProgrammingExercises {
 
         return "Unknown";
     }
+
+    // 4.19 Check ISBN-10
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the first 9 digits of an ISBN as integer: ");
+        String userInput = input.next();
+        int isbn = Integer.parseInt(userInput);
+
+        int[] d = new int[10];
+        for (int i = 0; i < d.length; i++) {
+            if (9-i == 0) {
+                int checkSum = calculateChecksum(d);
+                String isbn_10 = Arrays.toString(d).replaceAll("\\D", "");
+
+                isbn_10 = isbn_10.substring(0, isbn_10.length() - 1);
+
+                isbn_10 += (checkSum != 10) ? Integer.toString(checkSum).charAt(0) : 'X';
+                System.out.println("The ISBN-10 number is " + isbn_10);
+                break;
+            }
+
+            d[9-i - 1] = isbn % 10;
+            isbn = isbn / 10;
+        }
+    }
     
 
     public static void main (String[] args) {
