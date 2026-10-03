@@ -624,6 +624,21 @@ public class ProgrammingExercises {
         }
         return true;
     }
+
+    // 4.22 Check substring position
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter string s1: ");
+        String s1 = input.next();
+
+        System.out.println("Enter string s2: ");
+        String s2 = input.next();
+
+        if (s1.startsWith(s2))
+            System.out.printf("%s is a prefix of %s", s2, s1);
+        else
+            System.out.printf("%s is not a prefix of %s", s2, s1);
+    }
     
 
     public static void main (String[] args) {
