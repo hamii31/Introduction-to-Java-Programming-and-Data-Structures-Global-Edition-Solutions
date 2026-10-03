@@ -330,6 +330,37 @@ public class ProgrammingExercises {
         int binaryToDecimal = Integer.parseInt(temp, 2);
         System.out.printf("The decimal value of %s is %d", binary, binaryToDecimal);
     }
+
+    // 4.12 Hex to binary
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a hex digit: ");
+        String hexString = input.nextLine();
+
+        // Check if hexString contains multiple characters
+        if (hexString.length() != 1) {
+            System.out.println("Invalid input.");
+            System.exit(1);
+        }
+
+        int value = 0;
+        // Display binary value for the hex digit
+        char ch = Character.toUpperCase(hexString.charAt(0));
+        if ('A' <= ch && ch <= 'F') {
+            value = ch - 'A' + 10;
+        }
+        else if (Character.isDigit(ch)) {
+            value = ch - '0';
+        }
+        else {
+            System.out.println("Invalid input.");
+            System.exit(1);
+        }
+
+        String binary = Integer.toBinaryString(value);
+        System.out.println("The binary value for hex digit " 
+            + hexString + " is " + binary);
+    }
     
 
     public static void main (String[] args) {
