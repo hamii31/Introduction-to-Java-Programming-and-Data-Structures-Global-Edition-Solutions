@@ -639,6 +639,53 @@ public class ProgrammingExercises {
         else
             System.out.printf("%s is not a prefix of %s", s2, s1);
     }
+
+     // 4.23 Loyalty card discount
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter customer's name: ");
+        String custName = input.next();
+
+        System.out.println("Enter number of coffees bought in total: ");
+        double coffeeCount = input.nextDouble();
+
+        System.out.println("Enter average coffee price: ");
+        double avgCoffeePrice = input.nextDouble();
+
+        double total = coffeeCount * avgCoffeePrice;
+
+        System.out.println("Enter standard discount rate: ");
+        double discountRate = input.nextDouble();
+        double discount = (double) (total * discountRate);
+
+        System.out.println("Enter mailing-list member discount rate: ");
+        double mailDiscountRate = input.nextDouble();
+        double mailDiscount = (double) (total * mailDiscountRate);
+
+        double saved = discount + mailDiscount;
+
+        System.out.printf("""
+        Customer Name: %s \n
+        Coffees Bought: %.2f \n
+        Average Coffee Price: $%.2f \n
+        Total Spending on Coffee: $%.2f \n
+        Discounts:  \n
+            Standard discount (%.2f%%): $%.2f \n
+            Mailing list membership discount (%.2f%%): $%.2f \n
+            Total Saved: $%.2f \n
+        Total Spending after Discount: $%.2f \n
+        """, 
+        custName, 
+        coffeeCount, 
+        avgCoffeePrice, 
+        total,
+        discountRate * 100, 
+        discount, 
+        mailDiscountRate * 100, 
+        mailDiscount, 
+        saved, 
+        total - saved);
+    }   
     
 
     public static void main (String[] args) {
