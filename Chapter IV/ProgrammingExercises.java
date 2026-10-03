@@ -545,6 +545,13 @@ public class ProgrammingExercises {
             isbn = isbn / 10;
         }
     }
+    private static int calculateChecksum(int[] d) {
+        int checkSum = 0;
+        for(int i = 1; i < d.length; i++) {
+            checkSum += d[i] * i;
+        }
+        return checkSum % 11;
+    }
     
 
     public static void main (String[] args) {
