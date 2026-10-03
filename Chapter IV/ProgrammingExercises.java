@@ -361,6 +361,25 @@ public class ProgrammingExercises {
         System.out.println("The binary value for hex digit " 
             + hexString + " is " + binary);
     }
+
+    // 4.13 Vowel or consonant
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a letter: ");
+        Character character = input.nextLine().charAt(0);
+
+        char ch = Character.toLowerCase(character);
+
+        String vowels = "aeiou";
+        String consonants = "bcdfghjklmnpqrstvwxyz";
+
+        if (vowels.indexOf(ch) != -1)
+            System.out.printf("%c is a vowel", character);
+        else if (consonants.indexOf(ch) != -1)
+            System.out.printf("%c is a consonant", character);
+        else
+            System.out.print("Invalid input.");
+    }
     
 
     public static void main (String[] args) {
