@@ -319,6 +319,17 @@ public class ProgrammingExercises {
         
         return answerToInt;
     }
+
+    // 4.11 Binary to decimal
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter binary digits (0000 to 1111): ");
+        String binary = input.next();
+
+        String temp = String.valueOf(binary);
+        int binaryToDecimal = Integer.parseInt(temp, 2);
+        System.out.printf("The decimal value of %s is %d", binary, binaryToDecimal);
+    }
     
 
     public static void main (String[] args) {
