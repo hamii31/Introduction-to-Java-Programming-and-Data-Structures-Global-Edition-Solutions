@@ -570,6 +570,11 @@ public class ProgrammingExercises {
         System.out.print("Enter an IMEI number: ");
         String userInput = input.nextLine();
 
+        if (userInput.length() != 18) {
+            System.out.printf("%s is not a valid IMEI number", userInput);
+            System.exit(1);
+        }
+
         String[] splitInput = userInput.split("-");
 
         for (int i = 0; i < splitInput.length; i++) {
@@ -580,7 +585,7 @@ public class ProgrammingExercises {
                             System.exit(1);
                     }
                     else {
-                        System.out.print("Invalid input");
+                        System.out.printf("%s is not a valid IMEI number", userInput);
                         System.exit(1);
                     }
                 }
@@ -590,7 +595,7 @@ public class ProgrammingExercises {
                             System.exit(1);
                     }
                     else {
-                        System.out.print("Invalid input");
+                        System.out.printf("%s is not a valid IMEI number", userInput);
                         System.exit(1);
                     }
                 }
@@ -600,7 +605,7 @@ public class ProgrammingExercises {
                             System.exit(1);
                     }
                     else {
-                        System.out.print("Invalid input");
+                        System.out.printf("%s is not a valid IMEI number", userInput);
                         System.exit(1);
                     }
                 }
