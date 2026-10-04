@@ -754,7 +754,25 @@ public class ProgrammingExercises {
 
         System.out.printf("A random vehicle plate number: %s", plate);
     }
-    
+
+    // 4.26 Monetary units
+    static {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Enter an amount (e.g. 11.56)");
+        String amount = scan.next();
+
+        if (!amount.contains(".")) {
+            System.out.printf("Dollars $%s", amount);
+            System.exit(1);
+        }
+        
+        String dollars = amount.substring(0, amount.indexOf('.'));
+        String cents = amount.substring(amount.indexOf('.') + 1, amount.length());
+
+        System.out.printf("Dollars: $%s \n", dollars);
+        System.out.printf("Cents: %s", cents);
+    }
 
     public static void main (String[] args) {
 
