@@ -739,6 +739,21 @@ public class ProgrammingExercises {
 
         return tempList;
     }
+
+    // 4.25 Generate vehicle plates
+    static {
+        String plate = "";
+
+        // Generate 3 random letters
+        for (int i = 0; i < 3; i++)
+            plate += (char) (int) (65 + (Math.random() * 26));
+
+        // Generate 4 random digits
+        for (int i = 0; i < 4; i++)
+            plate += Integer.toString((int) (Math.random() * 10));
+
+        System.out.printf("A random vehicle plate number: %s", plate);
+    }
     
 
     public static void main (String[] args) {
