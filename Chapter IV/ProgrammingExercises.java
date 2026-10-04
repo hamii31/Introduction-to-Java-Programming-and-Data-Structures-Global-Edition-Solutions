@@ -685,7 +685,60 @@ public class ProgrammingExercises {
         mailDiscount, 
         saved, 
         total - saved);
-    }   
+    }
+
+    // 4.24 Order three countries
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the first country: ");
+        String country1 = input.next();
+
+        System.out.println("Enter the second country: ");
+        String country2 = input.next();
+
+        System.out.println("Enter the third country: ");
+        String country3 = input.next();
+
+        List<String> countries = List.of(country1, country2, country3);
+        List<String> descSorted = new ArrayList<>();
+
+        // The index of the current max element
+        int maxIndex = 0;
+        for (int i = 0; i < countries.size(); i++) {
+            // get the ascii value of the leading char
+            int score = (int) countries.get(i).charAt(0);
+            // get the current index 
+            int index = i;
+            for (int j = 0; j < countries.size(); j++) {
+                // skip if iterating over the same object / max object
+                if (j != i) {
+                    // update current index and maxIndex
+                    if (score < (int) countries.get(j).charAt(0) && j != maxIndex) {
+                        // max index updated only once
+                        if (index == 0)
+                            maxIndex = j;
+                        index = j;
+                    }
+                }
+            }
+            descSorted.add(countries.get(index));
+            countries = removeFromList(countries, index);
+        }
+
+        descSorted.add(countries.get(0));
+
+        System.out.printf("The three countries in descending order are %s", descSorted.toString().replaceAll("[\\[\\],]", ""));
+    }
+
+    private static List<String> removeFromList(List<String> list, int index) {
+        List<String> tempList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (i != index)
+                tempList.add(list.get(i));
+        }
+
+        return tempList;
+    }
     
 
     public static void main (String[] args) {
