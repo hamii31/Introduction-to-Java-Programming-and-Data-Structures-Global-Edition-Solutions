@@ -131,6 +131,8 @@ public class ProgrammingExercises {
 
             System.out.printf("The best student is %s with a score of %d", bestStudent, highestScore);
         }
+        else
+            System.out.println("There should be at least one student.");
     }
     
     public static void main(String[] args) {
