@@ -134,6 +134,51 @@ public class ProgrammingExercises {
         else
             System.out.println("There should be at least one student.");
     }
+
+    // 5.9 Find the two lowest scores
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the number of students: ");
+        int n = input.nextInt();
+
+        if (n > 1) {
+            // Use a hashmap as a dictionary for better performance
+            HashMap<String, Integer> students = new HashMap<>();
+
+            for (int i = 0; i < n; i++) {
+                System.out.println("Enter the name and score of each student (e.g. Alex 20): ");
+                String name = input.next();
+                int score = input.nextInt();
+
+                students.put(name, score);
+            }
+
+            int lowestScore, secondLowestScore;
+            lowestScore = secondLowestScore = Integer.MAX_VALUE;
+
+            String worstStudent, secondWorstStudent;
+            worstStudent = secondWorstStudent = "";
+
+            // use for-each loop to check highest score
+            for(Map.Entry<String, Integer> entry : students.entrySet()) {
+                int studentScore = entry.getValue();
+                if (studentScore < lowestScore) {
+                    worstStudent = entry.getKey();
+                    lowestScore = entry.getValue();
+                }
+                else if (studentScore < secondLowestScore) {
+                    secondWorstStudent = entry.getKey();
+                    secondLowestScore = entry.getValue();
+                }
+                    
+            }
+
+            System.out.printf("The worst student is %s with a score of %d \n", worstStudent, lowestScore);
+            System.out.printf("The second worst student is %s with a score of %d", secondWorstStudent, secondLowestScore);
+        }
+        else
+            System.out.println("There should be at least two students.");
+    }
     
     public static void main(String[] args) {
         
