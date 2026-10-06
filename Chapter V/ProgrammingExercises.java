@@ -20,6 +20,24 @@ public class ProgrammingExercises {
                 System.out.println("You don't pass the exam.");
         }
     }
+
+    // 5.2 Repeat multiplications
+    static {
+        Scanner input = new Scanner(System.in);
+        int score = 0;
+        for (int i = 0; i < 10; i++) {
+            // Generate two numbers between 1 and 12
+            int rng1 = 2 + (int) (Math.random() * 12);
+            int rng2 = 2 + (int) (Math.random() * 12);
+
+            System.out.printf("Question %d \n", i + 1);
+            System.out.printf("What is the product of %d and %d?", rng1, rng2);
+            int userInput = input.nextInt();
+
+            score += userInput == rng1 * rng2 ? 1 : 0;
+        }
+        System.out.printf("Your score is %d", score);
+    }
     
     public static void main(String[] args) {
         
