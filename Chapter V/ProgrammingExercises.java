@@ -38,6 +38,13 @@ public class ProgrammingExercises {
         }
         System.out.printf("Your score is %d", score);
     }
+
+    // 5.3 Conversion from Celsius to Fahrenheit
+    static {
+        System.out.println("Celsius     Fahrenheit");
+        for(int celsius = 0; celsius < 102; celsius+=2)
+            System.out.printf("%d       %3.1f\n", celsius, (celsius * (9 / 5.0)) + 32);
+    }
     
     public static void main(String[] args) {
         
