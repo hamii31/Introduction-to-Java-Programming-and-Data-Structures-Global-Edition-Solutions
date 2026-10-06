@@ -94,6 +94,44 @@ public class ProgrammingExercises {
         System.out.printf("The tuition will increase to $%,d to $%,d at a yearly rate of %d%%. \n", futureTuition, tuition, (int) (yearlyRate * 100));
         System.out.printf("The total cost of four years of tuition would then be $%,d.", totalCost);
     }
+
+    // 5.8 Find the highest score
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the number of students: ");
+        int n = input.nextInt();
+
+        if (n > 0) {
+            if (n == 1) {
+                System.out.printf("Since there is only one student, they have the highest score.");
+                System.exit(1);
+            }
+
+            // Use a hashmap as a dictionary for better performance
+            HashMap<String, Integer> students = new HashMap<>();
+
+            for (int i = 0; i < n; i++) {
+                System.out.println("Enter the name and score of each student (e.g. Alex 20): ");
+                String name = input.next();
+                int score = input.nextInt();
+
+                students.put(name, score);
+            }
+
+            String bestStudent = "";
+            int highestScore = 0;
+            // use for-each loop to check highest score
+            for(Map.Entry<String, Integer> entry : students.entrySet()) {
+                if (entry.getValue() > highestScore) {
+                    bestStudent = entry.getKey();
+                    highestScore = entry.getValue();
+                }
+                    
+            }
+
+            System.out.printf("The best student is %s with a score of %d", bestStudent, highestScore);
+        }
+    }
     
     public static void main(String[] args) {
         
