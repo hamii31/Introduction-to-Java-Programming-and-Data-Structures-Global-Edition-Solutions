@@ -74,6 +74,26 @@ public class ProgrammingExercises {
             kilometers += 5;
         }
     }
+
+    // 5.7 Compute future tuition
+    static {
+        int tuition = 10_000;
+        double yearlyRate = 0.06;
+
+        int futureTuition = tuition;
+        int totalCost = 0;
+        for (int i = 0; i < 14; i++) {
+            // Compute tuition in 10 years
+            if (i < 10)
+                futureTuition += tuition * yearlyRate;
+
+            // After the 10th year, compute total cost for four years
+            if (i >= 10)
+                totalCost += futureTuition;
+        }
+        System.out.printf("The tuition will increase to $%,d to $%,d at a yearly rate of %d%%. \n", futureTuition, tuition, (int) (yearlyRate * 100));
+        System.out.printf("The total cost of four years of tuition would then be $%,d.", totalCost);
+    }
     
     public static void main(String[] args) {
         
