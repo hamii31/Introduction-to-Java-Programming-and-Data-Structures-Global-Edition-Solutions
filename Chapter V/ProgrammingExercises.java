@@ -217,6 +217,34 @@ public class ProgrammingExercises {
         }
         
     }
+
+    // 5.11 Find numbers divisible by 3 XOR 4
+    static {
+        int[] divisible = new int[10];
+        int index = 0; 
+        int printIndex = 0; 
+        for (int i = 100; i <= 200; i++) {
+            if (i % 3 == 0 ^ i % 4 == 0)  {
+                divisible[index] = i; 
+                printIndex++;
+                index++;
+            }
+
+            // print 10 digits at a time
+            if (printIndex == 10) {
+                for (int j = 0; j < divisible.length; j++) {
+                    System.out.printf("%d ", divisible[j]);
+                }
+                System.out.printf("\n");
+                printIndex = 0;
+                index = 0;
+            }
+        }
+
+        for (int j = 0; j < printIndex; j++) {
+            System.out.printf("%d ", divisible[j]);
+        }
+    }
     
     public static void main(String[] args) {
         
