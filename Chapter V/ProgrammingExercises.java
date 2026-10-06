@@ -52,6 +52,18 @@ public class ProgrammingExercises {
         for(int inches = 1; inches <= 10; inches++)
             System.out.printf("%d           %.2f \n", inches, inches * 2.54);
     }
+
+    // 5.5 Conversion from kilograms to pounds and vice versa
+    static {
+        System.out.println("Kilograms       Pounds   |   Pounds       Kilograms");
+        int pounds = 20;
+        int kilograms = 1;
+        for (int i = 0; i < 100; i++) {
+            System.out.printf("%d            %.1f    |   %d              %.2f \n", kilograms, kilograms * 2.2, pounds, pounds / 2.2);
+            pounds += 5;
+            kilograms += 2;
+        }
+    }
     
     public static void main(String[] args) {
         
