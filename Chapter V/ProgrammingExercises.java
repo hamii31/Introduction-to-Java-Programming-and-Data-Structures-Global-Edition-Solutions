@@ -1,6 +1,6 @@
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
-
 public class ProgrammingExercises {
     // 5.1 Pass or fail
     static {
