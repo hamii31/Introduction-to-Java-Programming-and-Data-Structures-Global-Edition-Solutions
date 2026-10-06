@@ -43,7 +43,14 @@ public class ProgrammingExercises {
     static {
         System.out.println("Celsius     Fahrenheit");
         for(int celsius = 0; celsius < 102; celsius+=2)
-            System.out.printf("%d       %3.1f\n", celsius, (celsius * (9 / 5.0)) + 32);
+            System.out.printf("%d           %3.1f\n", celsius, (celsius * (9 / 5.0)) + 32);
+    }
+
+    // 5.4 Conversion from inch to centimeter
+    static {
+        System.out.println("Inches      Centimetres");
+        for(int inches = 1; inches <= 10; inches++)
+            System.out.printf("%d           %.2f \n", inches, inches * 2.54);
     }
     
     public static void main(String[] args) {
