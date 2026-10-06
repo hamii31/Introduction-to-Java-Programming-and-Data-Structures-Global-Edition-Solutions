@@ -64,6 +64,16 @@ public class ProgrammingExercises {
             kilograms += 2;
         }
     }
+
+    // 5.6 Conversion from miles to kilometers
+    static {
+        System.out.printf("Miles         Pounds      |   Pounds       Miles\n");
+        int kilometers = 20;
+        for (int miles = 1; miles <= 10; miles++) {
+            System.out.printf("%-3d            %-7.3f    |   %d          %.3f \n", miles, miles * 1.609, kilometers, kilometers / 1.609);
+            kilometers += 5;
+        }
+    }
     
     public static void main(String[] args) {
         
