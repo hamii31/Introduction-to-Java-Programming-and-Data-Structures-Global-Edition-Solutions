@@ -179,6 +179,44 @@ public class ProgrammingExercises {
         else
             System.out.println("There should be at least two students.");
     }
+
+    // 5.10 Find numbers divisible by 3 and 4
+    static {
+        // holds 10 digits divisible by 3 and 4
+        int[] divisible = new int[10];
+        int index = 0; // tracks position in the array
+        int printIndex = 0; // counts to 10, used as a sentinel to print
+        
+        for (int i = 100; i <= 1000; i++) {
+            // check if i / 3 && i / 4
+            if (i % 3 == 0 && i % 4 == 0)  {
+                // append (or overwrite over previous) divisble digits
+                divisible[index] = i; 
+
+                // increase counters
+                printIndex++;
+                index++;
+            }
+
+            // print 10 digits at a time
+            if (printIndex == 10) {
+                for (int j = 0; j < divisible.length; j++) {
+                    System.out.printf("%d ", divisible[j]);
+                }
+                System.out.printf("\n");
+
+                // reset counters
+                printIndex = 0;
+                index = 0;
+            }
+        }
+
+        // Print whatever is left in the array on a new line
+        for (int j = 0; j < printIndex; j++) {
+            System.out.printf("%d ", divisible[j]);
+        }
+        
+    }
     
     public static void main(String[] args) {
         
