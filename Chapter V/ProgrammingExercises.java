@@ -259,6 +259,20 @@ public class ProgrammingExercises {
         System.out.printf("The smallest n is %d", lowestValue);
     }
 
+    // 5.13 Find the largest n such that n^3 < 12,000
+    static {
+        int largestValue = Integer.MIN_VALUE;
+        int n = 1;
+
+        while (n != 25) {
+            if (Math.pow(n, 3) < 12_000 && n > largestValue)
+                largestValue = n;
+
+            n++;
+        }
+        System.out.printf("The biggest n is %d", largestValue);
+    }
+
     
     
     public static void main(String[] args) {
