@@ -273,7 +273,7 @@ public class ProgrammingExercises {
         System.out.printf("The biggest n is %d", largestValue);
     }
 
-     // 5.14 Compute GCD 2.0
+    // 5.14 Compute GCD 2.0
     static {
         int n1 = 2;
         int n2 = 4;
@@ -287,6 +287,30 @@ public class ProgrammingExercises {
 
         System.out.printf("The greatest common divisor of %d and %d is %d", n1, n2, gcd);
     }
+
+    // 5.15 Display the ASCII table from ! to ~
+    static {    
+        int start = 33; // decimal representation of !
+        int end = 126; // decimal representation of ~
+        int length = end - start;
+
+        char[] ascii = new char[length + 1];
+
+        // Convert decimals to ascii characters
+        for (int i = 0; i < ascii.length; i++) {
+            ascii[i] = (char) start;
+            start++;
+        }
+
+        for (int i = 0; i < ascii.length; i++) {
+            System.out.printf("%s ", Character.toString(ascii[i]));
+
+            if ((i + 1) % 10 == 0) 
+                System.out.printf("\n");
+            
+        }
+    }
+
     
     public static void main(String[] args) {
         
