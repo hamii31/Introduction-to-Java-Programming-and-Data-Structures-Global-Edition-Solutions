@@ -311,6 +311,27 @@ public class ProgrammingExercises {
         }
     }
 
+    // 5.16 Find the PRIME factors of an integer
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter an integer: ");
+        int integer = input.nextInt();
+        int factor = 2;
+
+        do { 
+            if ((integer / (double) factor) % 2 == 0) {
+                integer /= factor;
+                System.out.printf("%d / %d = %d\n", integer * factor, factor, integer);
+                if (factor > integer)
+                    break;
+                
+                factor = 2;
+            } else {
+                factor++;
+            }
+        } while (factor <= integer || integer != 1);
+    }
+
     
     public static void main(String[] args) {
         
