@@ -273,7 +273,20 @@ public class ProgrammingExercises {
         System.out.printf("The biggest n is %d", largestValue);
     }
 
-    
+     // 5.14 Compute GCD 2.0
+    static {
+        int n1 = 2;
+        int n2 = 4;
+        int gcd = Math.min(n1, n2); // Find the minimum of n1 and n2
+
+        while (gcd > 0) {
+            if (n1 % gcd == 0 && n2 % gcd == 0)
+                break;
+            gcd--;
+        }
+
+        System.out.printf("The greatest common divisor of %d and %d is %d", n1, n2, gcd);
+    }
     
     public static void main(String[] args) {
         
