@@ -245,6 +245,21 @@ public class ProgrammingExercises {
             System.out.printf("%d ", divisible[j]);
         }
     }
+
+    // 5.12 Find the smallest n such that n^2 > 12,000
+    static {
+        int lowestValue = Integer.MAX_VALUE;
+        int n = 12_000;
+        while (n != 0) {
+            if (Math.pow(n, 2) > 12_000 && n < lowestValue)
+                lowestValue = n;
+
+            n--;
+        }
+        System.out.printf("The smallest n is %d", lowestValue);
+    }
+
+    
     
     public static void main(String[] args) {
         
