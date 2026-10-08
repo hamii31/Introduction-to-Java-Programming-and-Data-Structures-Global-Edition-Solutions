@@ -443,6 +443,48 @@ public class ProgrammingExercises {
         return row;
     }
 
+    // 5.19 Display numbers as a pyramid
+    static {
+        int rows = 8;
+        int column = 1;
+
+        String pyramid = "";
+        String row = "";
+        
+        for (int i = 0; i < rows; i++) {
+            // append column values in asc order
+            row += column + "   ";
+            // append a pyramid row by concatenating the spaces, asc and desc row, and a newline
+            pyramid += spacing(rows, i) + row + reverse(row) + "\n";
+            // update column value and substring index value
+            column += column;
+        }
+        System.out.print(pyramid);
+        
+    }
+    private static String spacing(int rows, int index) {
+        String spaces = "";
+        for (int i = 0; i < rows - index; i++) {
+            spaces += "    ";
+        }
+        return spaces;
+    }
+
+    private static String reverse(String row) {
+        String reversed = "";
+        int length = row.length() - 1;
+        String[] arr = row.split("   ");
+
+        if (length> 1) {
+            // skip the last element of the array
+            for(int i = arr.length - 1; i > 0; i--) {
+                reversed += arr[i - 1] + "   ";
+            }
+        }
+
+        return reversed;
+    }
+
     
     public static void main(String[] args) {
         
