@@ -502,6 +502,42 @@ public class ProgrammingExercises {
         }
     }
 
+    // 5.21 Compare loans
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter loan amount: ");
+        double loan = input.nextDouble();
+
+        System.out.println("Enter loan period in years: ");
+        int years = input.nextInt();
+
+        double annualInterestRate = 0.05;
+        
+        System.out.println("Interest Rate\t\tMonthly Payment\t\tTotal Payment");
+       do {
+            // Calculate monthly interest rate 
+            double monthlyInterestRate = annualInterestRate / 12;
+            
+            // Utilize the monthly payment formula from Listing 2.9
+            double monthlyPayment = loan * monthlyInterestRate 
+            / (1 - 1 / Math.pow(1 + monthlyInterestRate, years * 12));
+            
+            
+            // Calculate total payment
+            double totalPayment = monthlyPayment * years * 12;
+
+            // Display
+            System.out.printf("%.3f%%\t\t\t%.2f\t\t\t%.2f\n", annualInterestRate * 100, monthlyPayment, totalPayment);
+
+            // Increase annual rate by 0.125
+            annualInterestRate += 0.125 / 100;
+
+            if (annualInterestRate > 0.08001)
+                break;
+                
+       } while (true);
+    }
+
     
     public static void main(String[] args) {
         
