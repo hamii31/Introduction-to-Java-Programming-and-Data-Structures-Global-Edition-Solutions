@@ -332,6 +332,49 @@ public class ProgrammingExercises {
         } while (factor <= integer || integer != 1);
     }
 
+    // 5.17 Display pyramid
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the number of lines: ");
+        int lines;
+        // Ensure lines are from 1 to 15
+        while(true) {
+            lines = input.nextInt();
+            if (lines > 0 && lines <= 15)
+                break;
+            else
+                System.out.println("Lines can be from 1 to 15 only.");
+        }
+
+        
+        for (int rows = 0; rows < lines; rows++) {
+            // Format the row
+            String row = "";
+            row = formatRow(lines, rows, row);
+            System.out.println(row);
+        }
+    }
+
+    private static String formatRow(int lines, int rows, String row) {
+        // left padding
+        for (int i = 0; i < lines - rows; i++) {
+            row += "  ";
+        }
+        
+        // build pyramid
+        if (rows == 0)
+            row += rows + 1;
+        else {
+            for (int i = rows; i > 0; i--) {
+                row += i + 1 + " ";
+            }
+            for (int i = 0; i <= rows; i++) {
+                row += i + 1 + " ";
+            }
+        }
+        return row;
+    }
+
     
     public static void main(String[] args) {
         
