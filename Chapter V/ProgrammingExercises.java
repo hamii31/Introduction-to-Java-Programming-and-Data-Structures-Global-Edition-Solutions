@@ -375,6 +375,74 @@ public class ProgrammingExercises {
         return row;
     }
 
+    // 5.18 Display four patterns
+    static {
+        final int PYRAMID_SIZE = 6;
+        
+        // print first pyramid
+        for (int i = 0; i < PYRAMID_SIZE; i++)
+            System.out.println(buildFirstPyramid(i));
+        System.out.println();
+
+        // print second pyramid
+        for (int i = PYRAMID_SIZE; i > 0; i--)
+            System.out.println(buildSecondPyramid(i));
+        System.out.println();
+
+        // print third pyramid
+        for (int i = 0; i < PYRAMID_SIZE; i++)
+            System.out.println(buildThirdPyramid(i, PYRAMID_SIZE));
+        System.out.println();
+
+        // print fourth pyramid
+        for (int i = PYRAMID_SIZE; i > 0; i--)
+            System.out.println(buildFourthPyramid(i, PYRAMID_SIZE));
+    }
+
+    private static String buildFourthPyramid(int rows, int size) {
+        String row = "";
+
+        // add left padding
+        for (int i = 0; i < size - rows; i++)
+            row += "  ";
+
+        // reuse second method
+        row += buildSecondPyramid(rows);
+
+        return row;
+    }
+
+    private static String buildThirdPyramid(int rows, int size) {
+        String row = "";
+
+        // add left padding
+        for (int i = 0; i < size - rows - 1; i++)
+            row += "  ";
+
+        // reuse first method
+        row += buildFirstPyramid(rows);
+
+        return row;
+    }
+
+    private static String buildSecondPyramid(int rows) {
+        String row = "";
+
+        for (int i = 0; i < rows; i++) 
+            row += i + 1 + " ";
+
+        return row;
+    }
+
+    private static String buildFirstPyramid(int rows) {
+        String row = "";
+
+        for (int i = 0; i <= rows; i++)
+            row += i + 1 + " ";
+
+        return row;
+    }
+
     
     public static void main(String[] args) {
         
