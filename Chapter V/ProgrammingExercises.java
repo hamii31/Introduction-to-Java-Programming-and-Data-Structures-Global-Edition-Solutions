@@ -485,6 +485,23 @@ public class ProgrammingExercises {
         return reversed;
     }
 
+    // 5.20 Find divisible numbers by 3 XOR 4
+    static {
+        int index = 0;
+        for (int i = 100; i <= 200; i++) {
+            if(i % 3 == 0 ^ i % 4 == 0) {
+                System.out.printf("%d ", i);
+                index++;
+            }
+            
+            if(index % 10 == 0) {
+                System.out.println();
+                index = 0;
+            }
+                
+        }
+    }
+
     
     public static void main(String[] args) {
         
