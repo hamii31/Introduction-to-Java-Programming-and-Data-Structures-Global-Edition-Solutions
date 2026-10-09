@@ -649,6 +649,23 @@ public class ProgrammingExercises {
         }
     }
 
+    // 5.26 Compute e
+    static {
+        for (int i = 1; i <= 20; i++) {
+            double e = 1.0;
+            // compute e from right to left for each i
+            for (int j = i; j > 0; j--) {
+                int factorial = j;
+                // recursively compute the factorial for each i
+                for (int k = j - 1; k > 0; k--) {
+                    factorial = recursiveFactorial(factorial, k);
+                }
+                e += 1 / (double) factorial;
+            }
+            System.out.printf("e for i = %d is %.16f\n", i, e);
+        }
+    }
+
 
     
     public static void main(String[] args) {
