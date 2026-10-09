@@ -673,6 +673,24 @@ public class ProgrammingExercises {
             return x * y;
     }
 
+    // 5.27 Display leap years
+    static {
+        int leapYearCounter = 0;
+        // for each year, get the total days
+        for (int year = 2014; year <= 2114; year++) {
+            if ((year % 4 == 0 && year % 100 != 0) 
+                || year % 200 == 0) {
+
+                System.out.printf("%d ", year);
+                leapYearCounter++;
+    
+                if (leapYearCounter % 10 == 0)
+                    System.out.printf("\n");
+            }
+        }
+        System.out.printf("\nThe total count of leap years from 2014 to 2114 is %d", leapYearCounter);
+    }
+
     
     public static void main(String[] args) {
         
