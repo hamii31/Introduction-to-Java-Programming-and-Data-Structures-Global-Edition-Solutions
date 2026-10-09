@@ -631,6 +631,25 @@ public class ProgrammingExercises {
         System.out.print("Sum: " + sum);
     }
 
+    // 5.25 Approximate PI for i = 10,000, 20,000, ..., 10,000
+    static {
+        int n = 10;
+        int k = 10_000;
+        for (int j = 0; j < 10; j++) {
+            double sum = 0.0;
+            for (int i = k; i > 0; i--) {
+                if (i % 2 == 0)
+                    sum -= 1 / (double) (2 * i - 1);
+                else
+                    sum += 1 / (double) (2 * i - 1);
+                
+            }
+            System.out.printf("The value for PI at i = %d is %.10f\n", k, 4 * sum);
+            k += 10_000;
+        }
+    }
+
+
     
     public static void main(String[] args) {
         
