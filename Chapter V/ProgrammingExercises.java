@@ -691,6 +691,45 @@ public class ProgrammingExercises {
         System.out.printf("\nThe total count of leap years from 2014 to 2114 is %d", leapYearCounter);
     }
 
+    // 5.28 Display the first days of each month
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a year: ");
+        int year = input.nextInt();
+
+        for (int month = 1; month <= 12; month++) {
+            YearMonth ym = YearMonth.of(year, month);
+            String dayOfWeek = ym.atDay(1).getDayOfWeek()
+                            .toString().toLowerCase();
+
+            // make the first letter capital
+            char first = Character.toUpperCase(dayOfWeek.charAt(0));
+            dayOfWeek = dayOfWeek.replace(dayOfWeek.charAt(0), first);
+                            
+            System.out.printf("%s 1, %d is %s\n", 
+            convertToMonth(month), year, dayOfWeek);
+        }
+    }
+
+    private static String convertToMonth(int month) {
+        switch (month) {
+            case 1 -> { return "January"; }
+            case 2 -> { return "February"; }
+            case 3 -> { return "March"; }
+            case 4 -> { return "April"; }
+            case 5 -> { return "May"; }
+            case 6 -> { return "June"; }
+            case 7 -> { return "July0"; }
+            case 8 -> { return "August"; }
+            case 9 -> { return "September"; }
+            case 10 -> { return "October"; }
+            case 11 -> { return "November"; }
+            case 12 -> { return "December"; }
+        }
+
+        return null;
+    }
+
     
     public static void main(String[] args) {
         
