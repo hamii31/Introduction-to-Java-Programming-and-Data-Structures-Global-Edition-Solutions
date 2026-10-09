@@ -649,7 +649,7 @@ public class ProgrammingExercises {
         }
     }
 
-    // 5.26 Compute e
+    // 5.26 Compute e for i = 1, 2, 3, ..., 20
     static {
         for (int i = 1; i <= 20; i++) {
             double e = 1.0;
@@ -665,7 +665,13 @@ public class ProgrammingExercises {
             System.out.printf("e for i = %d is %.16f\n", i, e);
         }
     }
-
+    
+    private static Integer recursiveFactorial(int x, int y) {
+        if (y == 0)
+            return x;
+        else
+            return x * y;
+    }
 
     
     public static void main(String[] args) {
