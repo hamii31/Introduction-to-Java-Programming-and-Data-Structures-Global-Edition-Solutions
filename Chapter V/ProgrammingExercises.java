@@ -617,6 +617,20 @@ public class ProgrammingExercises {
         System.out.printf("Are %.9f and %.9f equal ? %s", leftSum, rightSum, equal);
     }
 
+    // 5.24 Sum a series (from left to right)
+    static {
+        int b = 99;
+        int a = 97;
+        double sum = a / (double) b;
+        do { 
+            b = a;
+            a -= 2;
+            sum += a / (double) b;
+        } while (a > 0);
+        
+        System.out.print("Sum: " + sum);
+    }
+
     
     public static void main(String[] args) {
         
