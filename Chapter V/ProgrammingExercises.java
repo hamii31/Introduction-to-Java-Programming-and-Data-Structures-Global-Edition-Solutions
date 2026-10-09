@@ -599,6 +599,24 @@ public class ProgrammingExercises {
         
     }
 
+    // 5.23 Demonstrated cancellation errors
+    static {
+        int n = 50_000;
+
+        // compute from left to right
+        double leftSum = 1.0;
+        for (int i = 2; i <= n; i++)
+            leftSum += (1 / (double) i);
+
+        // compute from right to left
+        double rightSum = 1 / (double) n;
+        for (int i = n; i > 1; i--)
+            rightSum += (1 / (double) i);
+
+        String equal = (leftSum == rightSum) ? "Yes" : "No";
+        System.out.printf("Are %.9f and %.9f equal ? %s", leftSum, rightSum, equal);
+    }
+
     
     public static void main(String[] args) {
         
