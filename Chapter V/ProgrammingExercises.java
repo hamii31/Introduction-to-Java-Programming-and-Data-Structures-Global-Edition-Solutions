@@ -538,6 +538,67 @@ public class ProgrammingExercises {
        } while (true);
     }
 
+    // 5.22 Loan amortization schedule
+    static {
+        // Get loan, years, interest rate
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the loan amount: ");
+        double loan = input.nextDouble();
+
+        System.out.println("Enter the number of years to pay out the loan: ");
+        int years = input.nextInt();
+
+        System.out.println("Enter the yearly interest rate: ");
+        double yearlyInterestRate = input.nextDouble() / 100.0;
+
+        // Compute monthly interest rate
+        double monthlyInterestRate = yearlyInterestRate / 12;
+        
+        // Compute monthly payment and apply the monthly interest rate
+        double monthlyPayment = 
+            loan * monthlyInterestRate 
+            / 
+            (1 - 1 / Math.pow(1 + monthlyInterestRate, years * 12));
+            
+        // Compute the amortizated total
+        double total = (monthlyPayment * 12) * years;
+        
+        // Display monthly and total payment prediction, and labels for the schedule
+        System.out.printf("Monthly Payment: %.2f\n", monthlyPayment);
+        System.out.printf("Total Payment: %.2f\n", total);
+        System.out.printf("Payment#\tInterest\tPrincipal\tBalance\n");
+
+        // Initial monthly interest, principal and balance values
+        double monthlyInterest = loan * monthlyInterestRate;
+        double principal = monthlyPayment - monthlyInterest;
+        double balance = loan - principal;
+        // Compute the amortization schedule over the payments
+        int paymentId = 1;
+        do { 
+            System.out.printf(
+                "%d\t\t%.2f\t\t%.2f\t\t%.2f\n", 
+                paymentId, 
+                monthlyInterest, 
+                principal, 
+                balance
+            );
+
+            // monthly interest gets smaller with each payment
+            monthlyInterest = balance * monthlyInterestRate;
+
+            // principal increases as interest decreases on each payment
+            principal = monthlyPayment - monthlyInterest;
+
+            // pay off the monthly payment and interest
+            balance -= principal;
+
+            // update payment Id
+            paymentId++;
+
+        } while (paymentId <= (12 * years));
+        
+    }
+
     
     public static void main(String[] args) {
         
