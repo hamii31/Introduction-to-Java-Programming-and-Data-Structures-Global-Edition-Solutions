@@ -951,6 +951,20 @@ public class ProgrammingExercises {
         || generated.charAt(1) == userInput.charAt(0));
     }
 
+    // 5.33 Perfect number
+    static {
+        for (int i = 1; i < 10_000; i++) {
+            // find all divisors, sum them and check the sum
+            int sum = 0;
+            for (int j = 1; j < i; j++) {
+                if (i % j == 0)
+                    sum += j;
+            }
+            if (sum == i)
+                System.out.printf("%d is a perfect number!\n", i);
+        }
+    }
+
     
     public static void main(String[] args) {
         
