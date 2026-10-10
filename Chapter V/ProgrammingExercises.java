@@ -889,6 +889,26 @@ public class ProgrammingExercises {
         System.out.printf("After the %dth month, the account value is %.16f", months, savings);
     }
 
+    // 5.31 Compute CD value
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the amount (e.g. 10000.54): ");
+        double cd = input.nextDouble();
+
+        System.out.println("Enter the annual percentage yield (e.g. 5.75): ");
+        double yield = input.nextDouble() / 100;
+
+        System.out.println("Enter the number of months (e.g. 18): ");
+        int months = input.nextInt();
+
+        double monthlyYield = yield / 12;
+        System.out.printf("Month\t\tCD Value\n");
+        for (int i = 1; i <= months; i++) {
+            cd += cd * monthlyYield;
+            System.out.printf("%d\t\t%.2f\n", i, cd);
+        }
+    }
+
     
     public static void main(String[] args) {
         
