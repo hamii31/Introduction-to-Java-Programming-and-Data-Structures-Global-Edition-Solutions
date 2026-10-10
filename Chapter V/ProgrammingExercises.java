@@ -867,6 +867,28 @@ public class ProgrammingExercises {
         return null;
     }
 
+    // 5.30 Compound value
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter amount (e.g. 100.56): ");
+        double amount = input.nextDouble();
+
+        System.out.println("Enter the annual interest rate (e.g. 5.25): ");
+        double annualInterestRate = input.nextDouble() / 100.0;
+
+        System.out.println("Enter the amount of months: ");
+        int months = input.nextInt();
+
+        double monthlyInterestRate = annualInterestRate / 12.0;
+        double savings = amount * (1 + monthlyInterestRate);
+
+        for(int i = 1; i < months; i++) {
+            savings = (amount + savings) * (1 + monthlyInterestRate);
+        }
+
+        System.out.printf("After the %dth month, the account value is %.16f", months, savings);
+    }
+
     
     public static void main(String[] args) {
         
