@@ -1136,6 +1136,29 @@ public class ProgrammingExercises {
         System.out.printf("%d's octal representation is %s", integer, octal);
     }
 
+    // 5.39 Find the sales amount
+    static {
+        int salary = 5_000;
+        double commissionRate = 0.08;
+        double total = salary + (salary * commissionRate);
+        int sales = 1;
+        do { 
+            if (total >= 5_000 && total < 10_000) {
+                commissionRate = 0.10;
+                total += salary + (salary * commissionRate);
+            } else if (total >= 10_000 && total < 25_000) {
+                commissionRate = 0.12;
+                total += salary + (salary * commissionRate);
+            } else if (total >= 25_000) {
+                commissionRate = (5_000 * 0.08) + (5_000 * 0.10) + (15_000 * 0.12);
+                total += salary + commissionRate;
+            }
+
+            sales++;
+        } while (total < 30_000);
+        System.out.printf("It took %d sales to reach %.2f", sales, total);
+    }   
+
     
     public static void main(String[] args) {
         
