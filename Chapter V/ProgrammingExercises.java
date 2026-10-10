@@ -1245,6 +1245,14 @@ public class ProgrammingExercises {
         System.out.printf("It took %d sales to reach %.2f", sales, total);
     }
 
+    // 5.43 Print all unique combinations from 1 to 7
+    static {
+        for (int i = 1; i <= 7; i++) {
+            for (int k = i + 1; k <= 7; k++) {
+                System.out.printf("%d %d\n", i, k);
+            }
+        }
+    }
     
     public static void main(String[] args) {
         
