@@ -1271,6 +1271,30 @@ public class ProgrammingExercises {
             System.out.println("Invalid value.");
         }
     }
+
+    // 5.45 Compute mean and std
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter 10 numbers separated by space: ");
+        String userInput = input.nextLine();
+        String[] arr = userInput.split(" ");
+
+        int n = arr.length;
+
+        // Compute mean
+        double mean = 0.0;
+        for (int i = 0; i < n; i++)
+            mean += Double.parseDouble(arr[i]);
+        mean /= (double) n;
+        
+        // Compute std
+        double std = 0.0;
+        for (int i = 0; i < n; i++)
+            std += (Math.pow(Double.parseDouble(arr[i]),2) - (Math.pow(mean, 2)));
+
+        std = Math.sqrt(std / (double) (n - 1));
+        System.out.printf("The mean is %.5f and the standard deviation is %.5f", mean, std);
+    }
     
     public static void main(String[] args) {
         
