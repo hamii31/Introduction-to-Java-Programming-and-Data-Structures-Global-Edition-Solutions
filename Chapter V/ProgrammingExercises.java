@@ -965,6 +965,128 @@ public class ProgrammingExercises {
         }
     }
 
+    // 5.34 Rock, paper, scissor revisited
+    static {
+        Scanner input = new Scanner(System.in);
+        int computerWins = 0;
+        int userWins = 0;
+        System.out.println("Playing until best of three");
+        while (true) {
+            // Generate move
+            int computerMove = 0;
+            while (true) {
+                computerMove = (int) (Math.random() * 10);
+                if (computerMove < 3)
+                    break;
+            }
+            // Get user move
+            System.out.println("rock (0), paper (1), scissor (2): ");
+            int userInput = input.nextInt();
+            if (userInput > 2 || userInput < 0)
+                System.out.println("Invalid input!");
+
+            // Display Status
+            gameStatus(userInput, computerMove);
+
+            // Update score
+            switch (gameEngine(userInput, computerMove)) {
+                case 0 -> {
+                    // Purely cosmetic
+                    if (userWins > computerWins)
+                        System.out.printf("Current score - User: %d, Computer: %d\n", userWins, computerWins);
+                    else if (computerWins > userWins)
+                        System.out.printf("Current score - Computer: %d, User: %d\n", computerWins, userWins);
+                    else
+                        System.out.printf("Current score - Computer: %d, User: %d\n", computerWins, userWins);
+                }
+                case 1 -> {
+                    userWins++;
+                    System.out.printf("Current score - User: %d, Computer: %d\n", userWins, computerWins);
+                }
+                case 2 -> {
+                    computerWins++;
+                    System.out.printf("Current score - Computer: %d, User: %d\n", computerWins, userWins);
+                }
+            }
+            
+            // Sentinels
+            if ((computerWins / 3.0) - (userWins / 3.0) == 1) {
+                System.out.printf("The computer wins! Computer: %d, User: %d\n", computerWins, userWins);
+                break;
+            } else if ((userWins / 3.0) - (computerWins / 3.0) == 1) {
+                System.out.printf("The user wins! User: %d, Computer: %d\n", userWins, computerWins);
+                break;
+            }
+        }
+        
+    }
+    private static Integer gameEngine(int userInput, int computerMove) {
+        switch (userInput) {
+            case 0 -> {
+                switch (computerMove) {
+                    case 0 -> { return 0; } // its a draw
+                    case 1 -> { return 2; } // computer wins
+                    case 2 -> { return 1; } // user wins
+                }
+            }
+            case 1 -> {
+                switch (computerMove) {
+                    case 0 -> { return 1; }
+                    case 1 -> { return 0; }
+                    case 2 -> { return 2; }
+                }
+            }
+            case 2 -> {
+                switch (computerMove) {
+                    case 0 -> { return 2; }
+                    case 1 -> { return 1; }
+                    case 2 -> { return 0; }
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    private static void gameStatus(int userInput, int computerMove) {
+        switch (userInput) {
+            // rock
+            case 0 -> {
+                switch (computerMove) {
+                    // rock
+                    case 0 -> System.out.println("The computer chose rock. You chose rock too. It is a draw.");
+                    // paper
+                    case 1 -> System.out.println("The computer chose paper. You chose rock. The computer wins.");
+                    // scissors
+                    case 2 -> System.out.println("The computer chose scissors. You chose rock. You win.");
+                }
+            }
+            // paper
+            case 1 -> {
+                switch (computerMove) {
+                    // rock
+                    case 0 -> System.out.println("The computer chose rock. You chose paper. You win.");
+                    // paper
+                    case 1 -> System.out.println("The computer chose paper. You chose paper too. It is a draw.");
+                    // scissors
+                    case 2 -> System.out.println("The computer chose scissors. You chose paper. The computer wins.");
+                }
+            }
+             // scissors
+            case 2 -> {
+                switch (computerMove) {
+                    // rock
+                    case 0 -> System.out.println("The computer chose rock. You chose scissors. The computer wins.");
+                    // paper
+                    case 1 -> System.out.println("The computer chose paper. You chose scissors. You win.");
+                    // scissors
+                    case 2 -> System.out.println("The computer chose scissors. You chose scissors too. It is a draw.");
+                }
+            }
+        }
+    }
+    
+
     
     public static void main(String[] args) {
         
