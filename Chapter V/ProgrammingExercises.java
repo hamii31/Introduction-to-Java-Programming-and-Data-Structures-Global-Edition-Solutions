@@ -1372,6 +1372,23 @@ public class ProgrammingExercises {
         System.out.printf("There are %d vowels and %d consonants in \"%s\"", vowels, consonants, s);
     }
 
+    // 5.50 Count uppercase letters
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a string: ");
+        String s = input.nextLine();
+
+        String tempS = s.replaceAll(" ", "");
+        int n = tempS.length();
+
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (Character.isUpperCase(tempS.charAt(i)))
+                count++;
+        }
+        System.out.printf("There are %d uppercase letters in \"%s\"", count, s);
+    }
+
     
     public static void main(String[] args) {
         
