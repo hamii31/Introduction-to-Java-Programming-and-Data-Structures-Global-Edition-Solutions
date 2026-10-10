@@ -1253,6 +1253,24 @@ public class ProgrammingExercises {
             }
         }
     }
+
+    // 5.44 Bit-level ops
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a short integer");
+        int integer = input.nextShort();
+        if (integer <= 32767 || integer >= -32767) {
+            String binary = Integer.toBinaryString(integer);
+
+            int rightShiftIndex = 15 - binary.length();
+            for (int i = 0; i < rightShiftIndex; i++) {
+                binary = "0" + binary;
+            }
+            System.out.printf("The 16 bits are %s", binary);
+        } else {
+            System.out.println("Invalid value.");
+        }
+    }
     
     public static void main(String[] args) {
         
