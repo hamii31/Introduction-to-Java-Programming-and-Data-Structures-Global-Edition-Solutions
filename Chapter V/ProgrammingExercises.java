@@ -1217,6 +1217,34 @@ public class ProgrammingExercises {
         System.out.printf("The occurrence count of the largest number is %d", countMax);
     }
 
+    // 5.42 Rewrite 5.39 with a for-loop
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the sough comission as an integer (e.g. 30000):");
+        int COMMISSION_SOUGHT = input.nextInt();
+
+        int salary = 5_000;
+        double commissionRate = 0.08;
+        double commission = (salary * commissionRate);
+        double total = salary + commission;
+        int sales = 1;
+
+        for (double _ = total; total < COMMISSION_SOUGHT; total+= salary + commission) {
+            if (total >= 5_000 && total < 10_000) {
+                commissionRate = 0.10;
+                commission = (salary * commissionRate);
+            } else if (total >= 10_000 && total < 25_000) {
+                commissionRate = 0.12;
+                commission = (salary * commissionRate);
+            } else if (total >= 25_000) {
+                commissionRate = (5_000 * 0.08) + (5_000 * 0.10) + (15_000 * 0.12);
+                commission = commissionRate;
+            }
+            sales++;
+        }
+        System.out.printf("It took %d sales to reach %.2f", sales, total);
+    }
+
     
     public static void main(String[] args) {
         
