@@ -1309,6 +1309,27 @@ public class ProgrammingExercises {
         System.out.printf("The reversed string is %s", reversed);
     }
 
+    // 5.47 Check ISBN-13 and rework old spaghetti code
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the first 12 digits of an ISBN as a string: ");
+        String userInput = input.next();
+        // New
+        char[] arr = userInput.toCharArray();
+        int checksum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (i % 2 != 0)
+                checksum += 3 * (arr[i] - '0');
+            else 
+                checksum += arr[i] - '0';
+            
+        }
+        checksum = 10 - (checksum % 10);
+
+        String isbn_13 = String.valueOf(arr) + checksum;
+        System.out.printf("The ISBN-13 number is %s", isbn_13);
+    }
+
     
     public static void main(String[] args) {
         
