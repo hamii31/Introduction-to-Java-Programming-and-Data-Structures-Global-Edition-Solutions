@@ -1389,6 +1389,29 @@ public class ProgrammingExercises {
         System.out.printf("There are %d uppercase letters in \"%s\"", count, s);
     }
 
+    // 5.51 Longest common prefix
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the first string: ");
+        String s1 = input.nextLine();
+        int n = s1.length();
+
+        System.out.println("Enter the second string: ");
+        String s2 = input.nextLine();
+
+        String longestCommonPrefix = "";
+        for (int i = 0; i < n; i++) {
+
+            Character c1 = s1.charAt(i);
+            Character c2 = s2.charAt(i);
+
+            if (c1.equals(c2))
+                longestCommonPrefix += c1;
+            else
+                break;
+        }
+        System.out.printf("The longest common prefix is \"%s\"", longestCommonPrefix);
+    }
     
     public static void main(String[] args) {
         
