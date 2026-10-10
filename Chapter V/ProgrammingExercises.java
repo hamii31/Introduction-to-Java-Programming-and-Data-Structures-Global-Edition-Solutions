@@ -1348,6 +1348,29 @@ public class ProgrammingExercises {
         }
     }
 
+    // 5.49 Count vowels and consonants
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a string: ");
+        String s = input.nextLine();
+
+        String tempS = s.replaceAll(" ", "");
+        int n = tempS.length();
+
+        int vowels = 0;
+        int consonants = 0;
+        for (int i = 0; i < n; i++) {
+            switch (tempS.toLowerCase().charAt(i)) {
+                case 'a', 'e', 'i', 'o', 'u' -> {
+                    vowels++;
+                }
+                default -> {
+                    consonants++;
+                }
+            }
+        }
+        System.out.printf("There are %d vowels and %d consonants in \"%s\"", vowels, consonants, s);
+    }
 
     
     public static void main(String[] args) {
