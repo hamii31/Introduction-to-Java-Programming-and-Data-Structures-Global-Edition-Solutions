@@ -1159,6 +1159,25 @@ public class ProgrammingExercises {
         System.out.printf("It took %d sales to reach %.2f", sales, total);
     }   
 
+    // 5.40 Simulate 2 million coin tosses (and compute probabilities)
+    static {
+        int heads = 0;
+        int tails = 0;
+        int tosses = 2_000_000;
+        for (int i = 0; i < tosses; i++) {
+            double toss = Math.random();
+            if (toss > 0.50000000) {
+                heads++;
+            } else {
+                tails++;
+            } 
+        }
+
+        System.out.printf("In 2 million coin tosses, we got %,d heads and %,d tails.\n", heads, tails);
+        System.out.printf("The probability of landing on head for this particular coin is: %.6f\n", heads / (double) tosses);
+        System.out.printf("The probability of landing on tail for this particular coin is: %.6f\n", tails / (double) tosses);
+    }
+
     
     public static void main(String[] args) {
         
