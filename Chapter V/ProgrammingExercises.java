@@ -1117,6 +1117,25 @@ public class ProgrammingExercises {
         System.out.printf("%d's binary representation is %s", integer, binary);
     }
 
+    // 5.38 Decimal to octal
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter an integer (e.g. 12582): ");
+        int integer = input.nextInt();
+
+        int temp = integer;
+        String octal = "";
+        do { 
+            // Append the remainders
+            octal = (temp % 8) + octal;
+            // divide by 8 since we want octal dividents
+            temp /= 8;
+            
+        } while (temp != 0);
+
+        System.out.printf("%d's octal representation is %s", integer, octal);
+    }
+
     
     public static void main(String[] args) {
         
