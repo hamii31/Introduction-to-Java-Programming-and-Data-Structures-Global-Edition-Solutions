@@ -1086,6 +1086,15 @@ public class ProgrammingExercises {
         }
     }
     
+    // 5.35 Summation
+    static {
+        double sum = 0.0;
+        for (int i = 625; i > 1; i--) {
+            sum += 1 / (Math.sqrt((double) (i - 1)) + Math.sqrt((double) i));
+        }
+        System.out.printf("The sum is %.3f", sum);
+    }
+    
 
     
     public static void main(String[] args) {
