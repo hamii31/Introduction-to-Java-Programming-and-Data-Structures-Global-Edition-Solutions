@@ -1094,7 +1094,28 @@ public class ProgrammingExercises {
         }
         System.out.printf("The sum is %.3f", sum);
     }
-    
+
+    // 5.37 Decimal to binary
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter an integer (e.g. 12582): ");
+        int integer = input.nextInt();
+
+        int temp = integer;
+        String binary = "";
+        do { 
+            // if the divident is even, append 0, else append 1
+            if (temp % 2 == 0)
+                binary = "0" + binary;
+            else
+                binary = "1" + binary;
+
+            // divide by 2 since we want binary dividents
+            temp /= 2;
+        } while (temp != 0);
+
+        System.out.printf("%d's binary representation is %s", integer, binary);
+    }
 
     
     public static void main(String[] args) {
