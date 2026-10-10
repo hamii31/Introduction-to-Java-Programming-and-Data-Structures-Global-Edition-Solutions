@@ -730,6 +730,140 @@ public class ProgrammingExercises {
         return null;
     }
 
+    // 5.29 Display calendars
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a year: ");
+        int year = input.nextInt();
+
+        for (int month = 1; month <= 12; month++) {
+            YearMonth ym = YearMonth.of(year, month);
+                
+            // Display Month and Year
+            System.out.printf("\t\t%s %d\t\t\n", convertToMonth(month), year);
+
+            // Display Days of Week
+            System.out.printf("___________________________________________________\n");
+            System.out.printf("Sun\tMon\tTue\tWed\tThu\tFri\tSat\n");
+            
+            // Build month with separate lists for each weekday / weekend
+            Map<Integer, List<String>> monthDict = new HashMap<>();
+            List<String> sundays = new ArrayList<>();
+            List<String> mondays = new ArrayList<>();
+            List<String> tuesdays = new ArrayList<>();
+            List<String> wednesdays = new ArrayList<>();
+            List<String> thursdays = new ArrayList<>();
+            List<String> fridays = new ArrayList<>();
+            List<String> saturdays = new ArrayList<>();
+
+            String dayOfWeek = "";
+            String lastDayOfWeek = "";
+            // Iterate over 35 days because there are 5 weeks * 7 days in a Calendar
+            for (int day = 1; day <= 35; day++) {
+                // Check if the day is within the month
+                if (day <= ym.lengthOfMonth()) {
+                    // find what day of the week it is
+                    dayOfWeek = ym.atDay(day).getDayOfWeek().toString().toLowerCase();    
+                } else {
+                    // set the last day of the week as the last value for dayOfWeek
+                    lastDayOfWeek = dayOfWeek;
+                }
+                    
+                // check if dayOfWeek is a specific day, append it to the corresponding list
+                if (dayOfWeek.equals("sunday") && day <= ym.lengthOfMonth()) {
+                    sundays.add(day + "\t");
+                    continue;
+                } else if (!dayOfWeek.equals("sunday") && day == 1) {
+                    // if the last day of the week was on saturday, there won't be a need to print an empty week after
+                    sundays.add("\t");
+                }
+                    
+
+                if (dayOfWeek.equals("monday") && day <= ym.lengthOfMonth()) {
+                    mondays.add(day + "\t");
+                    continue;
+                } else if ((!dayOfWeek.equals("monday") && day == 1) || (day > ym.lengthOfMonth() && lastDayOfWeek.equals("sunday"))) {
+                    // if the last day of the week was on sunday, we will need to print an entire empty week
+                    // with each following day, we will need to check even more possible values for lastDayOfWeek
+                    mondays.add("\t");
+                }
+                    
+                
+                if (dayOfWeek.equals("tuesday") && day <= ym.lengthOfMonth()) {
+                    tuesdays.add(day + "\t");
+                    continue;
+                } else if (!dayOfWeek.equals("tuesday") && day == 1 || (day > ym.lengthOfMonth() && lastDayOfWeek.equals("sunday") || lastDayOfWeek.equals("monday"))) {
+                    tuesdays.add("\t");
+                }
+                    
+                
+                if (dayOfWeek.equals("wednesday") && day <= ym.lengthOfMonth()) {
+                    wednesdays.add(day + "\t");
+                    continue;
+                } else if (!dayOfWeek.equals("wednesday") && day == 1 || (day > ym.lengthOfMonth() && lastDayOfWeek.equals("sunday") || lastDayOfWeek.equals("monday") || lastDayOfWeek.equals("tuesday"))) {
+                    wednesdays.add("\t");
+                }
+                    
+                
+                if (dayOfWeek.equals("thursday") && day <= ym.lengthOfMonth()) {
+                    thursdays.add(day + "\t");
+                    continue;
+                } else if (!dayOfWeek.equals("thursday") && day == 1 || (day > ym.lengthOfMonth() && lastDayOfWeek.equals("sunday") || lastDayOfWeek.equals("monday") || lastDayOfWeek.equals("tuesday") || lastDayOfWeek.equals("wednesday"))) {
+                    thursdays.add("\t");
+                }
+                    
+                    
+                if (dayOfWeek.equals("friday") && day <= ym.lengthOfMonth()) {
+                    fridays.add(day + "\t");
+                    continue;
+                } else if (!dayOfWeek.equals("friday") && day == 1 || (day > ym.lengthOfMonth() && lastDayOfWeek.equals("sunday") || lastDayOfWeek.equals("monday") || lastDayOfWeek.equals("tuesday") || lastDayOfWeek.equals("wednesday") || lastDayOfWeek.equals("thursday"))) {
+                    fridays.add("\t");
+                }
+                    
+                
+                if (dayOfWeek.equals("saturday") && day <= ym.lengthOfMonth()) {
+                    saturdays.add(day + "\t");
+                } else if (!dayOfWeek.equals("saturday")&& day == 1 || (day > ym.lengthOfMonth() && lastDayOfWeek.equals("sunday") || lastDayOfWeek.equals("monday") || lastDayOfWeek.equals("tuesday") || lastDayOfWeek.equals("wednesday") || lastDayOfWeek.equals("thursday") || lastDayOfWeek.equals("friday"))) {
+                    saturdays.add("\t");
+                }
+            }
+
+            // this order is crucial for the logic of the calendar
+            monthDict.put(0, sundays);
+            monthDict.put(1, mondays);
+            monthDict.put(2, tuesdays);
+            monthDict.put(3, wednesdays);
+            monthDict.put(4, thursdays);
+            monthDict.put(5, fridays);
+            monthDict.put(6, saturdays);
+
+            // print the days for each week
+            for (int week = 0; week < 5; week++) {
+                for (Map.Entry<Integer, List<String>> entries : monthDict.entrySet())
+                    System.out.printf("%s ", entries.getValue().get((week)).replaceAll("[\\[\\],]", ""));
+                System.out.println("\n");
+            }
+        }
+    }
+
+    private static String convertToMonth(int month) {
+        switch (month) {
+            case 1 -> { return "January"; }
+            case 2 -> { return "February"; }
+            case 3 -> { return "March"; }
+            case 4 -> { return "April"; }
+            case 5 -> { return "May"; }
+            case 6 -> { return "June"; }
+            case 7 -> { return "July"; }
+            case 8 -> { return "August"; }
+            case 9 -> { return "September"; }
+            case 10 -> { return "October"; }
+            case 11 -> { return "November"; }
+            case 12 -> { return "December"; }
+        }
+        return null;
+    }
+
     
     public static void main(String[] args) {
         
