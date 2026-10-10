@@ -1295,6 +1295,20 @@ public class ProgrammingExercises {
         std = Math.sqrt(std / (double) (n - 1));
         System.out.printf("The mean is %.5f and the standard deviation is %.5f", mean, std);
     }
+
+    // 5.46 Reverse a string 
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a string: ");
+        String s = input.next();
+
+        String reversed = "";
+        for (int i = s.length() - 1; i >= 0; i--)
+            reversed += s.charAt(i);
+
+        System.out.printf("The reversed string is %s", reversed);
+    }
+
     
     public static void main(String[] args) {
         
