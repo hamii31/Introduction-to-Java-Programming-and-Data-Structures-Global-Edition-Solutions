@@ -1166,7 +1166,7 @@ public class ProgrammingExercises {
         int tosses = 2_000_000;
         for (int i = 0; i < tosses; i++) {
             double toss = Math.random();
-            if (toss > 0.50000000000000000) {
+            if (toss > 0.5) {
                 heads++;
             } else {
                 tails++;
