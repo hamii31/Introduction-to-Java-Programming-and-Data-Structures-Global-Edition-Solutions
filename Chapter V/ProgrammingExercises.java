@@ -1178,6 +1178,45 @@ public class ProgrammingExercises {
         System.out.printf("The probability of landing on tail for this particular coin is: %.6f\n", tails / (double) tosses);
     }
 
+    // 5.41 Occurence of max numbers
+    static {
+        Scanner input = new Scanner(System.in);
+        List<Integer> S = new ArrayList<>();
+
+        int integer = -1;
+        int max = Integer.MIN_VALUE;
+        int countMax = 0;
+        while (integer != 0) {
+            System.out.println("Enter an integer (0 to end program): ");
+            integer = input.nextInt();
+            
+            if (integer == 0 && S.isEmpty()) {
+                System.out.println("No numbers are entered except 0");
+                break;
+            } 
+
+            // add integer to S
+            S.add(integer);
+
+            // find the current max value
+            for (int i = 0; i < S.size(); i++) {
+                if (S.get(i) > max)
+                    max = S.get(i);
+            }
+
+            // reset the counter
+            countMax = 0;
+            
+            // find the count for the current max value
+            for (int i = 0; i < S.size(); i++) {
+                if (S.get(i) == max)
+                    countMax++;
+            }
+        }
+        System.out.printf("The largest number is %d\n", max);
+        System.out.printf("The occurrence count of the largest number is %d", countMax);
+    }
+
     
     public static void main(String[] args) {
         
