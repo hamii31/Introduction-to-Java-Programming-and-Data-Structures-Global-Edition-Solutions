@@ -1335,6 +1335,19 @@ public class ProgrammingExercises {
         System.out.printf("The ISBN-13 number is %s", isbn_13);
     }
 
+    // 5.48 Process string
+    static {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a string: ");
+        String s = input.nextLine();
+
+        int n = s.length();
+        for (int i = 1; i <= n; i++) {
+            if (i % 2 != 0)
+                System.out.printf("%c", s.charAt(i - 1));
+        }
+    }
+
 
     
     public static void main(String[] args) {
