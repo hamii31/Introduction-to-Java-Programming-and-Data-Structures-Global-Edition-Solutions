@@ -909,7 +909,7 @@ public class ProgrammingExercises {
         }
     }
 
-    // 5.32 Lottery 
+    // 5.32 Lottery revisited
     static {
         // Generate first digit
         int firstDigit = (int) (Math.random() * 10);
