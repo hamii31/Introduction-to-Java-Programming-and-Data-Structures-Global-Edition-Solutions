@@ -1314,6 +1314,10 @@ public class ProgrammingExercises {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the first 12 digits of an ISBN as a string: ");
         String userInput = input.next();
+        if (userInput.length() != 12) {
+            System.out.println("Invalid input");
+            System.exit(1);
+        }
         // New
         char[] arr = userInput.toCharArray();
         int checksum = 0;
@@ -1324,11 +1328,13 @@ public class ProgrammingExercises {
                 checksum += arr[i] - '0';
             
         }
-        checksum = 10 - (checksum % 10);
+        int tempChecksum = 10 - (checksum % 10);
+        checksum = tempChecksum != 10 ? tempChecksum : 0;
 
         String isbn_13 = String.valueOf(arr) + checksum;
         System.out.printf("The ISBN-13 number is %s", isbn_13);
     }
+
 
     
     public static void main(String[] args) {
