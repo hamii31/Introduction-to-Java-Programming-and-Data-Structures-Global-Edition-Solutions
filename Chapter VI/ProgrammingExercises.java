@@ -162,8 +162,37 @@ public class ProgrammingExercises {
         }
     }
 
+
+    // 6.9 Meters to Feet
+    public static class MetersToFeet {
+        /** Convert from feet to meters */
+        public static double footToMeter(double foot) {
+            return 0.305 * foot;
+        }
+
+        /** Convert from meters to feet */
+        public static double meterToFoot(double meter) {
+            return 3.279 * meter;
+        }
+
+        // test
+        public static void testMetersToFeet() {
+            double feet = 0.0;
+            double meters = 15.0;
+
+            System.out.println("Celsius\t\tFahrenheit\t\tFahrenheit\tCelsius");
+            System.out.println("---------------------------------------------------------------");
+            for (int i = 0; i < 10; i++) {
+                System.out.printf("%2.2f\t\t%4.3f\t\t\t%2.2f\t\t%6.3f\n", feet+=1.0, footToMeter(feet), meters += 5.0, meterToFoot(meters));
+            }
+        }
+    }
+
     public static void main(String[] args) {
         CelsiusToFahrenheit ctf = new CelsiusToFahrenheit();
         ctf.testCelsiusToFahrenheit();
+
+        MetersToFeet mtf = new MetersToFeet();
+        mtf.testMetersToFeet();
     }
 }
