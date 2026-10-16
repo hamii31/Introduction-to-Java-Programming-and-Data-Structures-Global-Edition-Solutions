@@ -213,6 +213,20 @@ public class ProgrammingExercises {
         System.out.println(findAllPrimesWithinN(10000));
     }
 
+    // 6.13 Sum series
+    public static double computeM(int i) {
+        return i / (double)(i + 1);
+    }
+    public static void displayM() {
+        System.out.printf("i\t\t\tm(i)\n");
+        double m = 0.0;
+        for (int i = 1; i <= 20; i++) {
+            m += computeM(i);
+            System.out.printf("%d\t\t\t%2.4f\n",i,m);
+        }
+    }
+    
+
     public static void main(String[] args) {
         CelsiusToFahrenheit ctf = new CelsiusToFahrenheit();
         ctf.testCelsiusToFahrenheit();
