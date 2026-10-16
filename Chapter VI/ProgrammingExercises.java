@@ -111,7 +111,7 @@ public class ProgrammingExercises {
         int n = input.nextInt();
         displayPattern(n);
     }
-
+    
 
     // 6.7 Compute the future investment value
     public static double futureInvestmentValue(double investmentAmount, double monthlyInterestRate, int numberOfYears) {
@@ -133,7 +133,37 @@ public class ProgrammingExercises {
         for (int years = 1; years <= 30; years++)
             System.out.printf("%d\t%10.2f\n", years, futureInvestmentValue(investmentAmount, monthlyInterestRate, years));
     }
-    public static void main(String[] args) {
 
+
+    // 6.8 Celsius and Fahrenheit
+    public static class CelsiusToFahrenheit {
+        /** Convert from Celsius to Fahrenheit */
+        public static double celsiusToFahrenheit(double celsius) {
+            return (9.0 / 5) * (celsius + 32);
+        }
+
+        /** Convert from Fahrenheit to Celsius */
+        public static double fahrenheitToCelsius(double fahrenheit) {
+            return (5.0 / 9) * (fahrenheit - 32);
+        }
+
+        // test
+        public static void testCelsiusToFahrenheit() {
+            double celsius = 40.0;
+            double fahrenheit = 120.0;
+
+            System.out.println("Celsius\t\tFahrenheit\t|\tFahrenheit\tCelsius");
+            System.out.println("---------------------------------------------------------------");
+            for (int i = 0; i < 10; i++) {
+                System.out.printf("%2.2f\t\t%3.2f\t\t|\t%3.2f\t\t%2.2f\n", celsius, celsiusToFahrenheit(celsius), fahrenheit, fahrenheitToCelsius(fahrenheit));
+                celsius -= 1.0;
+                fahrenheit -= 10.0;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        CelsiusToFahrenheit ctf = new CelsiusToFahrenheit();
+        ctf.testCelsiusToFahrenheit();
     }
 }
