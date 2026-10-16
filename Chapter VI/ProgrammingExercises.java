@@ -188,6 +188,31 @@ public class ProgrammingExercises {
         }
     }
 
+    // 6.10 IsPrime
+    /** Check whether the number is prime */
+    public static boolean isPrime(int number) {
+        for (int divisor = 2; divisor <= number / 2; divisor++) {
+            if (number % divisor == 0)
+                return false;
+        }
+        return true;
+    }
+
+    // find the prime numbers < 10000
+    public static int findAllPrimesWithinN(int n) {
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (isPrime(i))
+                count++;
+        }
+        return count;
+    }
+
+    // test
+    public static void testFindAllPrimesWithinN() {
+        System.out.println(findAllPrimesWithinN(10000));
+    }
+
     public static void main(String[] args) {
         CelsiusToFahrenheit ctf = new CelsiusToFahrenheit();
         ctf.testCelsiusToFahrenheit();
