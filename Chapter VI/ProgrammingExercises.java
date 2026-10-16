@@ -225,6 +225,25 @@ public class ProgrammingExercises {
             System.out.printf("%d\t\t\t%2.4f\n",i,m);
         }
     }
+
+    // 6.14 Estimate PI
+    public static double computePI(int n) {
+        double m = 0.0;
+        for (int j = n; j > 0; j--) {
+            if (j % 2 == 0)
+                m -= 1 / (double) (2 * j - 1);
+            else
+                m += 1 / (double) (2 * j - 1);
+        }
+        return m;
+    }
+    public static void displayPI() {
+        System.out.printf("i\t\t\tm(i)\n");
+        for (int i = 1; i <= 901; i+=100) {
+            double m = 4 * computePI(i);
+            System.out.printf("%d\t\t\t%1.4f\n", i, m);
+        }
+    }
     
 
     public static void main(String[] args) {
