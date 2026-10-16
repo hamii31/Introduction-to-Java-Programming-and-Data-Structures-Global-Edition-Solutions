@@ -111,6 +111,28 @@ public class ProgrammingExercises {
         int n = input.nextInt();
         displayPattern(n);
     }
+
+
+    // 6.7 Compute the future investment value
+    public static double futureInvestmentValue(double investmentAmount, double monthlyInterestRate, int numberOfYears) {
+        double futureInvestmentValue = investmentAmount * 
+            Math.pow((1 + monthlyInterestRate), (numberOfYears * 12));
+
+        return futureInvestmentValue;
+    }
+    public static void testFutureInvestmentValue() {
+        Scanner input = new Scanner(System.in); 
+        System.out.println("Enter investment amount: ");
+        double investmentAmount = input.nextDouble();
+
+        System.out.println("Enter annual interest rate in percentage: ");
+        double annualInterestRate = input.nextDouble();
+        double monthlyInterestRate = annualInterestRate / 1200;
+
+        System.out.println("Years\tFuture Years\n");
+        for (int years = 1; years <= 30; years++)
+            System.out.printf("%d\t%10.2f\n", years, futureInvestmentValue(investmentAmount, monthlyInterestRate, years));
+    }
     public static void main(String[] args) {
 
     }
