@@ -280,6 +280,74 @@ public class ProgrammingExercises {
             Math.round(computeTax(2, i)), Math.round(computeTax(3, i)));
         }
     }
+    
+    // 6.16 Number of days in a year
+    public static int numberOfDaysInAYear(int year) {
+        int month = 1;
+        int days = 0;
+        do { 
+            YearMonth ym = YearMonth.of(year, month);
+            days += ym.lengthOfMonth();
+            month++;
+        } while (month <= 12);
+        return days;
+    }
+    public static void displayTotalDaysPerYear() {
+        for (int i = 2014; i <= 2034; i++) {
+            System.out.printf("%d has %d days.\n",i, numberOfDaysInAYear(i));
+        }
+    }
+
+    // 6.17 Display matrix
+    //** Generate 0 or 1 randomly */
+    public static int generateRandomMatrixValue() {
+        return (int) (Math.random() + 0.5);
+    }
+    /** Print a nxn matrix comprised of randomly generated values */
+    public static void printMatrix(int n) {
+        for(int row = 0; row < n; row++) {
+            for (int col = 0; col < n; col++) {
+                System.out.printf("%d ", generateRandomMatrixValue());
+            }
+            System.out.println();
+        }
+    }
+
+    // 6.18 Check password
+    /** checks if the password length is at least 8 */
+    public static boolean hasEightCharacters(String password) {
+        return password.length() >= 8;
+    }
+    /** converts each char in the password and checks its ascii code */
+    public static boolean hasOnlyLettersAndNumbers(String password) {
+        password = password.toLowerCase();
+        for (int i = 0; i < password.length(); i++) {
+            // if the ascii code of the character is not within the range for digits or lowercase letters
+            if (((int) password.charAt(i) < 48 && (int) password.charAt(i) > 57) ||
+            ((int) password.charAt(i) < 97 && (int) password.charAt(i) > 122)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    /** Checks if the password contains at least two digits */
+    public static boolean hasTwoDigits(String password) {
+        int count = 0;
+        for (int i = 0; i < password.length(); i++) {
+           if (((int) password.charAt(i) >= 48 && (int) password.charAt(i) <= 57)) {
+                count++;
+           }
+        }
+        return count >= 2;
+    }
+    public static void checkPassword(String password) {
+        if (hasEightCharacters(password) && hasOnlyLettersAndNumbers(password) && hasTwoDigits(password)) {
+            System.out.println("Valid Password");
+        } else {
+            System.out.println("Invalid Password");
+        }
+    }
+
 
     public static void main(String[] args) {
         CelsiusToFahrenheit ctf = new CelsiusToFahrenheit();
