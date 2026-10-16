@@ -244,7 +244,42 @@ public class ProgrammingExercises {
             System.out.printf("%d\t\t\t%1.4f\n", i, m);
         }
     }
-    
+
+    // 6.15 print a tax table
+    public static double computeTax(int status,double taxableIncome) {
+        double tax = 0.0;
+        switch (status) {
+            case 0 -> {
+                tax += (taxableIncome - (taxableIncome - 8_350)) * 0.10;
+                tax += (33_950 - 8_350) * 0.15; 
+                tax += (taxableIncome - 33_950) * 0.25;
+            }
+            case 1 -> {
+                tax += (taxableIncome - (taxableIncome - 16_700)) * 0.10; 
+                tax += (taxableIncome - 16_700) * 0.15;
+            }
+            case 2 -> {
+                tax += (taxableIncome - (taxableIncome - 8_350)) * 0.10;
+                tax += (33_950 - 8_350) * 0.15;
+                tax += (taxableIncome - 33_950) * 0.25;
+            }
+            case 3 -> {
+                tax += (taxableIncome - (taxableIncome - 11_950)) * 0.10;
+                tax += (45_500 - 11_950) * 0.15;
+                tax += (taxableIncome - 45_500) * 0.25;
+            }
+        }
+        return tax;
+    }
+    public static void DisplayTax() {
+        System.out.printf("Taxable\t\tSingle\t\tMarried\t\tMarried\t\tHead of\n");
+        System.out.printf("Income\t\t\t\tJoint\t\tSeparate\ta House\n");
+        for (int i = 50_000; i <= 60_000; i+=50) {
+            System.out.printf("%d\t\t%5d\t\t%d\t\t%5d\t\t%4d\n", 
+            i, Math.round(computeTax(0, i)), Math.round(computeTax(1, i)), 
+            Math.round(computeTax(2, i)), Math.round(computeTax(3, i)));
+        }
+    }
 
     public static void main(String[] args) {
         CelsiusToFahrenheit ctf = new CelsiusToFahrenheit();
