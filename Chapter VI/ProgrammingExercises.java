@@ -447,6 +447,146 @@ public class ProgrammingExercises {
         System.out.printf("%s is translated to %s", s, number);
     }
 
+    
+    // 6.22 Approximate the square root
+    static double lastGuess = 1.0;
+    /** Recursively compute the square root of n using the Babylonian method */
+    public static double sqrt(double n) {
+        double nextGuess = (lastGuess + n / lastGuess) / 2;
+        if (Math.abs(lastGuess - nextGuess) > 0.0001) {
+            lastGuess = nextGuess;
+            return sqrt(n);
+        } 
+        return nextGuess;
+    }
+    // test
+    public static void testSqrt() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a positive double value: ");
+        Double n = input.nextDouble();
+        System.out.println(sqrt(n));
+    }
+
+    // 6.23 Occurrences of a specified character
+    public static int count (String str, char a) {
+        int count = 0;
+        for(int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == a) {
+                count++;
+            }
+        }
+        return count;
+    }
+    // test
+    public static void testCount() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a string: ");
+        String str = input.next();
+        System.out.println("Enter a character:");
+        char a = input.next().charAt(0);
+        System.out.printf("%c occurs %d times in %s", a, count(str, a), str);
+    }
+
+    // 6.24 Display current date and time
+    public static void displayCurrentDateAndTime() {
+        Instant time = Instant.now();
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter your location in the format \"Continent/City\" (e.g. Europe/London, Asia/Kolkata): ");
+        String location = input.next();
+        ZoneId zoneId = ZoneId.of(location);
+        ZonedDateTime currentTimeDate = time.atZone(zoneId);
+        System.out.printf("The current time at %s is %s", location, currentTimeDate);
+    }
+
+    // 6.25 Convert millis to hours, minutes, hours
+    public static String convertMillis(long millis) {
+        int seconds = (int) (millis * 0.001);
+        int minutes = (int) (seconds * 0.01666667);
+        int hours = (int) (minutes * 0.01666667);
+        return hours + ":" + minutes + ":" + seconds;
+    }
+    // test
+    public static void testConvertMillis() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter milliseconds: ");
+        long millis = input.nextLong();
+        System.out.println(convertMillis(millis));
+    }
+
+    // 6.26 Palindromic prime
+    /** Finds the palindromic prime numbers within the range (1...n) */
+    public static List<Integer> countPalindromicPrimes(int n) {
+        List<Integer> palidromicPrimes = new ArrayList<>();
+        int count = 0;
+        int number = 1;
+        do { 
+            if (isPrime(number) && isPalindrome(number)) {
+                palidromicPrimes.add(number);
+                count++;
+            }
+            number++;
+        } while (count < n);
+
+        return palidromicPrimes;
+    }
+    // test
+    public static void testCountPalindromicPrimes() {
+        int n = 100;
+        List<Integer> palindromicPrimes = countPalindromicPrimes(n);
+        for (int i = 0; i < palindromicPrimes.size(); i++) {
+            if (i % 10 == 0 && i != 1) {
+                System.out.println();
+            }
+            System.out.printf("%5d ", palindromicPrimes.get(i));
+        }
+    }
+
+
+    // 6.27 Emirp 
+    /** Finds nonpalindromic primes and checks if their reversals are also primes */
+    public static List<Integer> countEmirps(int n) {
+        List<Integer> emirps = new ArrayList<>();
+        int count = 0;
+        int number = 1;
+        do { 
+            if (isPrime(number) && !isPalindrome(number)) {
+                if (isPrime(reverse(number))) {
+                    emirps.add(number);
+                    count++;
+                }
+            }
+            number++;
+        } while (count < n);
+
+        return emirps;
+    }
+    // test
+    public static void testCountEmirps() {
+        int n = 100;
+        List<Integer> emirps = countEmirps(n);
+        for (int i = 0; i < emirps.size(); i++) {
+            if (i % 10 == 0 && i != 1) {
+                System.out.println();
+            }
+            System.out.printf("%5d ", emirps.get(i));
+        }
+    }
+
+
+    // 6.28 Mersenne prime
+    /** Finds and prints all mersenne primes within p <= n */
+    public static void countMersennePrimes(int n) {
+        int p = 1;
+        System.out.println("p\t2^p - 1");
+        do { 
+            int x = (int) Math.pow(2, p) - 1;
+            if (isPrime(x)) {
+                System.out.printf("%d\t%d\n", p, x);
+            }
+            p++;
+        } while (p <= n);
+    }
+
 
     public static void main(String[] args) {
         CelsiusToFahrenheit ctf = new CelsiusToFahrenheit();
