@@ -767,6 +767,76 @@ public class ProgrammingExercises {
         }
     }
 
+    // 6.33 Current date and time from epoch time THE HARD STUPID WAY
+    public static int currentYear() {
+        return 1970 + (int)(System.currentTimeMillis() * 3.171E-11);
+    }
+    public static int currentMonth() {
+        return 1 + (int)(System.currentTimeMillis() * 3.8052E-10) % 12; 
+    }
+    /** Get elapsed days since January 1, 1970, accounting for the 14 leap years since */
+    public static int currentDayOfYear() {
+        return (1 + (int)(System.currentTimeMillis() * 1.1574E-08) % 365 - 14);
+    }
+    public static int getDaysOfMonthByIndex(int index) {
+        switch (index) {
+            case 1 -> { return 31; }
+            case 2 -> { return 28; }
+            case 3 -> { return 31; }
+            case 4 -> { return 30; }
+            case 5 -> { return 31; }
+            case 6 -> { return 30; }
+            case 7 -> { return 31; }
+            case 8 -> { return 31; }
+            case 9 -> { return 30; }
+            case 10 -> { return 31; }
+            case 11 -> { return 30; }
+            case 12 -> { return 31; }
+        }
+        return 0;
+    }
+    /** Subtract the days of each month (except the current month) from dayOfYear to get current day of month */
+    public static int computeCurrentDay(int dayOfYear, int month) {
+        for (int i = 1; i < month; i++) {
+            dayOfYear =  Math.abs(dayOfYear - getDaysOfMonthByIndex(i));
+        }
+        return dayOfYear;
+    }
+    public static int currentDayOfMonth() {
+       return computeCurrentDay(currentDayOfYear(), currentMonth());
+    }
+    public static int currentHour() {
+        return (int)(System.currentTimeMillis() * 2.7777777777778E-7) % 24;
+    }
+    public static int currentMinutes() {
+        return (int)(System.currentTimeMillis() * 1.66667E-5) % 60;
+    }
+    public static int currentSeconds() {
+        return (int)(System.currentTimeMillis() * 0.001) % 60;
+    }
+    public static String monthToString(int month) {
+        switch (month) {
+            case 1 -> { return "January"; }
+            case 2 -> { return "February"; }
+            case 3 -> { return "March"; }
+            case 4 -> { return "April"; }
+            case 5 -> { return "May"; }
+            case 6 -> { return "June"; }
+            case 7 -> { return "July"; }
+            case 8 -> { return "August"; }
+            case 9 -> { return "September"; }
+            case 10 -> { return "October"; }
+            case 11 -> { return "November"; }
+            case 12 -> { return "December"; }
+        }
+        return null;
+    }
+    public static void getCurrentDateAndTime(int offset) {
+        System.out.printf("%s %02d, %d %02d:%02d:%02d UTC\n", 
+        monthToString(currentMonth()), currentDayOfMonth(), currentYear(), 
+        currentHour() + offset, currentMinutes(), currentSeconds());
+    }
+
 
     public static void main(String[] args) {
         CelsiusToFahrenheit ctf = new CelsiusToFahrenheit();
