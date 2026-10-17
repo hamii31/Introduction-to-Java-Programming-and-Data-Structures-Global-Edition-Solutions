@@ -640,6 +640,112 @@ public class ProgrammingExercises {
         }
     }
 
+    // 6.31 Credit card number validation
+    public static class ValidCreditCards {
+        /** Return true if the card number is valid
+         * A valid card number has a digit count between 13 and 16
+         * A valid card number starts with 4, 5, 6, or 37
+         */
+        private static boolean isValid(String number) {
+            return hasValidPrefix(number) && isValidLength(number);
+        }
+        /** Checks if the card number is of valid length */
+        private static boolean isValidLength(String number) {
+            return (number.length() >= 13 && number.length() <= 16);
+        }
+        /** Checks if the prefix is valid */
+        private static boolean hasValidPrefix(String number) {
+            return  (number.startsWith("4") || number.startsWith("5") || number.startsWith("37") || number.startsWith("6"));
+        }
+
+        /** Get the result from Step 2 
+         * Double every number at an even position from right to left
+         * Check if the doubled number is a two-digit number, sum the two digits until a single-digit
+         * number is formed
+         * return the sum all doubled numbers
+        */
+        private static int sumOfDoubleEvenPlace(String number) {
+            int evenSum = 0;
+            // Get every number at an even position from right to left
+            for (int i = number.length() - 1; i >= 0; i--) {
+                if (i % 2 == 0) {
+                    // double each number
+                    int doubledEvenNumber = charToNUmber(number.charAt(i)) * 2;
+
+                    // check if the doubled number is a two-digit number
+                    if (isDoubleDigit(doubledEvenNumber)) {
+                        // recursively sum the two-digits until there is only one digit
+                        doubledEvenNumber = recursiveSumOfTwoDigits(doubledEvenNumber);
+                    }
+                    // add to sum
+                    evenSum += doubledEvenNumber;
+                }
+            }
+            
+            return evenSum;
+        }
+        /** Converts a char to a number */
+        private static int charToNUmber(char number) {
+            return (int) (number - '0');
+        }
+        /** Checks if the number is a two-digit number */
+        private static boolean isDoubleDigit(int number) {
+            return Integer.toString(number).length() > 1;
+        }
+        /** Recursively sums the digits of a two-digit number until a single-digit number is formed */
+        private static int recursiveSumOfTwoDigits(int number) {
+            // get the last digit
+            int temp1 = number % 10;
+            // remove last digit from the number
+            number /= 10;
+            // sum the two digits
+            int sum = temp1 + number;
+
+            // if the sum is a double digit again
+            if (isDoubleDigit(sum)) {
+                // recursively call the method
+                return recursiveSumOfTwoDigits(sum);
+            }
+            return sum;
+        }
+
+        /** Get the result of Step 3 
+         * Return the sum of all numbers at odd positions from right to left
+        */
+        private static int sumOfOddPlace(String number) {
+            int oddSum = 0;
+            for (int i = number.length() - 1; i >= 0; i--) {
+                if (i % 2 != 0) {
+                    int oddNumber = charToNUmber(number.charAt(i));
+                    oddSum += oddNumber;
+                }
+            }
+            return oddSum;
+        }
+
+        public void checkCreditCardNumber() {
+            Scanner input = new Scanner(System.in);
+            System.out.println("Enter a valid credit card number: ");
+            String number = input.next();
+
+            // Check if valid
+            if (isValid(number)) {
+                // double every even digit from right to left
+                int evenSum = sumOfDoubleEvenPlace(number);
+                int oddSum = sumOfOddPlace(number);
+
+                // Check if sum of both sums is divisible by 10
+                if ((evenSum + oddSum) % 10 == 0) {
+                    System.out.printf("%s is valid.", number);
+                } else {
+                    System.out.printf("%s is invalid.", number);
+                }
+            } else {
+                System.out.printf("%s is invalid.", number);
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
         CelsiusToFahrenheit ctf = new CelsiusToFahrenheit();
@@ -650,5 +756,8 @@ public class ProgrammingExercises {
 
         Craps craps = new Craps();
         craps.playCraps();
+
+        ValidCreditCards vcc = new ValidCreditCards();
+        vcc.checkCreditCardNumber();
     }
 }
