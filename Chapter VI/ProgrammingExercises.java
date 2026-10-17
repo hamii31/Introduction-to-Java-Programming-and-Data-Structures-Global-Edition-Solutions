@@ -347,6 +347,105 @@ public class ProgrammingExercises {
             System.out.println("Invalid Password");
         }
     }
+    
+    // 6.19 Triangles
+    /** Return true if the sum of every two sides is greater than the third side. */
+    public static boolean isValid(double side1, double side2, double side3) {
+        List<Double> sides = List.of(side1, side2, side3);
+        for (int i = 0; i < sides.size(); i++) {
+            double sum = 0.0;
+            for (int j = 0; j < sides.size(); j++) {
+                if (!sides.get(i).equals(sides.get(j)))
+                    sum += sides.get(j);
+            }
+            if (sum <= sides.get(i))
+                return false;
+        }
+        return true;
+    }
+    /** Return the area of the triangle. */
+    public static double area(double side1, double side2, double side3) {
+        // Heron's formula
+        return Math.sqrt(
+            (4 * Math.pow(side1, 2) * Math.pow(side2, 2)) - 
+            Math.pow(Math.pow(side1, 2) + Math.pow(side2, 2) - Math.pow(side3, 2), 2)
+            ) / 4;
+    }
+    // test
+    public static void computeTriangleArea() {
+        // Get the sides from stdin, check if valid, compute area
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the sides of a triangle, separated by space: ");
+        String s = input.nextLine();
+        String[] arr = s.split(" ");
+        double side1 = Double.parseDouble(arr[0]);
+        double side2 = Double.parseDouble(arr[1]);
+        double side3 = Double.parseDouble(arr[2]);
+
+        if (isValid(side1, side2, side3)) {
+            System.out.printf("The area of the triangle is %.2f", area(side1, side2, side3));
+        } else {
+            System.out.println("Invalid input.");
+        }
+    }
+
+
+    // 6.20 Count letters in a string
+    public static int countLetters(String s) {
+        int letters = 0;
+        s = s.toLowerCase();
+        for (int i = 0; i < s.length(); i++) {
+            if ((int) s.charAt(i) >= 97 && (int) s.charAt(i) <= 122)
+                letters++;
+        }
+        return letters;
+    }
+    // test
+    public static void testCountLetters() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a string: ");
+        String s = input.next();
+        System.out.printf("The letters in %s are %d", s, countLetters(s));
+    }
+
+
+    // 6.21 Phone keypads
+    public static int getNumber(char uppercaseLetter) {
+        switch (uppercaseLetter) {
+            case 'A', 'B', 'C' -> { return 2; }
+            case 'D', 'E', 'F' -> { return 3; }
+            case 'G', 'H', 'I' -> { return 4; }
+            case 'J', 'K', 'L' -> { return 5; }
+            case 'M', 'N', 'O' -> { return 6; }
+            case 'P', 'Q', 'R', 'S' -> { return 7; }
+            case 'T', 'U', 'V' -> { return 8; }
+            case 'W', 'X', 'Y', 'Z' -> { return 9; }
+            default -> { return -1; }
+        }
+    }
+    /** Check if the char's ASCII code matches the code for digits or dashes */
+    public static boolean isDigitOrDash(char ch) {
+        return ((int) ch >= 48 && (int) ch <= 57) || ch == 45;
+    }
+    /** filters letters and returns them as digits */
+    public static char getLetter(char ch) {
+        if (!isDigitOrDash(ch)) {
+            ch = Character.toUpperCase(ch);
+            return (char)('0' + getNumber(ch));
+        } 
+        return ch;
+    }
+    // test
+    public static void testGetNumber() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a telephone number as a string: ");
+        String s = input.nextLine();
+        String number = "";
+        for (int i = 0; i < s.length(); i++) {
+            number += getLetter(s.charAt(i));
+        }
+        System.out.printf("%s is translated to %s", s, number);
+    }
 
 
     public static void main(String[] args) {
