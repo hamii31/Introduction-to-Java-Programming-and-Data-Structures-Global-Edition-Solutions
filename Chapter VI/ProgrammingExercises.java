@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.time.*;
+import java.util.*;
 
 public class ProgrammingExercises {
 
@@ -138,17 +137,17 @@ public class ProgrammingExercises {
     // 6.8 Celsius and Fahrenheit
     public static class CelsiusToFahrenheit {
         /** Convert from Celsius to Fahrenheit */
-        public static double celsiusToFahrenheit(double celsius) {
+        private static double celsiusToFahrenheit(double celsius) {
             return (9.0 / 5) * (celsius + 32);
         }
 
         /** Convert from Fahrenheit to Celsius */
-        public static double fahrenheitToCelsius(double fahrenheit) {
+        private static double fahrenheitToCelsius(double fahrenheit) {
             return (5.0 / 9) * (fahrenheit - 32);
         }
 
         // test
-        public static void testCelsiusToFahrenheit() {
+        public void testCelsiusToFahrenheit() {
             double celsius = 40.0;
             double fahrenheit = 120.0;
 
@@ -166,17 +165,17 @@ public class ProgrammingExercises {
     // 6.9 Meters to Feet
     public static class MetersToFeet {
         /** Convert from feet to meters */
-        public static double footToMeter(double foot) {
+        private static double footToMeter(double foot) {
             return 0.305 * foot;
         }
 
         /** Convert from meters to feet */
-        public static double meterToFoot(double meter) {
+        private static double meterToFoot(double meter) {
             return 3.279 * meter;
         }
 
         // test
-        public static void testMetersToFeet() {
+        public void testMetersToFeet() {
             double feet = 0.0;
             double meters = 15.0;
 
@@ -587,6 +586,60 @@ public class ProgrammingExercises {
         } while (p <= n);
     }
 
+    
+    // 6.29 Twin primes
+    public static void countTwinPrimes(int n) {
+        int num1 = 1;
+        int num2 = num1 + 2;
+        while(num2 < n) {
+            num1 = num2;
+            num2 += 2;
+            if (isPrime(num1) && isPrime(num2)) {
+                System.out.printf("(%d, %d)\n", num1, num2);
+            }
+        }
+    }
+
+    // 6.30 Craps
+    public static class Craps {
+        private static int rollDice() {
+            return 1 + (int)(Math.random() * 6);
+        }
+        /** Checks if the sum of two dices is a natural */
+        private static boolean isNatural(int diceSum) {
+            return diceSum == 7 || diceSum == 11;
+        }
+        /** Checks if the sum of two dices is craps */
+        private static boolean isCraps(int diceSum) {
+            return diceSum == 2 || diceSum == 3 || diceSum == 12;
+        }
+        /** Plays a game of Craps */
+        public void playCraps() {
+            int point = 0;
+            while(true) {
+                // roll two dice
+                int dice1 = rollDice();
+                int dice2 = rollDice();
+                int diceSum = dice1 + dice2;
+                System.out.printf("You rolled %d + %d = %d\n", dice1, dice2, diceSum);
+                if ((isCraps(diceSum) && point == 0) || (point != 0 && diceSum == 7)) {
+                    System.out.println("You lose.");
+                    break;
+                }
+                else if ((isNatural(diceSum) && point == 0) || diceSum == point) {
+                    System.out.println("You win.");
+                    break;
+                }
+                else {
+                    if (point == 0) {
+                        point = diceSum;
+                        System.out.printf("point is %d\n", point);
+                    }
+                }
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
         CelsiusToFahrenheit ctf = new CelsiusToFahrenheit();
@@ -594,5 +647,8 @@ public class ProgrammingExercises {
 
         MetersToFeet mtf = new MetersToFeet();
         mtf.testMetersToFeet();
+
+        Craps craps = new Craps();
+        craps.playCraps();
     }
 }
