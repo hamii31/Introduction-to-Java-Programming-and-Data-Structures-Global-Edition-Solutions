@@ -838,6 +838,93 @@ public class ProgrammingExercises {
     }
 
 
+    // 6.34 Print calendar
+    public static class PrintCalendar {
+        public void init() {
+            int q = 1;
+
+            Scanner input = new Scanner(System.in);
+            System.out.println("Enter month as a string: ");
+            String month = input.next();
+            int m = getAdjustedMonth(month);
+
+            System.out.println("Enter year: ");
+            int year = input.nextInt();
+            if (m == 13 || m == 14)
+                year -= 1;
+
+            int K = getK(year);
+            int J = getJ(year);
+
+            // get the first day of the month
+            int h = computeZeller(q, m, K, J);
+
+            // Print the calendar
+            displayGregorianCalendar(h, getDaysOfMonthByAdjustedIndex(m));
+        }
+        public static void displayGregorianCalendar(int start, int end) {
+            int day = 1;
+            System.out.println("Sat\tSun\tMon\tTue\tWed\tThu\tFri");
+            for(int i = 0; i <= 35; i++) {
+                if (i % 7 == 0) {
+                    System.out.println();
+                }
+
+                if (i >= start && i <= start + end)
+                    System.out.printf("%2d\t", day++);
+                else
+                    System.out.printf("\t");
+            }
+        }
+        public static int computeZeller(int q, int m, int K, int J) {
+            return (q + floor((13 * (m + 1)) / 5) + K + floor(K / 4) + floor(J / 4) - (2 * J)) % 7; 
+        }
+        public static int floor(double x) {
+            return (int) x;
+        }
+        public static int getK(int year) {
+            return year % 100;
+        }
+        public static int getJ(int year) {
+            return floor(year / 100);
+        }
+        public static int getAdjustedMonth(String month) {
+            switch (month.toLowerCase()) {
+                case "january" -> { return 13; }
+                case "february" -> { return 14; }
+                case "march" -> { return 3; }
+                case "april" -> { return 4; }
+                case "may" -> { return 5; }
+                case "june" -> { return 6; }
+                case "july" -> { return 7; }
+                case "august" -> { return 8; }
+                case "september" -> { return 9; }
+                case "october" -> { return 10; }
+                case "november" -> { return 11; }
+                case "december" -> { return 12; }
+            }
+            return 0;
+        }
+        public static int getDaysOfMonthByAdjustedIndex(int index) {
+            switch (index) {
+                case 13 -> { return 31; }
+                case 14 -> { return 28; }
+                case 3 -> { return 31; }
+                case 4 -> { return 30; }
+                case 5 -> { return 31; }
+                case 6 -> { return 30; }
+                case 7 -> { return 31; }
+                case 8 -> { return 31; }
+                case 9 -> { return 30; }
+                case 10 -> { return 31; }
+                case 11 -> { return 30; }
+                case 12 -> { return 31; }
+            }
+            return 0;
+        }
+    }
+
+
     public static void main(String[] args) {
         CelsiusToFahrenheit ctf = new CelsiusToFahrenheit();
         ctf.testCelsiusToFahrenheit();
@@ -851,5 +938,8 @@ public class ProgrammingExercises {
 
         ValidCreditCards vcc = new ValidCreditCards();
         vcc.checkCreditCardNumber();
+
+        PrintCalendar pc = new PrintCalendar();
+        pc.init();
     }
 }
