@@ -613,30 +613,51 @@ public class ProgrammingExercises {
         private static boolean isCraps(int diceSum) {
             return diceSum == 2 || diceSum == 3 || diceSum == 12;
         }
-        /** Plays a game of Craps */
-        public void playCraps() {
+        /** Plays a game of Craps 
+         * boolean verbose determines if the method should print game status to console or not 
+         * returns 0 for loss and 1 for win
+        */
+        public int playCraps(boolean verbose) {
             int point = 0;
             while(true) {
                 // roll two dice
                 int dice1 = rollDice();
                 int dice2 = rollDice();
                 int diceSum = dice1 + dice2;
-                System.out.printf("You rolled %d + %d = %d\n", dice1, dice2, diceSum);
+                if (verbose) {
+                    System.out.printf("You rolled %d + %d = %d\n", dice1, dice2, diceSum);
+                }
                 if ((isCraps(diceSum) && point == 0) || (point != 0 && diceSum == 7)) {
-                    System.out.println("You lose.");
-                    break;
+                    if (verbose) {
+                        System.out.println("You lose.");
+                    }
+                    return 0;
                 }
                 else if ((isNatural(diceSum) && point == 0) || diceSum == point) {
-                    System.out.println("You win.");
-                    break;
+                    if (verbose) {
+                        System.out.println("You win.");
+                    }
+                    return 1;
                 }
                 else {
                     if (point == 0) {
                         point = diceSum;
-                        System.out.printf("point is %d\n", point);
+                        if (verbose) {
+                            System.out.printf("point is %d\n", point);
+                        }
                     }
                 }
             }
+        }
+        // 6.32 Run craps 15,000 times and show the number of wins
+        public void crapsProbabilities() {
+            int n = 15_000;
+            int w = 0;
+            for (int i = 0; i < n; i++) {
+                w += playCraps(false);
+                System.out.printf("%d games completed...\n", i);
+            }
+            System.out.printf("Out of %d games, %d games were won. Probability of winning is %.2f%%", n, w, (w / (double) n) * 100);
         }
     }
 
@@ -755,7 +776,8 @@ public class ProgrammingExercises {
         mtf.testMetersToFeet();
 
         Craps craps = new Craps();
-        craps.playCraps();
+        craps.playCraps(true);
+        craps.crapsProbabilities(false);
 
         ValidCreditCards vcc = new ValidCreditCards();
         vcc.checkCreditCardNumber();
