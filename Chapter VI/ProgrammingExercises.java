@@ -924,6 +924,188 @@ public class ProgrammingExercises {
         }
     }
 
+    // 6.35 Area of pentagon
+    public static double areaOfPentagon(double side) {
+        return (5 * Math.pow(side, 2) / (4 * Math.tan(Math.PI / 5)));
+    }
+    public static void testAreaOfPentagon() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a side: ");
+        double side = input.nextDouble();
+        System.out.printf("The area of a pentagon is %.14f", areaOfPentagon(side));
+    }
+
+    // 6.36 Area of a regular polygon
+    public static double areaOfPolygon(int n, double side) {
+        return (n * Math.pow(side, 2) / (4 * Math.tan(Math.PI / n)));
+    }
+    public static void testAreaOfPolygon() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the number of sides: ");
+        int n = input.nextInt();
+        System.out.println("Enter a side: ");
+        double side = input.nextDouble();
+        System.out.printf("The area of a pentagon is %.14f", areaOfPolygon(n, side));
+    }
+
+    // 6.37 Format an integer
+    public static String format(int number, int width) {
+        String num = Integer.toString(number);
+        int numLength = num.length();
+        // if the number is longer than the width
+        if (numIsGreater(numLength, width))
+            return num;
+
+        // if the number is a two-digit number, and the width is 3, we need to append 1 '0'
+        int zeroesLength = getLengthOfZeroes(width, numLength);
+
+        return appendZeroes(num, zeroesLength);
+    }
+    public static boolean numIsGreater(int numLength, int width) {
+        return numLength > width;
+    }
+    public static int getLengthOfZeroes(int width, int numLength) {
+        return Math.abs(width - numLength);
+    }
+    public static String appendZeroes(String num, int zeroesLength) {
+        for (int i = 0; i < zeroesLength; i++) {
+            num = "0" + num;
+        }
+        return num;
+    }
+    // test
+    public static void testFormat() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter an integer: ");
+        int number = input.nextInt();
+        System.out.println("Enter the width: ");
+        int width = input.nextInt();
+        System.out.println(format(number, width));
+    }
+
+    // 6.38 Generate random characters
+    public static char generateRandomUppercaseLetter() {
+        return (char)('A' + Math.random() * ('Z' - 'A' + 1));
+    }
+    public static int generateRandomSingleDigitNumber() {
+        return 1 + (int)(Math.random() * 9);
+    }
+    public static void generator() {
+        for (int i = 1; i <= 200; i++) {
+            if (i <= 100) {
+                System.out.printf("%c ", generateRandomUppercaseLetter());
+
+            } else {
+                System.out.printf("%d ", generateRandomSingleDigitNumber());
+            }
+            
+            if (i % 50 == 0) {
+                System.out.println();
+            } 
+        }
+    }
+
+
+    // 6.39 Point position
+    public static class TriangleOperations {
+        /** Compute distance between two points to find the side of a triangle */ 
+        public static double computeSideOfTriangle(double x1, double y1,
+            double x2, double y2) {
+                return Math.sqrt(Math.pow(x2 - x1, 2) - Math.pow(y2 - y1, 2));
+        }
+        public static double computeSemiperimeterOfTriangle(double sideA, double sideB, double sideC){
+            return (sideA + sideB + sideC) / 2;
+        }
+        public static double computeH(double sideA, double sideB, double sideC) {
+            double s = computeSemiperimeterOfTriangle(sideA, sideB, sideC);
+            return (2 / sideC) * Math.sqrt(s * (s-sideA) * (s-sideB) * (s - sideC));
+        }
+        public double computeDistanceFromLineSegment(double x0, double y0,
+            double x1, double y1, double x2, double y2) {
+            // Get the sides of the triangle
+            double sideA = computeSideOfTriangle(x0, y0, x2, y2);
+            double sideB = computeSideOfTriangle(x1, y1, x2, y2);
+            double sideC = computeSideOfTriangle(x0, y0, x1, y1);
+
+            // check if angle at (x0, y0) is obtuse
+            if (isAngleAtPointZeroObtuse(sideA, sideB, sideC)) {
+                return sideA;
+            } else if (isAngleAtPointOneObtuse(sideA, sideB, sideC)) {
+                return sideB;
+            } 
+
+            return computeH(sideA, sideB, sideC);
+        
+        }
+        /** Check if the angle forming at (x0, y0) is obtuse */
+        public static boolean isAngleAtPointZeroObtuse(double A, double B, double C) {
+            return Math.pow(B, 2) > (Math.pow(A, 2) + Math.pow(C, 2));
+        }
+        /** Check if the angle forming at (x1, y1) is obtuse */
+        public static boolean isAngleAtPointOneObtuse(double A, double B, double C) {
+            return Math.pow(A, 2) > (Math.pow(B, 2) + Math.pow(C, 2));
+        }
+    }
+    public static class PointOPerations {
+        /** Compute the position of (x2, y2) */
+        public static double computeLocationOfPointTwo(double x0, double y0,
+            double x1, double y1, double x2, double y2) {
+                return (x1 - x0) * (y2 - y0) - (x2 - x0) * (y1 - y0);
+        }
+        /** Return true if point (x2, y2) is on the left side of the
+         * directed line from (x0, y0) to (x1, y1)
+         */
+        public static boolean leftOfTheLine(double x0, double y0,
+            double x1, double y1, double x2, double y2) {
+                return computeLocationOfPointTwo(x0, y0, x1, y1, x2, y2) > 0;
+        }
+        /** Return true if point (x2, y2) is on the right side of the
+         * directed line from (x0, y0) to (x1, y1)
+         */
+        public static boolean rightOfTheLine(double x0, double y0,
+            double x1, double y1, double x2, double y2) {
+                return computeLocationOfPointTwo(x0, y0, x1, y1, x2, y2) < 0;
+        }
+        /** Return true if point (x2, y2) is on the same directed line
+         *  from (x0, y0) to (x1, y1)
+         */
+        public static boolean onTheSameLine(double x0, double y0,
+            double x1, double y1, double x2, double y2) {
+                return computeLocationOfPointTwo(x0, y0, x1, y1, x2, y2) == 0;
+        }
+        /** Return true if point (x2, y2) is on the line segment */
+        public static boolean onTheLineSegment(double x0, double y0,
+            double x1, double y1, double x2, double y2) {
+                TriangleOperations to = new TriangleOperations();
+                double d = to.computeDistanceFromLineSegment(x0, y0, x1, y1, x2, y2);
+                return d == 0;
+        }
+        // test
+        public void test() {
+            Scanner input = new Scanner(System.in);
+            System.out.println("Enter three points for p0, p1, and p2: ");
+            String[] s = input.nextLine().split(" ");
+            
+            double x0 = Double.parseDouble(s[0]);
+            double y0 = Double.parseDouble(s[1]);
+            double x1 = Double.parseDouble(s[2]);
+            double y1 = Double.parseDouble(s[3]);
+            double x2 = Double.parseDouble(s[4]);
+            double y2 = Double.parseDouble(s[5]);
+
+            if (leftOfTheLine(x0, y0, x1, y1, x2, y2))
+                System.out.printf("(%.1f, %.1f) is on the left side of the line from (%.1f, %.1f) to (%.1f, %.1f)", x2, y2, x0, y0, x1, y1);
+            else if (rightOfTheLine(x0, y0, x1, y1, x2, y2))
+                System.out.printf("(%.1f, %.1f) is on the right side of the line from (%.1f, %.1f) to (%.1f, %.1f)", x2, y2, x0, y0, x1, y1);
+            else if (onTheSameLine(x0, y0, x1, y1, x2, y2))
+                System.out.printf("(%.1f, %.1f) is on the line from (%.1f, %.1f) to (%.1f, %.1f)", x2, y2, x0, y0, x1, y1);
+            else if (onTheLineSegment(x0, y0, x1, y1, x2, y2))
+                System.out.printf("(%.1f, %.1f) is on the line segment from (%.1f, %.1f) to (%.1f, %.1f)", x2, y2, x0, y0, x1, y1);
+            else
+                System.out.println("Something went wrong");
+        }
+    }
+
 
     public static void main(String[] args) {
         CelsiusToFahrenheit ctf = new CelsiusToFahrenheit();
@@ -941,5 +1123,8 @@ public class ProgrammingExercises {
 
         PrintCalendar pc = new PrintCalendar();
         pc.init();
+
+        PointOPerations op = new PointOPerations();
+        op.test();
     }
 }
