@@ -1102,7 +1102,7 @@ public class ProgrammingExercises {
             else if (onTheLineSegment(x0, y0, x1, y1, x2, y2))
                 System.out.printf("(%.1f, %.1f) is on the line segment from (%.1f, %.1f) to (%.1f, %.1f)", x2, y2, x0, y0, x1, y1);
             else
-                System.out.println("Something went wrong");
+                System.out.println("p2 is another universe");
         }
     }
 
