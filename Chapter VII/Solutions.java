@@ -44,6 +44,16 @@ public class Solutions {
         }
     }
 
+    // 7.5.1
+    static {
+        int[] source = {3, 4, 5};
+        int[] t = new int[source.length];
+        System.arraycopy(source, 0, t, 0, source.length);
+        for (int e : t) {
+            System.out.println(e);
+        }
+    }
+
     public static void main (String[] args) {
     }
 }
