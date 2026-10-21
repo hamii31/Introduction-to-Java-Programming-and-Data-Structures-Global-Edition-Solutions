@@ -36,7 +36,7 @@ public class BinarySearch {
                 low = mid + 1;
             }
         }
-        return -1; // not found
+        return -low -1; // not found
     }
 
     public static void main (String[] args) {
@@ -45,9 +45,9 @@ public class BinarySearch {
 
         int key = 56;
         int index = binarySearch(numbers, key);
-        if (index != -1)
+        if (index > -1)
             System.out.printf("%d is present in the array at index %d (%d=%d)", key, index, key, numbers[index]);
         else 
-            System.out.println("The key is not present in the array.");
+            System.out.printf("The key is not present in the array, but can be inserted at index %d", index);
     }
 }
