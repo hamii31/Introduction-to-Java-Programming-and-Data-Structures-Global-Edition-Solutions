@@ -1,19 +1,37 @@
 /**
  * Generate an array of int values
+ * Use selection sort to sort the values in an ascending order
  * Implement binary search
  */
-import java.util.*;
 
 public class BinarySearch {
+    // Implement a selection sort algorithm
+    public static void sortArray(int[] numbers) {
+        for (int i = 0; i < numbers.length; i++) {
+            int index = -1;
+            int minValue = Integer.MAX_VALUE;
+            for (int j = i; j < numbers.length; j++) {
+                if (numbers[j] < minValue) {
+                    minValue = numbers[j];
+                    index = j;
+                } 
+            }
+            // switch the position of the current element i with the smallest element j
+            int temp = numbers[i];
+            numbers[i] = numbers[index];
+            numbers[index] = temp;
+        }
+    }
+
     // Generate an array of random numbers in an ascending order
-    public static int[] generateNumberArrayAsc(int n) {
+    public static int[] generateSortedNumbersArray(int n) {
         int[] numbers = new int[n];
         for (int i = 0; i < n; i++) {
-            numbers[i] = 1 + (int)(Math.random() * n);
+            numbers[i] = 1 + (int)(Math.random() * 100);
         }
 
-        // sort in asc order
-        Arrays.sort(numbers);
+        // sort in asc order in place
+        sortArray(numbers);
         return numbers;
     }
 
@@ -40,10 +58,10 @@ public class BinarySearch {
     }
 
     public static void main (String[] args) {
-        int n = 100;
-        int[] numbers = generateNumberArrayAsc(n);
+        int n = 20;
+        int[] numbers = generateSortedNumbersArray(n);
 
-        int key = 56;
+        int key = 34;
         int index = binarySearch(numbers, key);
         if (index > -1)
             System.out.printf("%d is present in the array at index %d (%d=%d)", key, index, key, numbers[index]);
