@@ -89,7 +89,11 @@ public class ProgrammingExercises {
                     s += Integer.toString(number) + " ";
                 }
                 boundsCounter++;
-            } while (number != threshold || boundary != 100);
+
+                if (boundsCounter == boundary)
+                    break;
+
+            } while (number != threshold);
 
             return s;
         }
@@ -101,8 +105,8 @@ public class ProgrammingExercises {
             }
             return numbers;
         }
-        public static int[] getNumbers (int threshold) {
-            String s = getNumbersAsString(threshold, 100);
+        public static int[] getNumbers (int threshold, int boundary) {
+            String s = getNumbersAsString(threshold, boundary);
             return convertStringToIntArray(s);
         }
         public static void sort(int[] numbers) {
@@ -145,7 +149,8 @@ public class ProgrammingExercises {
         public static void countNumberOccurrences() {
             System.out.println("Enter numbers between 1 and 100, enter 0 to stop: ");
             int threshold = 0;
-            int[] numbers = getNumbers(threshold);
+            int boundary = 1000;
+            int[] numbers = getNumbers(threshold, boundary);
             sortAndCount(numbers);
         }
     }
@@ -173,7 +178,8 @@ public class ProgrammingExercises {
             // get n <= 100 scores
             System.out.println("Enter scores, type -1 to stop: ");
             int threshold = -1;
-            int[] scores = Exercise3.getNumbers(threshold);
+            int boundary = 100;
+            int[] scores = Exercise3.getNumbers(threshold, boundary);
 
             // get average score
             int averageScore = getAverage(scores);
@@ -182,7 +188,41 @@ public class ProgrammingExercises {
             checkScores(scores, averageScore);
         }
     }
+
+    public static class Exercise5 {
+        public static String getDistinctNumbersAsString(int[] integers) {
+            String s = "";
+            for(int i = 0; i < integers.length; i++) {
+                if (!s.contains(Integer.toString(integers[i])))
+                    s += integers[i] + " ";
+            }
+            return s;
+        }
+    
+        public static int[] getDistinctNumbers() {
+            int threshold = -1;
+            int boundary = 10;
+            int[] integers = Exercise3.getNumbers(threshold, boundary);
+            String s = getDistinctNumbersAsString(integers);
+            int[] distinctIntegers = Exercise3.convertStringToIntArray(s);
+            return distinctIntegers;
+        }
+        public static void printArray(int[] array) {
+            for (int number : array) {
+                System.out.printf("%d ", number);
+            }
+        }
+        public static void init() {
+            System.out.println("Enter ten integers: ");
+            int[] distinctIntegers = getDistinctNumbers();
+            printArray(distinctIntegers);
+        }
+    }
+
+    public static class Exercise6 {
+        
+    }
     public static void main (String[] args) {
-        Exercise4.readNumbers();
+        Exercise5.init();
     }
 }
