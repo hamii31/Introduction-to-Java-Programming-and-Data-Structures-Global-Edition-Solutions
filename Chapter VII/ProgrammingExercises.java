@@ -370,7 +370,18 @@ public class ProgrammingExercises {
             Exercise5.printArray(integers);
         }
     }
+    
+    public static class Exercise13 {
+        public static int getRandom(int...numbers) {
+            int rngIndex = 0 + (int)(Math.random() * numbers.length);
+            return numbers[rngIndex];
+        }
+        public static void init() {
+            System.out.println(getRandom(1, 2, 3));
+        }
+    }
+    
     public static void main (String[] args) {
-        Exercise12.init();
+        Exercise13.init();
     }
 }
