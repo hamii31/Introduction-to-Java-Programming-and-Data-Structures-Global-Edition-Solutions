@@ -156,14 +156,14 @@ public class ProgrammingExercises {
     }
 
     public static class Exercise4 {
-        public static int getAverage(int[] scores) {
-            int averageScore = 0;
+        public static double getAverage(int[] scores) {
+            double averageScore = 0.0;
             for (int score : scores) {
                 averageScore += score;
             }
-            return averageScore / scores.length;
+            return averageScore / (double) scores.length;
         }
-        public static void checkScores(int[] scores, int averageScore) {
+        public static void checkScores(int[] scores, double averageScore) {
             int aboveAverage = 0;
             int belowAverage = 0;
             for (int score : scores) {
@@ -182,7 +182,7 @@ public class ProgrammingExercises {
             int[] scores = Exercise3.getNumbers(threshold, boundary);
 
             // get average score
-            int averageScore = getAverage(scores);
+            double averageScore = getAverage(scores);
 
             // determine how many scores are >= average || < average
             checkScores(scores, averageScore);
@@ -257,7 +257,120 @@ public class ProgrammingExercises {
         }
     }
     
+    public static class Exercise8 {
+
+        public static double average(double[] array) {
+            double average = 0.0;
+            for (int i = 0; i < array.length; i++) {
+                average += array[i];
+            }
+            return average / (double) array.length;
+        }
+        public static int[] getIntegerArray() {
+            Scanner input = new Scanner(System.in);
+            System.out.println("Enter 10 integers: ");
+            int[] integers = new int[10];
+            for (int i = 0; i < 10; i++) {
+                integers[i] = input.nextInt();
+            }
+            return integers;
+        }
+        public static double[] getDoubleArray() {
+            Scanner input = new Scanner(System.in);
+            System.out.println("Enter 10 double values: ");
+            double[] integers = new double[10];
+            for (int i = 0; i < 10; i++) {
+                integers[i] = input.nextDouble();
+            }
+            return integers;
+        }
+        public static void init() {
+            int[] integers = getIntegerArray();
+            System.out.printf("The average of the first array is %.2f.\n", Exercise4.getAverage(integers));
+            double[] dValues = getDoubleArray();
+            System.out.printf("The average of the second array is %.2f.\n", average(dValues));
+        }
+    }
+
+    public static class Exercise9 {
+        public static double min(double[] array) {
+            double smallestElement = Double.MAX_VALUE;
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] < smallestElement) {
+                    smallestElement = array[i];
+                }
+            }
+            return smallestElement;
+        }
+        public static void init() {
+            double[] array = Exercise8.getDoubleArray();
+            System.out.printf("The smallest element in the array is %.2f", Exercise9.min(array));
+        }
+    }
+
+    public static class Exercise10 {
+        public static int indexOfLargestElement(double[] array) {
+            int index = -1;
+            double largestElement = Double.MIN_VALUE;
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] > largestElement) {
+                    largestElement = array[i];
+                    index = i;
+                }
+            }
+            return index;
+        }
+        public static void init() {
+            double[] array = Exercise8.getDoubleArray();
+            int index = indexOfLargestElement(array);
+            System.out.printf("The largest element in the array is %.2f at index %d", array[index], index);
+        }
+        
+    }
+    
+    public static class Exercise11 {
+        /* Compute the mean of an array of double values */
+        public static double mean(double[] x) {
+            double mean = 0.0;
+            for (int i = 0; i < x.length; i++) {
+                mean += x[i];
+            }
+            return mean / (double) x.length;
+        }
+        /* Compute the deviation of double values */
+        public static double deviation(double[] x) {
+            double mean = mean(x);
+            double deviation = 0.0;
+            for (int i = 0; i < x.length; i++) {
+                deviation += Math.pow((x[i] - mean),2);
+            }
+            
+            return Math.sqrt(deviation / (double) (x.length - 1));
+        }
+        public static void init() {
+            double[] x = Exercise8.getDoubleArray();
+            System.out.printf("The mean is %f\n", mean(x));
+            System.out.printf("The std is %f\n", deviation(x));
+        }
+    }
+    
+    public static class Exercise12 {
+        /* Reverse an array inplace */
+        public static void reverse(int[] array) {
+            int n = array.length - 1;
+            for (int i = n; i > (n / 2); i--) {
+                int temp = array[i];
+                array[i] = array[n - i];
+                array[n - i] = temp;
+            }
+        }
+        public static void init() {
+            int[] integers = Exercise8.getIntegerArray();
+            reverse(integers);
+            Exercise5.printArray(integers);
+        }
+    }
     public static void main (String[] args) {
-        Exercise7.init();
+        Exercise12.init();
     }
 }
