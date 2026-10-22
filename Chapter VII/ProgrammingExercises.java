@@ -1,147 +1,188 @@
 import java.util.*;
 
 public class ProgrammingExercises {
-    // 7.1
-    private static double[] getScores() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter the number of students: ");
-        int n = input.nextInt();
+    public static class Exercise1 { 
+        private static double[] getScores() {
+            Scanner input = new Scanner(System.in);
+            System.out.println("Enter the number of students: ");
+            int n = input.nextInt();
 
-        double[] scores = new double[n];
-        System.out.printf("Enter %d scores: ", n);
-        for (int i = 0; i < n; i++) {
-            scores[i] = input.nextDouble();
-        }
-
-        return scores;
-
-    }
-    private static double getBestScore(double[] scores) {
-        double bestScore = Double.MIN_VALUE;
-        for (double score : scores) {
-            if (score > bestScore) {
-                bestScore = score;
-            }
-        }
-        return bestScore;
-    }
-    private static String scoreToGrade(double grade, double bestScore) {
-        if (grade >= bestScore - 10) {
-            return "A";
-        } else if (grade >= bestScore - 20) {
-            return "B";
-        } else if (grade >= bestScore - 30) {
-            return "C";
-        } else if (grade >= bestScore - 40) {
-            return "D";
-        }
-        return "F";
-    }
-    private static void printGrades(double[] scores, double bestScore) {
-        for (int i = 0; i < scores.length; i++) {
-            System.out.printf("Student %d score is %.1f and grade is %s\n", i, scores[i], scoreToGrade(scores[i], bestScore));
-        }
-    }
-    public static void assignGrades() {
-        double[] scores = getScores();
-        double bestScore = getBestScore(scores);
-        System.out.println(bestScore);
-        printGrades(scores, bestScore);
-    }
-
-    // 7.2 
-    private static int[] readNumbers() {
-        Scanner input = new Scanner(System.in);
-        int[] numbers = new int[10];
-        System.out.println("Enter 10 numbers: ");
-        for (int i = 0; i < 10; i++) {
-            numbers[i] = input.nextInt();
-        }
-        return numbers;
-    }
-    private static void displayInReverse(int[] numbers) {
-        for (int i = numbers.length - 1; i > 0; i--) {
-            System.out.println(numbers[i]);
-        }
-    }
-    public static void reverseEnteredNumbers() {
-        int[] numbers = readNumbers();
-        displayInReverse(numbers);
-    }
-
-    // 7.3
-    private static boolean isInRange(int number) {
-        return number >= 1 && number <= 100;
-    }
-    private static String getNumbersAsString() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter numbers between 1 and 100: ");
-        String s = "";
-        int number;
-        do {
-            number = input.nextInt();
-            if (isInRange(number)) {
-                s += Integer.toString(number) + " ";
+            double[] scores = new double[n];
+            System.out.printf("Enter %d scores: ", n);
+            for (int i = 0; i < n; i++) {
+                scores[i] = input.nextDouble();
             }
 
-        } while (number != 0);
+            return scores;
 
-        return s;
-    }
-    private static int[] convertStringToIntArray(String s) {
-        String[] arr = s.split(" ");
-        int[] numbers = new int[arr.length];
-        for (int i = 0; i < numbers.length; i++) {
-            numbers[i] = Integer.parseInt(arr[i]);
         }
-        return numbers;
-    }
-    private static int[] getInfiniteNumbers () {
-        String s = getNumbersAsString();
-        return convertStringToIntArray(s);
-    }
-    private static void sort(int[] numbers) {
-        for (int i = 0; i < numbers.length; i++) {
-            int index = -1;
-            int minValue = Integer.MAX_VALUE;
-            for (int j = i; j < numbers.length; j++) {
-                if (numbers[j] < minValue) {
-                    minValue = numbers[j];
-                    index = j;
-                } 
-            }
-           
-            int temp = numbers[i];
-            numbers[i] = numbers[index];
-            numbers[index] = temp;
-        }
-    }
-    private static void sortAndCount(int[] numbers) {
-        sort(numbers);
-
-        int index = 0;
-        while(true) {
-            int key = numbers[index];
-            int count = 0;
-            for (int i = index; i <= numbers.length; i++) {
-                if (i + count > numbers.length) {
-                    System.out.printf("%d occurs %d times\n", key, count);
-                    return;
-                } else if (numbers[i] == key) {
-                    count++;
-                } else {
-                    index = i;
-                    break;
+        private static double getBestScore(double[] scores) {
+            double bestScore = Double.MIN_VALUE;
+            for (double score : scores) {
+                if (score > bestScore) {
+                    bestScore = score;
                 }
             }
-            System.out.printf("%d occurs %d times\n", key, count);
+            return bestScore;
+        }
+        private static String scoreToGrade(double grade, double bestScore) {
+            if (grade >= bestScore - 10) {
+                return "A";
+            } else if (grade >= bestScore - 20) {
+                return "B";
+            } else if (grade >= bestScore - 30) {
+                return "C";
+            } else if (grade >= bestScore - 40) {
+                return "D";
+            }
+            return "F";
+        }
+        private static void printGrades(double[] scores, double bestScore) {
+            for (int i = 0; i < scores.length; i++) {
+                System.out.printf("Student %d score is %.1f and grade is %s\n", i, scores[i], scoreToGrade(scores[i], bestScore));
+            }
+        }
+        public static void assignGrades() {
+            double[] scores = getScores();
+            double bestScore = getBestScore(scores);
+            System.out.println(bestScore);
+            printGrades(scores, bestScore);
         }
     }
-    public static void countNumberOccurrences() {
-        int[] numbers = getInfiniteNumbers();
-        sortAndCount(numbers);
+
+    public static class Exercise2 { 
+        private static int[] readNumbers() {
+            Scanner input = new Scanner(System.in);
+            int[] numbers = new int[10];
+            System.out.println("Enter 10 numbers: ");
+            for (int i = 0; i < 10; i++) {
+                numbers[i] = input.nextInt();
+            }
+            return numbers;
+        }
+        private static void displayInReverse(int[] numbers) {
+            for (int i = numbers.length - 1; i > 0; i--) {
+                System.out.println(numbers[i]);
+            }
+        }
+        public static void reverseEnteredNumbers() {
+            int[] numbers = readNumbers();
+            displayInReverse(numbers);
+        }
+    }
+
+    public static class Exercise3 { 
+        public static boolean isInRange(int number) {
+            return number >= 1 && number <= 100;
+        }
+        /** Gets an unknown number of digits within a boundary */
+        public static String getNumbersAsString(int threshold, int boundary) {
+            Scanner input = new Scanner(System.in);
+            String s = "";
+            int number;
+            int boundsCounter = 0;
+            // Set a threshold that when passed terminates the loop
+            // Set a boundary that when reached terminates the loop
+            do {
+                number = input.nextInt();
+                if (isInRange(number)) {
+                    s += Integer.toString(number) + " ";
+                }
+                boundsCounter++;
+            } while (number != threshold || boundary != 100);
+
+            return s;
+        }
+        public static int[] convertStringToIntArray(String s) {
+            String[] arr = s.split(" ");
+            int[] numbers = new int[arr.length];
+            for (int i = 0; i < numbers.length; i++) {
+                numbers[i] = Integer.parseInt(arr[i]);
+            }
+            return numbers;
+        }
+        public static int[] getNumbers (int threshold) {
+            String s = getNumbersAsString(threshold, 100);
+            return convertStringToIntArray(s);
+        }
+        public static void sort(int[] numbers) {
+            for (int i = 0; i < numbers.length; i++) {
+                int index = -1;
+                int minValue = Integer.MAX_VALUE;
+                for (int j = i; j < numbers.length; j++) {
+                    if (numbers[j] < minValue) {
+                        minValue = numbers[j];
+                        index = j;
+                    } 
+                }
+            
+                int temp = numbers[i];
+                numbers[i] = numbers[index];
+                numbers[index] = temp;
+            }
+        }
+        public static void sortAndCount(int[] numbers) {
+            sort(numbers);
+
+            int index = 0;
+            while(true) {
+                int key = numbers[index];
+                int count = 0;
+                for (int i = index; i <= numbers.length; i++) {
+                    if (i + count > numbers.length) {
+                        System.out.printf("%d occurs %d times\n", key, count);
+                        return;
+                    } else if (numbers[i] == key) {
+                        count++;
+                    } else {
+                        index = i;
+                        break;
+                    }
+                }
+                System.out.printf("%d occurs %d times\n", key, count);
+            }
+        }
+        public static void countNumberOccurrences() {
+            System.out.println("Enter numbers between 1 and 100, enter 0 to stop: ");
+            int threshold = 0;
+            int[] numbers = getNumbers(threshold);
+            sortAndCount(numbers);
+        }
+    }
+
+    public static class Exercise4 {
+        public static int getAverage(int[] scores) {
+            int averageScore = 0;
+            for (int score : scores) {
+                averageScore += score;
+            }
+            return averageScore / scores.length;
+        }
+        public static void checkScores(int[] scores, int averageScore) {
+            int aboveAverage = 0;
+            int belowAverage = 0;
+            for (int score : scores) {
+                if (score >= averageScore)
+                    aboveAverage++;
+                else
+                    belowAverage++;
+            }
+            System.out.printf("Out of %d scores with an average of %d, %d are above average, and %d are below average.", scores.length, averageScore, aboveAverage, belowAverage);
+        }
+        public static void readNumbers() {
+            // get n <= 100 scores
+            System.out.println("Enter scores, type -1 to stop: ");
+            int threshold = -1;
+            int[] scores = Exercise3.getNumbers(threshold);
+
+            // get average score
+            int averageScore = getAverage(scores);
+
+            // determine how many scores are >= average || < average
+            checkScores(scores, averageScore);
+        }
     }
     public static void main (String[] args) {
-        countNumberOccurrences();
+        Exercise4.readNumbers();
     }
 }
