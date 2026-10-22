@@ -72,8 +72,8 @@ public class ProgrammingExercises {
     }
 
     public static class Exercise3 { 
-        public static boolean isInRange(int number) {
-            return number >= 1 && number <= 100;
+        public static boolean isInRange(int number, int boundary) {
+            return number >= 1 && number <= boundary;
         }
         /** Gets an unknown number of digits within a boundary */
         public static String getNumbersAsString(int threshold, int boundary) {
@@ -85,7 +85,7 @@ public class ProgrammingExercises {
             // Set a boundary that when reached terminates the loop
             do {
                 number = input.nextInt();
-                if (isInRange(number)) {
+                if (isInRange(number, boundary)) {
                     s += Integer.toString(number) + " ";
                 }
                 boundsCounter++;
@@ -219,10 +219,45 @@ public class ProgrammingExercises {
         }
     }
 
-    public static class Exercise6 {
-        
+    public static class Exercise7 {
+        public static int[] generateAndSortDigits(int n) {
+            int[] digits = new int[n];
+            for (int i = 0; i < digits.length; i++) {
+                digits[i] = 0 + (int) (Math.random() * 10);
+            }
+            Exercise3.sort(digits);
+            return digits;
+        }
+        public static int[] countDigitOccurrences(int[] digits) {
+            int[] counts = new int[10];
+            int index = 0;
+            for(int i = 0; i < counts.length; i++) {
+                int count = 0;
+                for (int j = index; j < digits.length; j++) {
+                    if (digits[j] == i) {
+                        count++;
+                    } else {
+                        index = j;
+                        break;
+                    }
+                }
+                counts[i] = count;
+            }
+            return counts;
+        }
+        public static void printCounts(int[] counts) {
+            for(int i = 0; i < counts.length; i++) {
+                System.out.printf("%d occurs %d times\n", i, counts[i]);
+            }
+        }
+        public static void init() {
+            int[] digits = generateAndSortDigits(200);
+            int[] counts = countDigitOccurrences(digits);
+            printCounts(counts);
+        }
     }
+    
     public static void main (String[] args) {
-        Exercise5.init();
+        Exercise7.init();
     }
 }
