@@ -266,28 +266,28 @@ public class ProgrammingExercises {
             }
             return average / (double) array.length;
         }
-        public static int[] getIntegerArray() {
+        public static int[] getIntegerArray(int n) {
             Scanner input = new Scanner(System.in);
-            System.out.println("Enter 10 integers: ");
-            int[] integers = new int[10];
-            for (int i = 0; i < 10; i++) {
+            System.out.printf("Enter %d integers: ", n);
+            int[] integers = new int[n];
+            for (int i = 0; i < integers.length; i++) {
                 integers[i] = input.nextInt();
             }
             return integers;
         }
-        public static double[] getDoubleArray() {
+        public static double[] getDoubleArray(int n) {
             Scanner input = new Scanner(System.in);
-            System.out.println("Enter 10 double values: ");
-            double[] integers = new double[10];
-            for (int i = 0; i < 10; i++) {
+            System.out.printf("Enter %d double values: ", n);
+            double[] integers = new double[n];
+            for (int i = 0; i < n; i++) {
                 integers[i] = input.nextDouble();
             }
             return integers;
         }
         public static void init() {
-            int[] integers = getIntegerArray();
+            int[] integers = getIntegerArray(10);
             System.out.printf("The average of the first array is %.2f.\n", Exercise4.getAverage(integers));
-            double[] dValues = getDoubleArray();
+            double[] dValues = getDoubleArray(10);
             System.out.printf("The average of the second array is %.2f.\n", average(dValues));
         }
     }
@@ -303,7 +303,7 @@ public class ProgrammingExercises {
             return smallestElement;
         }
         public static void init() {
-            double[] array = Exercise8.getDoubleArray();
+            double[] array = Exercise8.getDoubleArray(10);
             System.out.printf("The smallest element in the array is %.2f", Exercise9.min(array));
         }
     }
@@ -321,7 +321,7 @@ public class ProgrammingExercises {
             return index;
         }
         public static void init() {
-            double[] array = Exercise8.getDoubleArray();
+            double[] array = Exercise8.getDoubleArray(10);
             int index = indexOfLargestElement(array);
             System.out.printf("The largest element in the array is %.2f at index %d", array[index], index);
         }
@@ -348,7 +348,7 @@ public class ProgrammingExercises {
             return Math.sqrt(deviation / (double) (x.length - 1));
         }
         public static void init() {
-            double[] x = Exercise8.getDoubleArray();
+            double[] x = Exercise8.getDoubleArray(10);
             System.out.printf("The mean is %f\n", mean(x));
             System.out.printf("The std is %f\n", deviation(x));
         }
@@ -365,7 +365,7 @@ public class ProgrammingExercises {
             }
         }
         public static void init() {
-            int[] integers = Exercise8.getIntegerArray();
+            int[] integers = Exercise8.getIntegerArray(10);
             reverse(integers);
             Exercise5.printArray(integers);
         }
@@ -381,7 +381,57 @@ public class ProgrammingExercises {
         }
     }
     
+    public static class Exercise14 {
+        public static int min(int...numbers) {
+            int smallestElement = Integer.MAX_VALUE;
+            for (int i = 0; i < numbers.length; i++) {
+                if (numbers[i] < smallestElement) {
+                    smallestElement = numbers[i];
+                }
+            }
+            return smallestElement;
+        }
+        /* Finds the greatest common divisor of n numbers */
+        public static int gcd(int...numbers) {
+            int gcd = 0;
+            int divisor = 1;
+            int smallestElement = Exercise14.min(numbers);
+            while(divisor <= smallestElement) {
+                boolean commonDivisor = true;
+                for (int i = 0; i < numbers.length; i++) {
+                    if (numbers[i] % divisor != 0) {
+                        commonDivisor = false;
+                    }
+                }
+                if (commonDivisor) {
+                    if (divisor > gcd) {
+                        gcd = divisor;
+                    }
+                }
+
+                divisor++;
+            }
+
+            return gcd;
+        }
+        public static int multiply(int...numbers) {
+            int multiple = 1;
+            for (int i = 0; i < numbers.length; i++) {
+                multiple *= numbers[i];
+            }
+            return multiple;
+        }
+        public static int lcm(int...numbers) {
+            int gcd = gcd(numbers);
+            int multiple = multiply(numbers);
+            return multiple / gcd;
+        }
+        public static void init() {
+            int[] integers = Exercise8.getIntegerArray(5);
+            System.out.println(lcm(integers));
+        }
+    }
     public static void main (String[] args) {
-        Exercise13.init();
+        Exercise14.init();
     }
 }
