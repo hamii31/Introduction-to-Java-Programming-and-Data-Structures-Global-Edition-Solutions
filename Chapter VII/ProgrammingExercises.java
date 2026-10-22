@@ -223,7 +223,7 @@ public class ProgrammingExercises {
         public static int[] generateAndSortDigits(int n) {
             int[] digits = new int[n];
             for (int i = 0; i < digits.length; i++) {
-                digits[i] = 0 + (int) (Math.random() * 10);
+                digits[i] = 0 + (int) (Math.random() * n);
             }
             Exercise3.sort(digits);
             return digits;
@@ -431,7 +431,44 @@ public class ProgrammingExercises {
             System.out.println(lcm(integers));
         }
     }
+
+    public static class Exercise16 {
+        public static int binarySearch(int[] sortedIntegers, int key) {
+             int low = 0;
+            int high = sortedIntegers.length - 1;
+            while (high >= low) {
+                int mid = (low + high) / 2;
+                if (key < sortedIntegers[mid]) {
+                high = mid - 1;
+                } else if (key == sortedIntegers[mid]) {
+                    return mid;
+                } else {
+                    low = mid + 1;
+                }
+            }
+            return -low -1; 
+        }
+        public static void init() {
+            int n = 100_000;
+            int key = 1 + (int)(Math.random() * n);
+            int[] sortedIntegers = Exercise7.generateAndSortDigits(n);
+
+            long startTime = System.nanoTime();
+            int index = binarySearch(sortedIntegers, key);
+            long endTime = System.nanoTime();
+            long executionTime = endTime - startTime;
+            System.out.printf("It took %d nanoseconds to execute the binary search\n", executionTime);
+            if (index > -1)
+                System.out.printf("%d is present in the array at index %d (%d=%d)", key, index, key, sortedIntegers[index]);
+            else 
+                System.out.printf("The key is not present in the array, but can be inserted at index %d", index);
+            }
+    }
+
+    public static class Exercise17 {
+        
+    }
     public static void main (String[] args) {
-        Exercise14.init();
+        Exercise16.init();
     }
 }
