@@ -1,6 +1,6 @@
 import java.util.*;
 
-/*Restrictions: Can only use arrays */
+/* Restrictions: can only use arrays */
 public class ProgrammingExercises {
     public static class Exercise1 { 
         private static double[] getScores() {
@@ -524,7 +524,67 @@ public class ProgrammingExercises {
             printByDescScore(names, scores);
         }
     }
+
+    public static class Exercise19 {
+        public static int getSize(Scanner input) {
+            System.out.println("Enter the size of the list: ");
+            return input.nextInt();
+        }
+        public static int[] getList(Scanner input, int n) {
+            System.out.println("Enter the contents of the list: ");
+            int[] list = new int[n];
+            for (int i = 0; i < list.length; i++) {
+                list[i] = input.nextInt();
+            }
+
+            System.out.printf("The list has %d integers ", list.length);
+            for (int integer : list) {
+                System.out.printf("%d ", integer);
+            }
+
+            return list;
+        }
+        public static int[] getCopyOfList(int[] list) {
+            int[] copy = new int[list.length];
+            System.arraycopy(list, 0, copy, 0, copy.length);
+            return copy;
+        }
+        /* Bubble sorts an array in ascending order */
+        public static void bubbleSortAsc(int[] list) {
+            for(int i = 0; i < list.length; i++) {
+                for (int j = i; j < list.length; j++) {
+                    if (list[i] > list[j]) {
+                        int temp = list[i];
+                        list[i] = list[j];
+                        list[j] = temp;
+                    } 
+                }
+            }
+        }
+        /* Check if the arrays are the same */
+        public static boolean bothAreSortedAsc(int[] list, int[] copy) {
+            for (int i = 0; i < list.length; i++) {
+                if (list[i] != copy[i])
+                    return false;
+            }
+            return true;
+        }
+        public static void init() {
+            Scanner input = new Scanner(System.in);
+            int n = getSize(input);
+            int[] list = getList(input, n);
+            // copy before inplace sorting
+            int[] copy = getCopyOfList(list);
+            bubbleSortAsc(list);
+            String s = bothAreSortedAsc(list, copy) ? "\nThe list is sorted" : "\nThe list is not sorted";
+            System.out.println(s);
+        }
+    }
+    
+    public static class Exercise21 {
+        
+    }
     public static void main (String[] args) {
-        Exercise17.init();
+        Exercise19.init();
     }
 }
