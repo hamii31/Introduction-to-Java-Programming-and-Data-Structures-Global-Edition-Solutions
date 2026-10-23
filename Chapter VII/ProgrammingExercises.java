@@ -806,7 +806,172 @@ public class ProgrammingExercises {
         }
     }
     
+    public static class Exercise25 {
+        public static double[] solveQuadratic(double[] eqn, double[] roots) {
+            double[] solutions = new double[roots.length];
+            for (int i = 0; i < roots.length; i++) {
+                solutions[i] = Math.pow(eqn[0] * roots[i], 2) + (eqn[1] * roots[i]) + eqn[2];
+            }
+            return solutions;
+        }
+        public static double[] getEqn() {
+            double[] eqn = new double[3];
+            Scanner input = new Scanner(System.in);
+            System.out.println("Enter the values for a, b, and c: ");
+            for(int i = 0; i < eqn.length; i++) {
+                eqn[i] = input.nextDouble();
+            }
+            return eqn;
+        }
+        private static double computeDiscriminant(double[] eqn) {
+            double a = eqn[0];
+            double b = eqn[1];
+            double c = eqn[2];
+            return Math.pow(b,2) - (4 * a * c);
+        }
+        private static int getRootCount(double discriminant) {
+            if (discriminant > 0) {
+                return 2;
+            } else if (discriminant == 0) {
+                return 1;
+            }
+            return 0;
+        }
+        private static double[] computeRoots(double[] eqn, double discriminant) {
+            double a = eqn[0];
+            double b = eqn[1];
+            double c = eqn[2];
+            int rootCount = getRootCount(discriminant);
+            if (rootCount == 0) {
+                System.out.println("The equation has no real roots.");
+                System.exit(1);
+            } 
+
+            double[] roots = new double[rootCount];
+
+            for (int i = 0; i < rootCount; i++) {
+                roots[i] = (-b + Math.sqrt(Math.pow(b,2) - (4 * a * c))) / (2 * a);
+
+                if (i == 1) {
+                    roots[i] = (-b - Math.sqrt(Math.pow(b,2) - (4 * a * c))) / (2 * a);
+                }
+            }
+
+            System.out.printf("There are %d roots: \n", rootCount);
+            for (double root : roots) {
+                System.out.println(root);
+            }
+
+            return roots;
+
+        }
+        public static void init() {
+            double[] eqn = getEqn();
+            double discriminant = computeDiscriminant(eqn);
+            double[] roots = computeRoots(eqn, discriminant);
+            double[] solutions = solveQuadratic(eqn, roots);
+            System.out.printf("There are %d solutions: \n", solutions.length);
+            for (double solution : solutions) {
+                System.out.println(solution);
+            }
+        }
+     }
+    
+    public static class Exercise26 {
+        public static boolean equals(int[] list1, int[] list2) {
+            for (int i = 0; i < list1.length; i++) {
+                if (list1[i] != list2[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public static int[] getArray(int n) {
+            Scanner input = new Scanner(System.in);
+            System.out.printf("\nEnter list%d: ", n);
+            int size = input.nextInt();
+            int[] array = new int[size];
+            for (int i = 0; i < size; i++) {
+                array[i] = input.nextInt();
+            }
+            return array;
+        }
+        public static void init() {
+            int[] array1 = getArray(1);
+            int[] array2 = getArray(2);
+            if (equals(array1, array2))
+                System.out.println("Two lists are strictly identical");
+            else 
+                System.out.println("The lists are not strictly identical.");
+        }
+    }
+    
+    public static class Exercise30 {
+        public static boolean isConsecutiveFour(int[] values) {
+            Exercise19.bubbleSortAsc(values);
+            int value = values[0];
+            int counter = 0;
+            for (int i = 1; i < values.length; i++) {
+                if (counter == 4) {
+                    return true;
+                }
+
+                if (value == values[i]) {
+                    counter++;
+                } else {
+                    value = values[i];
+                }
+            }
+            return false;
+        }
+        public static int[] getArray() {
+            Scanner input = new Scanner(System.in);
+
+            System.out.println("Enter the number of values: ");
+            int n = input.nextInt();
+
+            int[] values = new int[n];
+            System.out.println("Enter the values: ");
+            for (int i = 0; i < values.length; i++) {
+                values[i] = input.nextInt();
+            }
+            return values;
+        }
+        public static void init() {
+            int[] values = getArray();
+            if (isConsecutiveFour(values))
+                System.out.println("The list has four consecutive values.");
+            else 
+                System.out.println("The list has no four consecutive values.");
+        }
+    }
+    
+    public static class Exercise31 {
+        public static int[] merge(int[] list1, int[] list2) {
+            int[] list3 = new int[list1.length + list2.length];
+            System.arraycopy(list1, 0, list3, 0, list1.length);
+            System.arraycopy(list2, 0, list3,  list1.length, list2.length);
+            return list3;
+        }
+        public static void init() {
+            int[] list1 = Exercise30.getArray();
+            Exercise19.bubbleSortAsc(list1);
+
+            int[] list2 = Exercise30.getArray();
+            Exercise19.bubbleSortAsc(list2);
+
+            int[] list3 = merge(list1, list2);
+            Exercise19.bubbleSortAsc(list3);
+
+            System.out.println("The merged list is: ");
+            for(int num : list3) {
+                System.out.printf("%d ", num);
+            }
+        }
+    }
+    
+
     public static void main (String[] args) {
-        Exercise24.init();
+        Exercise31.init();
     }
 }
