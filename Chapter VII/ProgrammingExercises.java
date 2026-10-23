@@ -582,9 +582,28 @@ public class ProgrammingExercises {
     }
     
     public static class Exercise21 {
+        public static void normalizeArray(double [] array, double largestElement) {
+            for (int i = 0; i < array.length; i++) {
+                array[i] /= largestElement;
+            }
+        }
+        public static void printNormalizedArray(double[] array) {
+            for (double number : array) {
+                System.out.printf("%.2f ", number);
+            }
+        }
+        public static void init() {
+            double[] array = Exercise8.getDoubleArray(10);
+            int index = Exercise10.indexOfLargestElement(array);
+            normalizeArray(array, array[index]);
+            printNormalizedArray(array);
+        }
+    }
+    
+    public static class Exercise23 {
         
     }
     public static void main (String[] args) {
-        Exercise19.init();
+        Exercise21.init();
     }
 }
