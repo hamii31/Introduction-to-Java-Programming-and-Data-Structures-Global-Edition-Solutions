@@ -1,5 +1,6 @@
 import java.util.*;
 
+/*Restrictions: Can only use arrays */
 public class ProgrammingExercises {
     public static class Exercise1 { 
         private static double[] getScores() {
@@ -466,9 +467,64 @@ public class ProgrammingExercises {
     }
 
     public static class Exercise17 {
-        
+        public static int getNumberOfStudents(Scanner input) {
+            System.err.println("Enter the number of students: ");
+            return input.nextInt();
+        }
+        public static String[] getStudentNames(Scanner input, int n) {
+            System.out.printf("Enter %d student names: \n", n);
+            String[] names = new String[n];
+            for (int i = 0; i < names.length; i++) {
+                names[i] = input.next();
+            }
+            return names;
+        }
+        /** This method assumes that the scores for each student 
+         * are entered at the same index as their names...which is
+         * not very efficient. 
+         */
+        public static double[] getStudentScores(Scanner input, int n) {
+            System.out.printf("Enter %d student scores: \n", n);
+            double[] scores = new double[n];
+            for (int i = 0; i < scores.length; i++) {
+                scores[i] = input.nextDouble();
+            }
+            return scores;
+        }
+        /** Bubble sorts an array in descending order and returns a list of 
+         * the current index order
+         */
+        public static int[] bubbleSortDesc(double[] scores) {
+            int[] indexes = new int[scores.length];
+            for(int i = 0; i < scores.length; i++) {
+                for (int j = i; j < scores.length; j++) {
+                    if (scores[i] < scores[j]) {
+                        double temp = scores[i];
+                        scores[i] = scores[j];
+                        scores[j] = temp;
+                        indexes[i] = j - i;
+                    } 
+                }
+            }
+            return indexes;
+        }
+        /* Print the names in descending order, based on the scores */
+        public static void printByDescScore(String[] names, double[]scores) {
+            int[] indexes = bubbleSortDesc(scores);
+            for(int i = 0; i < indexes.length; i++) {
+                System.out.println(names[indexes[i]]);
+            }
+            
+        }
+        public static void init() {
+            Scanner input = new Scanner(System.in);
+            int n = getNumberOfStudents(input);
+            String[] names = getStudentNames(input, n);
+            double[] scores = getStudentScores(input, n);
+            printByDescScore(names, scores);
+        }
     }
     public static void main (String[] args) {
-        Exercise16.init();
+        Exercise17.init();
     }
 }
