@@ -601,9 +601,47 @@ public class ProgrammingExercises {
     }
     
     public static class Exercise23 {
+        /* Every student starts from their locker, and closes/opens the rest 
+         * based on increasing position in increments (equal to the student index)
+         * and if the locker's condition beforehand
+         */
+        public static void changeLockers(int[] lockers, int student) {
+            for(int i = student; i < lockers.length; i++) {
+                if (i % student == 0) {
+                    if (lockers[i] == 1) {
+                        // if open, close it
+                        lockers[i] = 0;
+                    } else if (lockers[i] == 0) {
+                        // if closed, open it
+                        lockers[i] = 1;
+                    }
+                }
+            }
+        }
+        public static void runAllStudents(int[] lockers, int students) {
+            for(int student = 1; student <= students; student++) {
+                changeLockers(lockers, student);
+            }
+
+            // display the final result
+            System.out.printf("Open lockers: ");
+            for (int i = 0; i < lockers.length; i++) {
+                if (lockers[i] == 1) {
+                    System.out.printf("%d ", i);
+                }
+            }
+        }
+        public static void init() {
+            // 100 "closed" lockers (array full of zeroes)
+            int[] lockers = new int[100];
+            runAllStudents(lockers, 100);
+        }
+    }
+    
+    public static class Exercise24 {
         
     }
     public static void main (String[] args) {
-        Exercise21.init();
+        Exercise23.init();
     }
 }
