@@ -639,9 +639,174 @@ public class ProgrammingExercises {
     }
     
     public static class Exercise24 {
-        
+        public static class BuildDeck {
+            /** Fills up a deck of four different suits */
+            private static int[] fillDeck() {
+                int[] deck = new int[52];
+                for (int i = 0; i < 52; i++) {
+                    deck[i] = i;
+                }
+                return deck;
+            }
+            private static int[] shuffleDeck(int[] deck) {
+                for (int i = deck.length - 1; i > 0; i--) {
+                    int j = (int)(Math.random() * (i + 1));
+
+                    int temp = deck[i];
+                    deck[i] = deck[j];
+                    deck[j] = temp;
+                }
+                return deck;
+            }
+            /* Shuffles a deck of 52 cards */
+            private static int[] init() {
+                int[] deck = fillDeck();
+                int[] shuffledDeck = shuffleDeck(deck);
+                return shuffledDeck;
+            }
+        }
+        public static class PickCard {
+            private static String getRank(int card) {
+                switch (card % 13) {
+                    case 0 -> { return "Ace"; }
+                    case 1 -> { return "2"; }
+                    case 2 -> { return "3"; }
+                    case 3 -> { return "4"; }
+                    case 4 -> { return "5"; }
+                    case 5 -> { return "6"; }
+                    case 6 -> { return "7"; }
+                    case 7 -> { return "8"; }
+                    case 8 -> { return "9"; }
+                    case 9 -> { return "10"; }
+                    case 10 -> { return "Jack"; }
+                    case 11 -> { return "Queen"; }
+                    case 12 -> { return "King"; }
+                }
+                return null;
+            }
+            private static String getSuit(int card) {
+                switch (card / 13) {
+                    case 0 -> { return "Spades"; }
+                    case 1 -> { return "Hearts"; }
+                    case 2 -> { return "Diamonds"; }
+                    case 3 -> { return "Clubs"; }
+                }
+                return null;
+            }
+            /* Returns the index of the first zero to occur in an array */
+            private static int getIndexOfZero(int[] array) {
+                for (int i = 0; i < array.length; i++) {
+                    if (array[i] == 0) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+            private static void countSuit(int card, int[] spades, int[] hearts, int[] diamonds, int[] clubs) {
+                String suit = getSuit(card);
+                switch (suit) {
+                    case "Spades" -> { 
+                        int index = getIndexOfZero(spades);
+                        spades[index] = card;
+                    }
+                    case "Hearts" -> { 
+                        int index = getIndexOfZero(hearts); 
+                        hearts[index] = card;
+                        }
+                    case "Diamonds" -> { 
+                        int index = getIndexOfZero(diamonds);
+                        diamonds[index] = card;
+                    }
+                    case "Clubs" -> { 
+                        int index = getIndexOfZero(clubs);
+                        clubs[index] = card;
+                    }
+                }
+            }
+            private static boolean checkCondition (int[] spades, int[] hearts, int[] diamonds, int[] clubs) {
+                int countSpades = getIndexOfZero(spades);
+                int countHearts = getIndexOfZero(hearts);
+                int countDiamonds = getIndexOfZero(diamonds);
+                int countClubs = getIndexOfZero(clubs);
+
+                return countSpades >= 4 && countHearts >= 4 && countDiamonds >= 4 && countClubs >= 4;
+            }
+            /* Put the current card in the end of the deck, shift the deck to the left */
+            private static void putCardInDeck(int[] deck) {
+                int temp = deck[0];
+
+                // shift deck to the left, ignoring index 0
+                for (int i = 1; i < deck.length; i++) {
+                    deck[i - 1] = deck[i];
+                }
+
+                deck[deck.length - 1] = temp;
+            }
+            private static void displayCards(int[] spades, int[] hearts, int[] diamonds, int[] clubs) {
+                int countSpades = getIndexOfZero(spades);
+                System.out.printf("There are %d spades\n", countSpades);
+                for (int card : spades) {
+                    if (card != 0) {
+                        System.out.printf("Card number %d is the %s of %s\n", card, getRank(card), getSuit(card));
+                    }
+                }
+
+                int countHearts = getIndexOfZero(hearts);
+                System.out.printf("There are %d hearts\n", countHearts);
+                for (int card : hearts) {
+                    if (card != 0) {
+                        System.out.printf("Card number %d is the %s of %s\n", card, getRank(card), getSuit(card));
+                    }
+                }
+
+                int countDiamonds = getIndexOfZero(diamonds);
+                System.out.printf("There are %d diamonds\n", countDiamonds);
+                for (int card : diamonds) {
+                    if (card != 0) {
+                        System.out.printf("Card number %d is the %s of %s\n", card, getRank(card), getSuit(card));
+                    }
+                }
+
+                int countClubs = getIndexOfZero(clubs);
+                System.out.printf("There are %d clubs\n", countClubs);
+                for (int card : clubs) {
+                    if (card != 0) {
+                        System.out.printf("Card number %d is the %s of %s\n", card, getRank(card), getSuit(card));
+                    }
+                }
+            }
+            /* Picks n cards */
+            private static void init(int[] deck) {
+                int[] spades = new int[deck.length / 4];
+                int[] hearts = new int[deck.length / 4];
+                int[] diamonds = new int[deck.length / 4];
+                int[] clubs = new int[deck.length / 4];
+
+                int picks = 0;
+                while(!checkCondition(spades, hearts, diamonds, clubs)) {
+                    // always pick the first card
+                    int card = deck[0];
+                    picks++;
+                    // check which suit we drew and count its occurrence
+                    countSuit(card, spades, hearts, diamonds, clubs);
+
+                    // add card to the tail end of the deck, and move positions to the left
+                    putCardInDeck(deck);
+                }
+
+                // display the cards
+                displayCards(spades, hearts, diamonds, clubs);
+
+                System.out.printf("Number of picks: %d", picks);
+            }
+        }
+        public static void init() {
+            int[] shuffledDeck = BuildDeck.init();
+            PickCard.init(shuffledDeck);
+        }
     }
+    
     public static void main (String[] args) {
-        Exercise23.init();
+        Exercise24.init();
     }
 }
