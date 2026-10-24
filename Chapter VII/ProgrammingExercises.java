@@ -173,7 +173,7 @@ public class ProgrammingExercises {
                 else
                     belowAverage++;
             }
-            System.out.printf("Out of %d scores with an average of %d, %d are above average, and %d are below average.", scores.length, averageScore, aboveAverage, belowAverage);
+            System.out.printf("Out of %d scores with an average of %f, %d are above average, and %d are below average.", scores.length, averageScore, aboveAverage, belowAverage);
         }
         public static void readNumbers() {
             // get n <= 100 scores
@@ -1052,7 +1052,90 @@ public class ProgrammingExercises {
             return new String(arr);
         }
     }
+    
+    public static class Exercise35 {
+        public static String generateWord() {
+            String[] words = {"write", "that", "dog", "cat"};
+            int rngIndex = 0 + (int)(Math.random() * words.length - 1);
+            return words[rngIndex];
+        }
+        public static String generateNewPlaceholder(String word) {
+            char[] placeholder = new char[word.length()];
+            for(int i = 0; i < placeholder.length; i++) {
+                placeholder[i] = '*';
+            }
+            return new String(placeholder);
+        }
+        /* Returns a boolean array of apperances of a letter within a word */
+        public static int[] getAppearances(String word, char letter) {
+            int[] appearances = new int[word.length()];
+            for (int i = 0; i < word.length(); i++) {
+                if (word.charAt(i) == letter) {
+                    appearances[i] = 1;
+                }
+            }
+            return appearances;
+        }
+        /* Returns the count of values that are not zero within an array of occurrences */
+        public static int getNonZeroCount(int[] occurrences) {
+            int nonZeroCount = 0;
+            for (int i = 0; i < occurrences.length; i++) {
+                if (occurrences[i] != 0) {
+                    nonZeroCount++;
+                }
+            }
+            return nonZeroCount;
+        }
+        /* Returns the number of occurrences of a letter within a word */
+        public static int getCountOfOccurrences(String word, char letter) {
+           int[] appearances = getAppearances(word, letter);
+           return getNonZeroCount(appearances);
+        }
+        /* Returns an updated placeholder
+         * For each letter appearance, change the placeholder to display the guessed letter
+         */
+        public static String updatePlaceholder(String placeholder, int[] indexes, char letter) {
+            char[] tempArr = placeholder.toCharArray();
+            for (int i = 0; i < tempArr.length; i++) {
+                if (indexes[i] != 0) {
+                    tempArr[i] = letter;
+                }
+            }
+            return new String(tempArr);
+        }
+        public static void init() {
+            String word = generateWord();
+            String placeholder = generateNewPlaceholder(word);
+
+            int guessCount = 0;
+            int misses = 0;
+            Scanner input = new Scanner(System.in);
+            while(guessCount < word.length()) {
+                System.out.printf("(Guess) Enter a letter in word %s>", placeholder);
+                char c = input.next().charAt(0);
+                int occurrences = getCountOfOccurrences(word, c);
+                if(occurrences > 0) {
+                    // update placeholder
+                    placeholder = updatePlaceholder(placeholder, getAppearances(word, c), c);
+                    // count guessess
+                    guessCount += occurrences;
+                } else {
+                    // count misses
+                    misses++;
+                }
+            }
+            System.out.printf("The word is write.");
+            System.out.printf("You missed %d times.\n", misses);
+            System.out.printf("Do you want to guess another word? Enter y or n>");
+            Character answer = input.next().charAt(0);
+            if(answer.equals('y')) {
+                init();
+            } else {
+                System.exit(1);
+            }
+        }
+    }
     public static void main (String[] args) {
-        System.out.println(Exercise34.sort("acbed"));
+        Exercise35.init();
     }
 }
