@@ -1027,7 +1027,32 @@ public class ProgrammingExercises {
             }
         }
     }
+    
+    public static class Exercise34 {
+        public static int[] charToInt(char[] array) {
+            int[] charToInt = new int[array.length];
+            for(int i = 0; i < array.length; i++) {
+                charToInt[i] = (int)array[i];
+            }
+            return charToInt;
+        }
+        public static char[] intToChar(int[] array) {
+            char[] intToChar = new char[array.length];
+            for(int i = 0; i < array.length; i++) {
+                intToChar[i] = (char)array[i];
+            }
+            return intToChar;
+        }
+        public static String sort(String s) {
+            char[] arr = s.toCharArray();
+            int[] charToInt = charToInt(arr);
+            Exercise19.bubbleSortAsc(charToInt);
+            arr = intToChar(charToInt);
+            
+            return new String(arr);
+        }
+    }
     public static void main (String[] args) {
-        Exercise32.init();
+        System.out.println(Exercise34.sort("acbed"));
     }
 }
