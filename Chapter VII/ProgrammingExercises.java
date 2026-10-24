@@ -970,8 +970,64 @@ public class ProgrammingExercises {
         }
     }
     
+    public static class Exercise32 {
+        private static int getIndexOfZero(int[] array) {
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] == 0) {
+                     return i;
+                }
+            }
+            return -1;
+        }
+        /* Reorders array by pivot in O(n) iterations 
+         * Returns the index of the pivot in the reordered list
+         */
+        public static int partition(int[] list) {
+            int[] arr1 = new int[list.length / 2];
+            int[] arr2 = new int[list.length / 2];
 
+            int pivot = list[0];
+            int index1 = 0;
+            int index2 = 0;
+            for (int i = 1; i < list.length; i++) {
+                if (pivot > list[i]) {
+                    arr1[index1] = list[i];
+                    index1++;
+                } else if (pivot <= list[i]) {
+                    arr2[index2] = list[i];
+                    index2++;
+                }
+            }
+
+            // apply the two partitions to the original list
+            System.arraycopy(arr1, 0, list, 0, arr1.length);
+            System.arraycopy(arr2, 0, list, arr1.length, arr2.length);
+
+            // get index of the zero (where the pivot must be) and add the pivot there
+            int pivotIndex = getIndexOfZero(list);
+            if(pivotIndex == list.length - 1) {
+                pivotIndex = (list.length / 2);
+
+                // get the current value at pivotIndex
+                int temp = list[pivotIndex];
+                // switch the values
+                list[pivotIndex] = pivot;
+                list[list.length - 1] = temp;
+            } else {
+                list[pivotIndex] = pivot;
+            }
+
+            return pivotIndex;
+        }
+        public static void init() {
+            int[] list = Exercise30.getArray();
+            partition(list);
+            for(int e : list) {
+                System.out.printf("%d ", e);
+            }
+        }
+    }
     public static void main (String[] args) {
-        Exercise31.init();
+        Exercise32.init();
     }
 }
