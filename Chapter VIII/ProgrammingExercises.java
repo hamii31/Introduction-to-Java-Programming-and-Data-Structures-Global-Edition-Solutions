@@ -27,6 +27,23 @@ public class ProgrammingExercises {
             }
             return c;
         }
+        public static double multRowByColumn(double[][] a, double[][] b, int currentRow, int currentCol) {
+            double mult = 0.0;
+            for (int i = 0; i < 3; i++) {
+                mult += a[currentRow][i] * b[i][currentCol];
+            }
+            return mult;
+        }
+        /* Multiply 2 3x3 matrices */
+        public static double[][] multMatrix(double[][] a, double[][] b) {
+            double[][] c = new double[a.length][a.length];
+            for(int row = 0; row < c.length; row++) {
+                for (int col = 0; col < c[row].length; col++) {
+                    c[row][col] = multRowByColumn(a, b, row, col);
+                }
+            }
+            return c;
+        }
         public static void displayMatrix(double[][] m) {
             for(int row = 0; row < m.length; row++) {
                 for (int col = 0; col < m[row].length; col++) {
@@ -84,10 +101,20 @@ public class ProgrammingExercises {
             double[][] matrix2 = buildMatrix(input, rows, columns);
             displayMatrix(addMatrix(matrix1, matrix2));
         }
+        /* Create two 3x3 matrices and multiply them */
+        public static void test4() {
+            Scanner input = new Scanner(System.in);
+            int rows = 3;
+            int columns = 3;
+            System.out.println("Enter the first 3 by 3 matrix row by row: ");
+            double[][] matrix1 = buildMatrix(input, rows, columns);
+            System.out.println("Enter the second 3 by 3 matrix row by row: ");
+            double[][] matrix2 = buildMatrix(input, rows, columns);
+            displayMatrix(multMatrix(matrix1, matrix2));
+        }
     }
 
-
     public static void main(String[] args) {
-        MatrixOperations.test3();
+        MatrixOperations.test4();
     }
 }
