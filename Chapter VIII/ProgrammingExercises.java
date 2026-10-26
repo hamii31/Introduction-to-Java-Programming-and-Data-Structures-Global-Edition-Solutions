@@ -1,9 +1,6 @@
 import java.util.*;
 public class ProgrammingExercises {
-    public static class Exercise1 {
-        /*
-        * Matrix operations
-         */
+    public static class MatrixOperations {
         public static double sumColumn(double[][] m, int columnIndex) {
             double sum = 0.0;
             for(int row = 0; row < m.length; row++) {
@@ -19,6 +16,24 @@ public class ProgrammingExercises {
                 columnIndex++;
             }
             return sum;
+        }
+        /* Add 2 3x3 matrices */
+        public static double[][] addMatrix(double[][] a, double[][] b) {
+            double[][] c = new double[a.length][a.length];
+            for(int row = 0; row < a.length; row++) {
+                for (int col = 0; col < a[row].length; col++) {
+                    c[row][col] = a[row][col] + b[row][col];
+                }
+            }
+            return c;
+        }
+        public static void displayMatrix(double[][] m) {
+            for(int row = 0; row < m.length; row++) {
+                for (int col = 0; col < m[row].length; col++) {
+                    System.out.printf("%.1f ", m[row][col]);
+                }
+                System.out.println();
+            }
         }
         public static double[] convertStringToDoubleArray(String[] arr) {
             double[] columnValues = new double[arr.length];
@@ -58,9 +73,21 @@ public class ProgrammingExercises {
             double[][] matrix = buildMatrix(input, rows, columns);
             System.out.printf("Sum of the elements in the major diagonal is %.1f\n", sumMajorDiagonal(matrix));
         }
+        /* Create two 3x3 matrices and sum them */
+        public static void test3() {
+            Scanner input = new Scanner(System.in);
+            int rows = 3;
+            int columns = 3;
+            System.out.println("Enter the first 3 by 3 matrix row by row: ");
+            double[][] matrix1 = buildMatrix(input, rows, columns);
+            System.out.println("Enter the second 3 by 3 matrix row by row: ");
+            double[][] matrix2 = buildMatrix(input, rows, columns);
+            displayMatrix(addMatrix(matrix1, matrix2));
+        }
     }
 
+
     public static void main(String[] args) {
-        Exercise1.test2();
+        MatrixOperations.test3();
     }
 }
