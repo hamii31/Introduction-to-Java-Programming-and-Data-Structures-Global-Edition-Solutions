@@ -114,7 +114,44 @@ public class ProgrammingExercises {
         }
     }
 
+    public static class PointOperations {
+        /* Compute distance between two points in a 3D space */
+        public static double compute3DDistance(double x1, double x2, double y1, double y2, double z1, double z2) {
+            return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2));
+        }
+        public static void iterateThreeDimensionalSpace(double[][] points) {
+            double smallestDistance = Double.MAX_VALUE;
+            int[] closestPoints = new int[2];
+            for (int i = 0; i < points.length; i++) {
+                for (int j = i + 1; j < points.length; j++) {
+                    
+                    double distance = compute3DDistance(points[i][0], points[j][0], points[i][1], points[j][1], points[i][2], points[j][2]);
+                    
+                    if (distance < smallestDistance) {
+                        smallestDistance = distance;
+                        closestPoints[0] = i;
+                        closestPoints[1] = j;
+                    }
+                }
+            }
+
+            System.out.printf("The closest points are (%.1f, %.1f, %.1f) and (%.1f, %.1f, %.1f)\n", 
+            points[closestPoints[0]][0],  points[closestPoints[0]][1],  points[closestPoints[0]][2],
+            points[closestPoints[1]][0],  points[closestPoints[1]][1],  points[closestPoints[1]][2]);
+
+            System.out.printf("The distance between them is %.2f", smallestDistance);
+        }
+        public static void test1() {
+            double[][] points = {
+                {-1, 0, 3}, {-1, -1, -1}, 
+                {4, 1, 1}, {2, 0.5, 9}, 
+                {3.5, 2, -1}, {3, 1.5, 3},
+                {-1.5, 4, 2}, {5.5, 4, -0.5}
+            };
+            iterateThreeDimensionalSpace(points);
+        }
+    }
     public static void main(String[] args) {
-        MatrixOperations.test4();
+        PointOperations.test1();
     }
 }
