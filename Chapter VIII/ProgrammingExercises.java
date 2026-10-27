@@ -44,10 +44,37 @@ public class ProgrammingExercises {
             }
             return c;
         }
+        public static void sort2DAsc(int m[][]) {
+            for (int node = 0; node < m.length; node++) {
+                for (int next = node + 1; next < m.length; next++) {
+                    // sort by primary col
+                    if (m[node][0] > m[next][0]) {
+                        int[] temp = m[node];
+                        m[node] = m[next];
+                        m[next] = temp;
+                    }
+
+                    // sort by secondary col
+                    if (m[node][0] == m[next][0] && m[node][1] > m[next][1]) {
+                        int[] temp = m[node];
+                        m[node] = m[next];
+                        m[next] = temp;
+                    }
+                }
+            }
+        }
         public static void displayMatrix(double[][] m) {
             for(int row = 0; row < m.length; row++) {
                 for (int col = 0; col < m[row].length; col++) {
                     System.out.printf("%.1f ", m[row][col]);
+                }
+                System.out.println();
+            }
+        }
+        public static void displayMatrix(int[][] m) {
+            for(int row = 0; row < m.length; row++) {
+                for (int col = 0; col < m[row].length; col++) {
+                    System.out.printf("%d ", m[row][col]);
                 }
                 System.out.println();
             }
@@ -111,6 +138,14 @@ public class ProgrammingExercises {
             System.out.println("Enter the second 3 by 3 matrix row by row: ");
             double[][] matrix2 = buildMatrix(input, rows, columns);
             displayMatrix(multMatrix(matrix1, matrix2));
+        }
+        /* Sort a two-dimensional array */
+        public static void test5() {
+            int[][] arr = {
+                {4, 2}, {1, 7}, {4, 5}, {1, 2}, {1, 1}, {4, 1}
+            };
+            sort2DAsc(arr);
+            displayMatrix(arr);
         }
     }
 
@@ -197,7 +232,8 @@ public class ProgrammingExercises {
             }
         }
     }
+    
     public static void main(String[] args) {
-        HeadsAndTails.init();
+        MatrixOperations.test5();
     }
 }
