@@ -151,7 +151,53 @@ public class ProgrammingExercises {
             iterateThreeDimensionalSpace(points);
         }
     }
+    
+    public static class HeadsAndTails {
+        public static String buildBinaryString(int userInput) {
+            String s = "000000000";
+            String binary = Integer.toBinaryString(userInput);
+            s = s.substring(binary.length()) + binary;
+            return s;
+        }
+        public static String mapCoins(String character) {
+            switch (character) {
+                case "0" -> { return "H"; }
+                case "1" -> { return "T"; }
+            }
+            return null;
+        }
+        public static String[][] buildProbabilityMatrix(String s) {
+            String[] arr = s.split("");
+            int index = 0;
+            String[][] matrix = new String[3][3];
+            for (int row = 0; row < matrix.length; row++) 
+                for(int col = 0; col < matrix[row].length; col++) {
+                    matrix[row][col] = mapCoins(arr[index]);
+                    index++;
+                }
+            return matrix;
+        }
+        public static void displayMatrix(String[][] m) {
+            for(int row = 0; row < m.length; row++) {
+                for (int col = 0; col < m[row].length; col++) {
+                    System.out.printf("%s ", m[row][col]);
+                }
+                System.out.println();
+            }
+        }
+        public static void init() {
+            Scanner input = new Scanner(System.in);
+            System.out.println("Enter a number between 0 and 511: ");
+            int userInput = input.nextInt();
+            if (userInput >= 0 && userInput <= 511) {
+                String s = buildBinaryString(userInput);
+                displayMatrix(buildProbabilityMatrix(s));
+            } else {
+                System.out.println("Invalid input");
+            }
+        }
+    }
     public static void main(String[] args) {
-        PointOperations.test1();
+        HeadsAndTails.init();
     }
 }
