@@ -50,10 +50,14 @@ public class WebCrawler {
                 System.exit(3);
             }
         } catch (MalformedURLException e) {
-            System.out.println("The provided URL:" + url + " was not valid.");
-            System.out.println(e);
+            System.out.println("The provided URL: " + url + " was not valid.");
+            System.out.println("Message: " + e.getMessage());
+            System.out.println("Cause: " + e.getCause());
+            System.exit(1);
         } catch (IOException | InterruptedException e) {
-            System.out.println(e);
+            System.out.println("Message: " + e.getMessage());
+            System.out.println("Cause: " + e.getCause());
+            System.exit(2);
         }
     }
 
@@ -77,26 +81,29 @@ public class WebCrawler {
                     }
                 } catch (Exception e) {
                     System.out.println(s + " has caused an exception in the readHTML() method. Check the call stack.");
-                    System.out.println(e);
-                    System.exit(1);
+                    System.out.println("Message: " + e.getMessage());
+                    System.out.println("Cause: " + e.getCause());
+                    System.exit(3);
                 }
             }
         }
         return tempUrlList;
     }
 
+    /**
+     * Formats the given string (if its an URL)
+     * Removes any whitespace, ", ' or \ at the start
+     * Removes any mix of literal \n, \r or \t, whitespace, ", ', , or \, in any order and any number at the end
+     */
     private static String formatURL(String s) {
-        s = s.replaceAll("^\\s*[\"\\\\]+|[\"\\\\]+(?:\\\\n|\\s*)$", "");
+        s = s.replaceAll("^[\\s\"'\\\\]+|(?:\\\\[nrt]|[\\s\"',\\\\])+$", "");
         if (s.startsWith("https://") || s.startsWith("http://")) { 
             if (!(s.endsWith(".jpg") || s.endsWith(".png")) 
             && !allURLs.contains(s)) 
             return s;
         } else if (s.startsWith("href=")) {
             s = s.substring(6);
-            if ((s.startsWith("https://") || s.startsWith("http://")) 
-                && !(s.endsWith(".jpg") || s.endsWith(".png"))
-                && !allURLs.contains(s)) 
-                return s;
+            formatURL(s);
         }
         return null;
     }
@@ -108,13 +115,23 @@ public class WebCrawler {
         try {
             if (url.toString().startsWith("https://")) {
                 HttpsURLConnection huc = (HttpsURLConnection) url.openConnection();
+                huc.setConnectTimeout(3000);
+                huc.setReadTimeout(7000);
                 return getResponse(huc);
             } else if (url.toString().startsWith("http://")) {
                 HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+                huc.setConnectTimeout(3000);
+                huc.setReadTimeout(7000);
                 return getResponse(huc);
             }
+        } catch (SocketTimeoutException e) {
+            System.out.println("Timed out" + e.getMessage());
+            System.out.println("Cause: " + e.getCause());
+            System.exit(4);
         } catch (IOException e) {
-            System.out.println("A URLConnection instance could not be made. A HTTPS or HTTP protocol is expected.");
+            System.out.println("Message: " + e.getMessage());
+            System.out.println("Cause: " + e.getCause());
+            System.exit(5);
         }
         return false;
     }
@@ -129,14 +146,15 @@ public class WebCrawler {
             return response == 200;
         } catch (IOException e) {
             System.out.println(huc.getURL());
-            System.out.println(e);
-            System.exit(2);
+            System.out.println("Message: " + e.getMessage());
+            System.out.println("Cause: " + e.getCause());
+            System.exit(6);
         }
         return false;
     }
 
     public static void main(String arg[]) throws IOException, InterruptedException {
-        String initURL = "https://www.geeksforgeeks.org/java/arrays-sort-in-java/";
+        String initURL = "https://example.com";
         crawler(initURL);
     }
 }
