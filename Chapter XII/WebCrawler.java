@@ -12,7 +12,7 @@ public class WebCrawler {
     /**
      * Crawl through all of the found URLs
      */
-    private static void crawler(String url) throws MalformedURLException, IOException, InterruptedException {
+    private static void crawler(String url) throws IOException, InterruptedException {
         try {
             URL initURL = new URL(url);
             ArrayList<String> foundURLs = new ArrayList<>();
@@ -35,7 +35,6 @@ public class WebCrawler {
                 }
             }
                 
-
             // append the found URLs to the list of URLs and the pending URLs
             for (String found : foundURLs) { 
                 allURLs.add(found);
@@ -50,8 +49,11 @@ public class WebCrawler {
                 System.out.printf("URLs to be crawled: %d", pendingURLs.getSize());
                 System.exit(3);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            System.out.println("The provided URL:" + url + " was not valid.");
+            System.out.println(e);
+        } catch (IOException | InterruptedException e) {
+            System.out.println(e);
         }
     }
 
@@ -69,19 +71,13 @@ public class WebCrawler {
             while(input.hasNext()) {
                 try {
                     s = input.next();
-                    if (s.startsWith("https://") && !allURLs.contains(s)) { 
-                        tempUrlList.add(s.substring(1));
-                    } else if (s.startsWith("href=") && !allURLs.contains(s)) {
-                        s = (s.lastIndexOf('"') == s.indexOf('"')) 
-                            ? s.substring(6) 
-                            : s.substring(6, s.lastIndexOf('"'));
-
-                        s = s.replaceAll("^[\"\\\\]+|[\"\\\\]+$", "");
-                        tempUrlList.add(s);
+                    if (s.contains("https://") || s.contains("http://")) {
+                        String formattedURL = formatURL(s);
+                        if (formattedURL != null) tempUrlList.add(formattedURL);
                     }
                 } catch (Exception e) {
-                    System.out.println(s);
-                    e.printStackTrace();
+                    System.out.println(s + " has caused an exception in the readHTML() method. Check the call stack.");
+                    System.out.println(e);
                     System.exit(1);
                 }
             }
@@ -89,16 +85,36 @@ public class WebCrawler {
         return tempUrlList;
     }
 
+    private static String formatURL(String s) {
+        s = s.replaceAll("^\\s*[\"\\\\]+|[\"\\\\]+(?:\\\\n|\\s*)$", "");
+        if (s.startsWith("https://") || s.startsWith("http://")) { 
+            if (!(s.endsWith(".jpg") || s.endsWith(".png")) 
+            && !allURLs.contains(s)) 
+            return s;
+        } else if (s.startsWith("href=")) {
+            s = s.substring(6);
+            if ((s.startsWith("https://") || s.startsWith("http://")) 
+                && !(s.endsWith(".jpg") || s.endsWith(".png"))
+                && !allURLs.contains(s)) 
+                return s;
+        }
+        return null;
+    }
+
     /**
      * Return a boolean value that determines if the URL is valid
      */
     private static boolean validURL(URL url) throws IOException {
-        if (url.toString().startsWith("https://")) {
-            HttpsURLConnection huc = (HttpsURLConnection) url.openConnection();
-            return getResponse(huc);
-        } else if (url.toString().startsWith("http://")) {
-            HttpURLConnection huc = (HttpURLConnection) url.openConnection();
-            return getResponse(huc);
+        try {
+            if (url.toString().startsWith("https://")) {
+                HttpsURLConnection huc = (HttpsURLConnection) url.openConnection();
+                return getResponse(huc);
+            } else if (url.toString().startsWith("http://")) {
+                HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+                return getResponse(huc);
+            }
+        } catch (IOException e) {
+            System.out.println("A URLConnection instance could not be made. A HTTPS or HTTP protocol is expected.");
         }
         return false;
     }
@@ -113,13 +129,13 @@ public class WebCrawler {
             return response == 200;
         } catch (IOException e) {
             System.out.println(huc.getURL());
-            e.printStackTrace();
+            System.out.println(e);
             System.exit(2);
         }
         return false;
     }
 
-    public static void main(String arg[]) throws MalformedURLException, IOException, InterruptedException {
+    public static void main(String arg[]) throws IOException, InterruptedException {
         String initURL = "https://www.geeksforgeeks.org/java/arrays-sort-in-java/";
         crawler(initURL);
     }
