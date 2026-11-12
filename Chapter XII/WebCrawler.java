@@ -2,6 +2,8 @@ import java.io.*;
 import java.net.*;
 import java.nio.charset.MalformedInputException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.net.ssl.HttpsURLConnection;
 
 public class WebCrawler {
@@ -18,10 +20,14 @@ public class WebCrawler {
         throws IOException, InterruptedException {
         
         if (visitedPages != PAGES_LIMIT) { 
-            if (pendingURLs.getSize() > 0) { 
+            if (!pendingURLs.isEmpty()) { 
                 pendingURLs.pop();
+                crawler(pendingURLs.peek().toString());
             }
-            crawler(pendingURLs.peek().toString());
+            else {
+                System.out.println("No pending URLs.");
+                System.exit(1);
+            }
         }
     }
     
@@ -34,7 +40,7 @@ public class WebCrawler {
         URL initURL = new URL(url);
         ArrayList<String> foundURLs = new ArrayList<>();
 
-        // timeout every 10th pages
+        // timeout every 10th pages to be polite
         if (visitedPages % (PAGES_LIMIT / 10) == 0 && visitedPages != 0) {
             // Show the links while we wait
             for (String s : allURLs) System.out.println(s);
@@ -50,9 +56,11 @@ public class WebCrawler {
         }
             
         // append the found URLs to the list of URLs and the pending URLs
-        for (String found : foundURLs) { 
-            allURLs.add(found);
-            pendingURLs.push(found);
+        if (!foundURLs.isEmpty()) {
+            for (String found : foundURLs) { 
+                allURLs.add(found);
+                pendingURLs.push(found);
+            }
         }
 
         // remove the current URL from pending, call the crawler with the next pending URL
@@ -60,7 +68,7 @@ public class WebCrawler {
     }
 
     /**
-     * Reads the HTML code of a page token-by-token. Separates URLs from meaningless tokens. 
+     * Reads the HTML code of a page token-by-token. Separates URLs from meaningless tokens to the crawler. 
      * Automatically closes the URL connection. 
      @return ArrayList of formatted URLs.
      */
@@ -69,46 +77,32 @@ public class WebCrawler {
         
         // count the page visit
         visitedPages++;
-        System.out.printf("We are on page %d\n", visitedPages);
+        System.out.printf("We are on page %d, currently visiting: %s\n", visitedPages, url.toString());
         
-        ArrayList<String> tempUrlList = new ArrayList<>();
+        ArrayList<String> tempURLList = new ArrayList<>();
         try (Scanner input = new Scanner(url.openStream());) {
             while(input.hasNext()) {
                 String s = input.next();
                 if (s.contains("https://") || s.contains("http://")) {
-                    String formattedURL = formatURL(s);
-                    if (formattedURL != null) { 
-                        tempUrlList.add(formattedURL);
+                    String foundURL = findURL(s);
+                    if (foundURL != null && !allURLs.contains(foundURL)) { 
+                        tempURLList.add(foundURL);
                     }
                 }
             }
         }
-        return tempUrlList;
+        return tempURLList;
     }
 
     /**
-     *  Formats the given string (if its an URL)
-     *  Removes any whitespace, ", ' or \ at the start
-     *  Removes any mix of literal \n, \r or \t, whitespace, ", ', , or \, in any order and any number at the end
-     *  FIX THIS MESS
-        @return Formatted URL string
+     * Finds an URL within a token.
+        @return String that matches the URL regex
      */
-    private static String formatURL(String s) {
-        s = s.replaceAll("^[\\s\"'\\\\]+|(?:\\\\[nrt]|[\\s\"',\\\\])+$", "");
-
-        if (s.startsWith("https://") || s.startsWith("http://")) { 
-            if (!(s.endsWith(".jpg") || s.endsWith(".png") || s.endsWith(".webp") || s.endsWith(".css")) // ignore images and CSS
-            && !allURLs.contains(s)) {
-                if (s.contains(">")) {
-                    String[] splitted = s.split(">");
-                    s = splitted[0].replace('"', ' ');
-                }
-                return s;
-            }
-               
-        } else if (s.startsWith("href=")) {
-            s = s.substring(6);
-            return formatURL(s);
+    private static String findURL(String s) {
+        Pattern p = Pattern.compile("https?://[^\"\\s]+");
+        Matcher m = p.matcher(s);
+        while (m.find()) {
+            return m.group();
         }
         return null;
     }
@@ -145,7 +139,7 @@ public class WebCrawler {
 
     public static void main(String arg[]) 
         throws IOException, InterruptedException {
-        
+
         String initURL = "https://www.geeksforgeeks.org/java/arrays-sort-in-java/";
         crawler(initURL);
     }
