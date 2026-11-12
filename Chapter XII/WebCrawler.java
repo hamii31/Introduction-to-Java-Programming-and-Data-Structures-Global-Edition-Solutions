@@ -4,9 +4,6 @@ import java.nio.charset.MalformedInputException;
 import java.util.*;
 import javax.net.ssl.HttpsURLConnection;
 
-/**
- * TO-DO: Split big chunks of JSON and get only the URLs from it
- */
 public class WebCrawler {
     final private static int PAGES_LIMIT = 100;
     private static int visitedPages = 0;
@@ -100,11 +97,11 @@ public class WebCrawler {
         s = s.replaceAll("^[\\s\"'\\\\]+|(?:\\\\[nrt]|[\\s\"',\\\\])+$", "");
 
         if (s.startsWith("https://") || s.startsWith("http://")) { 
-            if (!(s.endsWith(".jpg") || s.endsWith(".png") || s.endsWith(".webp")) // ignore images 
+            if (!(s.endsWith(".jpg") || s.endsWith(".png") || s.endsWith(".webp") || s.endsWith(".css")) // ignore images and CSS
             && !allURLs.contains(s)) {
                 if (s.contains(">")) {
                     String[] splitted = s.split(">");
-                    s = splitted[0];
+                    s = splitted[0].replace('"', ' ');
                 }
                 return s;
             }
