@@ -1,7 +1,13 @@
-import java.io.*;
-import java.net.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
+import java.net.URL;
 import java.nio.charset.MalformedInputException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.net.ssl.HttpsURLConnection;
@@ -61,6 +67,8 @@ public class WebCrawler {
                 allURLs.add(found);
                 pendingURLs.push(found);
             }
+
+            writeToFile();
         }
 
         // remove the current URL from pending, call the crawler with the next pending URL
@@ -85,7 +93,9 @@ public class WebCrawler {
                 String s = input.next();
                 if (s.contains("https://") || s.contains("http://")) {
                     String foundURL = findURL(s);
-                    if (foundURL != null && !allURLs.contains(foundURL)) { 
+                    if (foundURL != null 
+                        && !(allURLs.contains(foundURL) || tempURLList.contains(foundURL))
+                        && !(foundURL.contains(".svg") || foundURL.contains(".png") || foundURL.contains(".webp") || foundURL.contains(".jpg"))) { 
                         tempURLList.add(foundURL);
                     }
                 }
@@ -101,6 +111,7 @@ public class WebCrawler {
     private static String findURL(String s) {
         Pattern p = Pattern.compile("https?://[^\"\\s]+");
         Matcher m = p.matcher(s);
+
         while (m.find()) {
             return m.group();
         }
@@ -108,12 +119,30 @@ public class WebCrawler {
     }
 
     /**
-     * Creates an HttpURLConnection or HttpsURLConnection instance based on the URL protocol. 
+     * Receives a URL object and creates an HttpURLConnection or HttpsURLConnection instance based on the URL protocol. 
      * Sets connection timeouts to avoid timeout issues, and calls getResponse(T huc). 
         @return Boolean representing the validity of the URL
      */
     private static boolean validURL(URL url) 
         throws IOException, SocketTimeoutException {
+        
+        HttpURLConnection huc = url.toString().startsWith("https://") 
+            ? (HttpsURLConnection) url.openConnection() 
+            : (HttpURLConnection) url.openConnection();
+
+        huc.setConnectTimeout(3000);
+        huc.setReadTimeout(7000);
+
+        return getResponse(huc);
+    }
+    /**
+     * Receives a String object, creates a URL object, and creates an HttpURLConnection or HttpsURLConnection instance based on the URL protocol. 
+     * Sets connection timeouts to avoid timeout issues, and calls getResponse(T huc). 
+        @return Boolean representing the validity of the URL
+     */
+    private static boolean validURL(String s) 
+        throws IOException, SocketTimeoutException, MalformedURLException{
+        URL url = new URL(s);
         
         HttpURLConnection huc = url.toString().startsWith("https://") 
             ? (HttpsURLConnection) url.openConnection() 
@@ -137,11 +166,35 @@ public class WebCrawler {
         return response == 200;
     }
 
+    /**
+     * Creates a .txt file at the specified path and writes all found URLs to that txt file
+     */
+    public static void writeToFile()
+        throws FileNotFoundException {
+
+        String path = "output.txt";
+        try (PrintWriter output = new PrintWriter(path);) {
+            for (String url : allURLs) {
+                output.write(url + "\n");
+            }
+        }
+    }
+
     public static void main(String arg[]) 
         throws IOException, InterruptedException {
-
-        String initURL = "https:/example.com";
-        crawler(initURL);
+        
+        Scanner input = new Scanner(System.in);
+        while (true) {
+            System.out.println("Enter a valid URL: ");
+            String initURL = input.next();
+            if (validURL(initURL)) {
+                crawler(initURL);
+                break;
+            } else {
+                System.out.println("Invalid URL.");
+            }
+        }
+        
     }
 }
 
