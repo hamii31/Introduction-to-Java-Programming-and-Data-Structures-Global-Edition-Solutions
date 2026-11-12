@@ -1,89 +1,88 @@
 import java.io.*;
 import java.net.*;
+import java.nio.charset.MalformedInputException;
 import java.util.*;
 import javax.net.ssl.HttpsURLConnection;
 
+/**
+ * TO-DO: Split big chunks of JSON and get only the URLs from it
+ */
 public class WebCrawler {
-    final private static int PAGES_LIMIT = 1000;
+    final private static int PAGES_LIMIT = 100;
     private static int visitedPages = 0;
     final private static ArrayList<String> allURLs = new ArrayList<>();
     final private static Stack pendingURLs = new Stack();
 
     /**
+     * Removes the current URL from the pendingURLs stack
+     * Calls the crawler with the next pending URL in the stack
+     */
+    public static void crawlerRecursiveCall() 
+        throws IOException, InterruptedException {
+        
+        if (visitedPages != PAGES_LIMIT) { 
+            if (pendingURLs.getSize() > 0) { 
+                pendingURLs.pop();
+            }
+            crawler(pendingURLs.peek().toString());
+        }
+    }
+    
+    /**
      * Crawl through all of the found URLs
      */
-    private static void crawler(String url) throws IOException, InterruptedException {
-        try {
-            URL initURL = new URL(url);
-            ArrayList<String> foundURLs = new ArrayList<>();
+    private static void crawler(String url) 
+        throws IOException, InterruptedException, MalformedInputException {
+        
+        URL initURL = new URL(url);
+        ArrayList<String> foundURLs = new ArrayList<>();
 
-            // timeout every 10th pages of pages limit
-            if (visitedPages % (PAGES_LIMIT / 10) == 0 && visitedPages != 0) {
-                // Show the links while we wait
-                for (String s : allURLs) System.out.println(s);
-                Thread.sleep(10_000); //Sleep for 10s
-            }
-
-            // check if URL returns 200
-            if (validURL(initURL)) {
-                foundURLs = (readHTML(initURL));
-            } else {
-                // call back crawler with the next URL in line
-                if (visitedPages != PAGES_LIMIT) { 
-                    if (pendingURLs.getSize() > 0) pendingURLs.pop();
-                    crawler(pendingURLs.peek().toString());
-                }
-            }
-                
-            // append the found URLs to the list of URLs and the pending URLs
-            for (String found : foundURLs) { 
-                allURLs.add(found);
-                pendingURLs.push(found);
-            }
-
-            if (visitedPages != PAGES_LIMIT) { 
-                pendingURLs.pop();
-                crawler(pendingURLs.peek().toString());
-            } else {
-                System.out.printf("%d URLs found.\n", allURLs.size());
-                System.out.printf("URLs to be crawled: %d", pendingURLs.getSize());
-                System.exit(3);
-            }
-        } catch (MalformedURLException e) {
-            System.out.println("The provided URL: " + url + " was not valid.");
-            System.out.println("Message: " + e.getMessage());
-            System.out.println("Cause: " + e.getCause());
-            System.exit(1);
-        } catch (IOException | InterruptedException e) {
-            System.out.println("Message: " + e.getMessage());
-            System.out.println("Cause: " + e.getCause());
-            System.exit(2);
+        // timeout every 10th pages
+        if (visitedPages % (PAGES_LIMIT / 10) == 0 && visitedPages != 0) {
+            // Show the links while we wait
+            for (String s : allURLs) System.out.println(s);
+            Thread.sleep(10_000); //Sleep for 10s
         }
+
+        // read the HTML of the page if its valid
+        if (validURL(initURL)) {
+            foundURLs = (readHTML(initURL));
+        } else {
+            // call back crawler with the next pending URL
+            crawlerRecursiveCall();
+        }
+            
+        // append the found URLs to the list of URLs and the pending URLs
+        for (String found : foundURLs) { 
+            allURLs.add(found);
+            pendingURLs.push(found);
+        }
+
+        // remove the current URL from pending, call the crawler with the next pending URL
+        crawlerRecursiveCall();
     }
 
     /**
-     * Returns a collection of all of URLs within a HTML 
+     * Reads the HTML code of a page token-by-token. Separates URLs from meaningless tokens. 
+     * Automatically closes the URL connection. 
+     @return ArrayList of formatted URLs.
      */
-    private static ArrayList<String> readHTML(URL url) throws IOException {
+    private static ArrayList<String> readHTML(URL url)
+        throws IOException {
+        
         // count the page visit
         visitedPages++;
         System.out.printf("We are on page %d\n", visitedPages);
         
         ArrayList<String> tempUrlList = new ArrayList<>();
         try (Scanner input = new Scanner(url.openStream());) {
-            String s = "";
             while(input.hasNext()) {
-                try {
-                    s = input.next();
-                    if (s.contains("https://") || s.contains("http://")) {
-                        String formattedURL = formatURL(s);
-                        if (formattedURL != null) tempUrlList.add(formattedURL);
+                String s = input.next();
+                if (s.contains("https://") || s.contains("http://")) {
+                    String formattedURL = formatURL(s);
+                    if (formattedURL != null) { 
+                        tempUrlList.add(formattedURL);
                     }
-                } catch (Exception e) {
-                    System.out.println(s + " has caused an exception in the readHTML() method. Check the call stack.");
-                    System.out.println("Message: " + e.getMessage());
-                    System.out.println("Cause: " + e.getCause());
-                    System.exit(3);
                 }
             }
         }
@@ -91,100 +90,90 @@ public class WebCrawler {
     }
 
     /**
-     * Formats the given string (if its an URL)
-     * Removes any whitespace, ", ' or \ at the start
-     * Removes any mix of literal \n, \r or \t, whitespace, ", ', , or \, in any order and any number at the end
+     *  Formats the given string (if its an URL)
+     *  Removes any whitespace, ", ' or \ at the start
+     *  Removes any mix of literal \n, \r or \t, whitespace, ", ', , or \, in any order and any number at the end
+     *  FIX THIS MESS
+        @return Formatted URL string
      */
     private static String formatURL(String s) {
         s = s.replaceAll("^[\\s\"'\\\\]+|(?:\\\\[nrt]|[\\s\"',\\\\])+$", "");
+
         if (s.startsWith("https://") || s.startsWith("http://")) { 
-            if (!(s.endsWith(".jpg") || s.endsWith(".png")) 
-            && !allURLs.contains(s)) 
-            return s;
+            if (!(s.endsWith(".jpg") || s.endsWith(".png") || s.endsWith(".webp")) // ignore images 
+            && !allURLs.contains(s)) {
+                if (s.contains(">")) {
+                    String[] splitted = s.split(">");
+                    s = splitted[0];
+                }
+                return s;
+            }
+               
         } else if (s.startsWith("href=")) {
             s = s.substring(6);
-            formatURL(s);
+            return formatURL(s);
         }
         return null;
     }
 
     /**
-     * Return a boolean value that determines if the URL is valid
+     * Creates an HttpURLConnection or HttpsURLConnection instance based on the URL protocol. 
+     * Sets connection timeouts to avoid timeout issues, and calls getResponse(T huc). 
+        @return Boolean representing the validity of the URL
      */
-    private static boolean validURL(URL url) throws IOException {
-        try {
-            if (url.toString().startsWith("https://")) {
-                HttpsURLConnection huc = (HttpsURLConnection) url.openConnection();
-                huc.setConnectTimeout(3000);
-                huc.setReadTimeout(7000);
-                return getResponse(huc);
-            } else if (url.toString().startsWith("http://")) {
-                HttpURLConnection huc = (HttpURLConnection) url.openConnection();
-                huc.setConnectTimeout(3000);
-                huc.setReadTimeout(7000);
-                return getResponse(huc);
-            }
-        } catch (SocketTimeoutException e) {
-            System.out.println("Timed out" + e.getMessage());
-            System.out.println("Cause: " + e.getCause());
-            System.exit(4);
-        } catch (IOException e) {
-            System.out.println("Message: " + e.getMessage());
-            System.out.println("Cause: " + e.getCause());
-            System.exit(5);
-        }
-        return false;
+    private static boolean validURL(URL url) 
+        throws IOException, SocketTimeoutException {
+        
+        HttpURLConnection huc = url.toString().startsWith("https://") 
+            ? (HttpsURLConnection) url.openConnection() 
+            : (HttpURLConnection) url.openConnection();
+
+        huc.setConnectTimeout(3000);
+        huc.setReadTimeout(7000);
+
+        return getResponse(huc);
     }
 
     /**
-     * Receives a GET response from the URL and returns a boolean value depending on if the response code is 200 or not
+     *  Receives a HTTP / HTTPS URL connection instance and sends a GET request
+        @return Boolean representing the code of the response
      */
-    private static <T extends HttpURLConnection> boolean getResponse(T huc) {
-        try {
-            huc.setRequestMethod("GET");
-            int response = huc.getResponseCode();
-            return response == 200;
-        } catch (IOException e) {
-            System.out.println(huc.getURL());
-            System.out.println("Message: " + e.getMessage());
-            System.out.println("Cause: " + e.getCause());
-            System.exit(6);
-        }
-        return false;
+    private static <T extends HttpURLConnection> boolean getResponse(T huc)
+        throws IOException {
+        
+        huc.setRequestMethod("GET");
+        int response = huc.getResponseCode();
+        return response == 200;
     }
 
-    public static void main(String arg[]) throws IOException, InterruptedException {
-        String initURL = "https://example.com";
+    public static void main(String arg[]) 
+        throws IOException, InterruptedException {
+        
+        String initURL = "https://www.geeksforgeeks.org/java/arrays-sort-in-java/";
         crawler(initURL);
     }
 }
 
 /**
- * Custom Stack structure
+ * Custom Stack structure that extends the ArrayList class
  */
-class Stack {
-    final private ArrayList<Object> list = new ArrayList<>();
-
-    public boolean isEmpty() {
-        return this.list.isEmpty();
-    }
-
+class Stack extends ArrayList<Object> {
     public int getSize() {
-        return this.list.size();
+        return this.size();
     }
 
     public Object peek() {
-        return this.list.get(getSize() - 1);
+        return this.get(getSize() - 1);
     }
 
     public Object pop() {
         int index = getSize() - 1;
-        Object o = list.get(index);
-        this.list.remove(index);
+        Object o = this.get(index);
+        this.remove(index);
         return o;
     }
 
     public void push(Object o) {
-        this.list.add(o);
+        this.add(o);
     }
 }
