@@ -140,7 +140,7 @@ public class WebCrawler {
     public static void main(String arg[]) 
         throws IOException, InterruptedException {
 
-        String initURL = "https://www.geeksforgeeks.org/java/arrays-sort-in-java/";
+        String initURL = "https:/example.com";
         crawler(initURL);
     }
 }
