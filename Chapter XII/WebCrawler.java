@@ -3,9 +3,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.SocketTimeoutException;
+import java.net.URI;
 import java.net.URL;
 import java.nio.charset.MalformedInputException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -14,6 +19,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class WebCrawler {
     final private static int PAGES_LIMIT = 100;
+    
     private static int visitedPages = 0;
     final private static ArrayList<String> allURLs = new ArrayList<>();
     final private static Stack pendingURLs = new Stack();
@@ -23,7 +29,7 @@ public class WebCrawler {
      * Calls the crawler with the next pending URL in the stack
      */
     public static void crawlerRecursiveCall() 
-        throws IOException, InterruptedException {
+        throws IOException, InterruptedException, URISyntaxException {
         
         if (visitedPages != PAGES_LIMIT) { 
             if (!pendingURLs.isEmpty()) { 
@@ -41,9 +47,10 @@ public class WebCrawler {
      * Crawl through all of the found URLs
      */
     private static void crawler(String url) 
-        throws IOException, InterruptedException, MalformedInputException {
+        throws IOException, InterruptedException, MalformedInputException, URISyntaxException {
         
-        URL initURL = new URL(url);
+        URI initURI = new URI(url);
+        URL initURL = initURI.toURL();
         ArrayList<String> foundURLs = new ArrayList<>();
 
         // timeout every 10th pages to be polite
@@ -92,10 +99,10 @@ public class WebCrawler {
             while(input.hasNext()) {
                 String s = input.next();
                 if (s.contains("https://") || s.contains("http://")) {
-                    String foundURL = findURL(s);
+                    String foundURL = findURL(s).replace('\\', ' ').trim();
                     if (foundURL != null 
                         && !(allURLs.contains(foundURL) || tempURLList.contains(foundURL))
-                        && !(foundURL.contains(".svg") || foundURL.contains(".png") || foundURL.contains(".webp") || foundURL.contains(".jpg"))) { 
+                        && !(foundURL.contains(".svg") || foundURL.contains(".png") || foundURL.contains(".webp") || foundURL.contains(".jpg") || foundURL.contains(".jpeg"))) { 
                         tempURLList.add(foundURL);
                     }
                 }
@@ -109,12 +116,13 @@ public class WebCrawler {
         @return String that matches the URL regex
      */
     private static String findURL(String s) {
-        Pattern p = Pattern.compile("https?://[^\"\\s]+");
+        Pattern p = Pattern.compile("https?://[^\\s\"'<>\\\\]+");
         Matcher m = p.matcher(s);
 
         while (m.find()) {
             return m.group();
         }
+        
         return null;
     }
 
@@ -141,8 +149,10 @@ public class WebCrawler {
         @return Boolean representing the validity of the URL
      */
     private static boolean validURL(String s) 
-        throws IOException, SocketTimeoutException, MalformedURLException{
-        URL url = new URL(s);
+        throws IOException, SocketTimeoutException, MalformedURLException, URISyntaxException {
+        
+        URI uri = new URI(s);
+        URL url = uri.toURL();
         
         HttpURLConnection huc = url.toString().startsWith("https://") 
             ? (HttpsURLConnection) url.openConnection() 
@@ -180,21 +190,21 @@ public class WebCrawler {
         }
     }
 
-    public static void main(String arg[]) 
-        throws IOException, InterruptedException {
+    public static void main(String args[]) 
+        throws IOException, InterruptedException, URISyntaxException {
         
-        Scanner input = new Scanner(System.in);
-        while (true) {
-            System.out.println("Enter a valid URL: ");
-            String initURL = input.next();
-            if (validURL(initURL)) {
-                crawler(initURL);
-                break;
-            } else {
-                System.out.println("Invalid URL.");
+        if (args.length == 0) System.out.println("USAGE: java WebCrawler.java <inputFile.txt> OR <initURL>");
+        else {
+            // Check if URL, otherwise treat as file path
+            if (args[0].startsWith("http://") || args[0].startsWith("https://")) crawler(args[0]);
+            else {
+                Path path = Paths.get(args[0]);
+                if (Files.exists(path)) {
+                    System.out.println("File exists");
+                    // Go through the file
+                }
             }
         }
-        
     }
 }
 
