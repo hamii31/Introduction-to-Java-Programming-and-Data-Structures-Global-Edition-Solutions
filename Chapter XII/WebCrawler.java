@@ -1,6 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -201,10 +203,22 @@ public class WebCrawler {
                 Path path = Paths.get(args[0]);
                 if (Files.exists(path)) {
                     System.out.println("File exists");
-                    // Go through the file
+                    // Assign first URL as initURL, the rest of the URLs are added to pendingURLs
+                    try (BufferedReader reader = new BufferedReader(new FileReader(args[0]))) {
+                        String line;
+                        
+                        while ((line = reader.readLine()) != null) {
+                            pendingURLs.push(line);
+                        }
+                        
+                        crawler(pendingURLs.peek().toString());
+                    } catch (IOException e) {
+                        System.out.println("Error reading file: " + e.getMessage());
+                    }
                 }
             }
         }
+        
     }
 }
 
